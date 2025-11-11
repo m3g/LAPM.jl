@@ -8,11 +8,11 @@ makedocs(
     sitename="LAPM.jl",
     pages=[
         "Introduction" => "index.md",
-        "Install and run" => Any[ 
-            "Installation" => "installation.md",
-            "Parallel execution" => "parallel.md",
-            "From Python" => "python.md",
-        ],
+        #"Install and run" => Any[ 
+        #    "Installation" => "installation.md",
+        #    "Parallel execution" => "parallel.md",
+        #    "From Python" => "python.md",
+        #],
         "References" => "references.md",
     ],
 )
