@@ -1,25 +1,20 @@
 #
-# SASAs
+# To add a new protein to the list, update the following three lists, including in
+# each case the appropriate files, following the examples.
 #
-# Each file contains the data for SASAs by residue type, provided by the server:
+# Server for SASA and m-value calculations: http://best.bio.jhu.edu/mvalue/
 #
-# http://best.bio.jhu.edu/mvalue/
-#
-# The data is added to the following dictionary:
-sasa_server = Dict()
-
-#
-# Results obtained from the references 
-#
-mvalues_auton_bolen = Dict()
-mvalues_moeser_horinek = Dic()
 
 #
 # PDB files
 #
-pdb_files = Dict(
-    "1MJC" => "./pdb/1MJC.pdb",
-    "2RN2" => "./pdb/2RN2.pdb",
+# IMPORTANT: provide "clean" files, without anything else but the protein.
+#            the server to fill the SASA and m-values must be run with the 
+#            same "clean" structure. 
+#
+const pdb_files = OrderedDict{String,String}(
+    "1MJC" => "./pdb/1MJC_clean.pdb",
+    "2RN2" => "./pdb/2RN2_clean.pdb",
 )
 
 #
@@ -33,6 +28,4 @@ include("./sasa_auton_bolen_server/2RN2.jl")
 #
 include("./mvalues_references/1MJC.jl")
 include("./mvalues_references/2RN2.jl")
-
-
 
