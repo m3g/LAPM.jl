@@ -1,4 +1,6 @@
-# Installation
+# Introduction
+
+## Installation
 
 ```@example mvalue
 import Pkg
@@ -9,9 +11,9 @@ using LAPM
 The package will be downloaded at the `.julia/dev/` folder, and the files
 can then be edited there.
 
-# Examples
+## Examples
 
-## Moeser & Horinek
+## Moeser & Horinek: Urea
 
 Compute and compare predictions with the Moeser & Horinek model, for urea:
 
@@ -19,7 +21,7 @@ Compute and compare predictions with the Moeser & Horinek model, for urea:
 plot_mvalue(MoeserHorinek, "urea")
 ```
 
-## Auton & Bolen: urea
+## Auton & Bolen: Urea
 
 Plot comparison with Auton & Bolen, for urea:
 
