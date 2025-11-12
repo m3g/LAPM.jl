@@ -1,4 +1,4 @@
-# Moeser & Horinek vs. Auton & Bolen
+# Moeser & Horinek vs Auton & Bolen
 
 ```@example mvalue
 import Pkg
