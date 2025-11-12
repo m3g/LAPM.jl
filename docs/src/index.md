@@ -1,11 +1,8 @@
 # Installation
 
-```julia
+```@example mvalue
 import Pkg
 Pkg.develop(url="https://github.com/m3g/LAPM.jl")
-```
-
-```@example mvalue
 using LAPM
 ```
 
@@ -14,17 +11,23 @@ can then be edited there.
 
 # Examples
 
+## Moeser & Horinek
+
 Compute and compare predictions with the Moeser & Horinek model, for urea:
 
 ```@example mvalue
 plot_mvalue(MoeserHorinek, "urea")
 ```
 
+## Auton & Bolen: urea
+
 Plot comparison with Auton & Bolen, for urea:
 
 ```@example mvalue
 plot_mvalue(AutonBolen, "urea")
 ```
+
+# Auton & Bolen: TMAO
 
 Plot comparison with Auton & Bolen, for another solvent (TMAO):
 
