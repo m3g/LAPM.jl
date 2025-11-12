@@ -1,18 +1,18 @@
 # Installation
 
-```
+```julia
 import Pkg
-Pkg.dev(url="https://github.com/m3g/LAPM.jl")
+Pkg.develop(url="https://github.com/m3g/LAPM.jl")
+```
+
+```@example mvalue
+using LAPM
 ```
 
 The package will be downloaded at the `.julia/dev/` folder, and the files
 can then be edited there.
 
 # Examples
-
-```@example mvalue
-using LAPM
-```
 
 Compute and compare predictions with the Moeser & Horinek model, for urea:
 
