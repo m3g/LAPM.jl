@@ -2,8 +2,11 @@
 
 ```
 import Pkg
-Pkg.add(url="https://github.com/m3g/LAPM.jl")
+Pkg.dev(url="https://github.com/m3g/LAPM.jl")
 ```
+
+The package will be downloaded at the `.julia/dev/` folder, and the files
+can then be edited there.
 
 # Examples
 
