@@ -180,6 +180,7 @@ const mvalues_moeser_horinek = OrderedDict{String,Dict}()
 
 # Input data for examples
 include("./data/load_data.jl")
+include("./data/sasa_auton_bolen_server/creamer.jl")
 
 function plot_MH_vs_AB(cosolvent::String="urea")
     cosolvent = lowercase(cosolvent)
