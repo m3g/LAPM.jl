@@ -25,32 +25,50 @@ const creamer_sasa = Dict{
     "VAL" => (bb_lower=15.9, bb_upper=24.9, sc_lower= 81.8, sc_upper=110.9),
 )
 
+struct _Selector{F,T} <: Function
+    f::F
+    residue::Ref{T}
+end
+(s::_Selector)(at::Atom) = s.f(at) && (at in s.residue[])
+
 function creamer_sasa_restype(atoms::AbstractVector{<:PDBTools.Atom})
-    nres = Dict{String, Int}()
     sasas = Dict{String, Dict}()
+    sasa_atoms = sasa_particles(atoms)
+    sel_bb = _Selector(isbackbone, Ref(first(eachresidue(atoms))))
+    sel_sc = _Selector(issidechain, Ref(first(eachresidue(atoms))))
     for res in eachresidue(atoms)
+        sel_bb.residue[] = res
+        sel_sc.residue[] = res
+        sasa_res_bb = sasa(sasa_atoms, sel_bb)
+        sasa_res_sc = sasa(sasa_atoms, sel_sc)
         rname = resname(res)
         cr = creamer_sasa[rname]
         if !haskey(sasas, rname)
-            nres[rname] = 1
             sasas[rname] = Dict(
-                :sc => (cr.sc_lower, 0.5 * (cr.sc_lower + cr.sc_upper), cr.sc_upper),
-                :bb => (cr.bb_lower, 0.5 * (cr.bb_lower + cr.bb_upper), cr.bb_upper)
+                :sc => (
+                    cr.sc_lower - sasa_res_sc, 
+                    0.5 * (cr.sc_lower + cr.sc_upper) - sasa_res_sc,
+                    cr.sc_upper - sasa_res_sc,
+                ),
+                :bb => (
+                    cr.bb_lower - sasa_res_bb, 
+                    0.5 * (cr.bb_lower + cr.bb_upper) - sasa_res_bb, 
+                    cr.bb_upper - sasa_res_bb
+                )
             ) 
         else
-            nres[rname] += 1
             csc = sasas[rname][:sc]
             cbb = sasas[rname][:bb]
             sasas[rname] = Dict(
                 :sc => (
-                    csc[1] + cr.sc_lower, 
-                    csc[2] + 0.5 * (cr.sc_lower + cr.sc_upper), 
-                    csc[3] + cr.sc_upper,
+                    csc[1] + cr.sc_lower - sasa_res_sc, 
+                    csc[2] + 0.5 * (cr.sc_lower + cr.sc_upper) - sasa_res_sc, 
+                    csc[3] + cr.sc_upper - sasa_res_sc,
                 ),
                 :bb => (
-                    cbb[1] + cr.bb_lower, 
-                    cbb[2] + 0.5 * (cr.bb_lower + cr.bb_upper), 
-                    cbb[3] + cr.bb_upper,
+                    cbb[1] + cr.bb_lower - sasa_res_bb, 
+                    cbb[2] + 0.5 * (cr.bb_lower + cr.bb_upper) - sasa_res_bb, 
+                    cbb[3] + cr.bb_upper - sasa_res_bb,
                 )
             ) 
         end

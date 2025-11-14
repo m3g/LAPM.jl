@@ -32,7 +32,8 @@ function predict_mvalue(
         model=model,
         cosolvent=cosolvent,
         atoms=atoms,
-        sasas=sasa_server[str],
+#        sasas=sasa_server[str],
+        sasas=creamer_sasa_restype(atoms),
         type=type,
     )
     return (tot = m.tot, bb = m.bb, sc = m.sc)
