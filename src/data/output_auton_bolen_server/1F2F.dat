@@ -1,0 +1,306 @@
+/var/www/html/mvalue/bin/TMO /tmp/phpYnSaOj
+Array
+/tmp/mval_315tL9
+20264
+Osmolyte-Induced Protein Folding/Unfolding Energetics Prediction for /tmp/phpYnSaOj 
+
+Protein Molecular Weight of /tmp/phpYnSaOj = 12043.52 g/mol. 
+
+Key References for these calculations are located at the end of this file. 
+
+(D='DELTA', ASA='Accessible Surface Area') 
+
+Values in ( ) represent the Lower Bound Denatured State Accessiblity. 
+Values in [ ] represent the Upper Bound Denatured State Accessiblity. 
+Values without parentheses or brackets represent the Average Denatured State Accessiblity. 
+
+
+Calculated m-values for /tmp/phpYnSaOj.  
+ 		 Native <-> Denatured  
+Osmolyte 	 m-value (cal/mol/M)  
+1M TMAO      	 (   476)   1963 [  3449] 
+1M Sarcosine 	 (   711)   1664 [  2616] 
+1M Betaine   	 ( -1049)   -142 [   762] 
+1M Proline   	 (  -496)    173 [   841] 
+1M Glycerol  	 (  -470)   -312 [  -153] 
+1M Sorbitol  	 (   508)   1127 [  1747] 
+1M Sucrose   	 (   309)   1372 [  2433] 
+1M Trehalose 	 (  1174)   2352 [  3529] 
+1M Urea      	 (  -639)  -1322 [ -2006] 
+
+
+Native and Denatured State Transfer Free Energy Contributions to the m-value for /tmp/phpYnSaOj. 
+		    Native State (cal/mol/M) 							 Denatured State (cal/mol/M) 
+Osmolyte 	 Backbone   Sidechains    Total 	 | 		 Backbone 			 Sidechains 			 Total 
+1M TMAO            2942       -1759        1183 	 | 	 (  4362)   6064 [  7765] 	 ( -2703)  -2918 [ -3134] 	 (  1659)   3145 [  4631] 
+1M Sarcosine       1700        -623        1077 	 | 	 (  2520)   3503 [  4487] 	 (  -732)   -762 [  -793] 	 (  1788)   2741 [  3693] 
+1M Betaine         2190       -2682        -491 	 | 	 (  3247)   4514 [  5781] 	 ( -4787)  -5147 [ -5510] 	 ( -1540)   -633 [   271] 
+1M Proline         1569       -1757        -188 	 | 	 (  2326)   3234 [  4142] 	 ( -3011)  -3249 [ -3489] 	 (  -684)    -15 [   653] 
+1M Glycerol         458        -844        -386 	 | 	 (   679)    943 [  1208] 	 ( -1535)  -1642 [ -1747] 	 (  -856)   -699 [  -540] 
+1M Sorbitol        1144        -718         426 	 | 	 (  1696)   2358 [  3020] 	 (  -762)   -805 [  -846] 	 (   934)   1553 [  2173] 
+1M Sucrose         2027       -1212         815 	 | 	 (  3005)   4177 [  5350] 	 ( -1880)  -1990 [ -2102] 	 (  1124)   2187 [  3248] 
+1M Trehalose       2027       -1006        1021 	 | 	 (  3005)   4177 [  5350] 	 (  -810)   -804 [  -800] 	 (  2195)   3373 [  4550] 
+1M Urea           -1275         425        -850 	 | 	 ( -1890)  -2628 [ -3365] 	 (   401)    455 [   509] 	 ( -1489)  -2172 [ -2856] 
+
+
+Sidechain and Backbone changes in Accessible Surface Area. 
+
+			      Native <-> Denatured 			      Native <-> Denatured 
+Amino Acid 	    # 	      Side Chain D_ASA (Ang^2) 			      Backbone D_ASA (Ang^2) 
+ALA 		    5 	 (    57.0)     99.5 [   142.0] 	 | 	 (     2.3)     42.6 [    82.8] 
+PHE 		    5 	 (   446.3)    496.5 [   551.8] 	 | 	 (    50.8)     95.8 [   140.8] 
+LEU 		   11 	 (   932.3)   1022.0 [  1111.6] 	 | 	 (   103.5)    191.5 [   279.5] 
+ILE 		    3 	 (   261.5)    312.5 [   363.5] 	 | 	 (    20.6)     34.9 [    49.1] 
+VAL 		    5 	 (   362.1)    434.9 [   507.6] 	 | 	 (    46.8)     69.3 [    91.8] 
+PRO 		    3 	 (    38.1)     48.6 [    59.1] 	 | 	 (    15.1)     25.9 [    36.7] 
+MET 		    1 	 (   -39.3)    -22.2 [    -5.1] 	 | 	 (   -69.4)    -60.8 [   -52.3] 
+TRP 		    2 	 (   204.5)    208.2 [   211.9] 	 | 	 (    25.0)     41.9 [    58.8] 
+GLY 		    7 	 (     0.0)      0.0 [     0.0] 	 | 	 (   190.3)    264.2 [   338.0] 
+SER 		    9 	 (   273.5)    334.7 [   395.9] 	 | 	 (   131.3)    181.7 [   232.1] 
+THR 		    7 	 (   208.8)    257.4 [   306.1] 	 | 	 (   -16.4)     21.7 [    59.9] 
+TYR 		    6 	 (   568.3)    632.2 [   696.1] 	 | 	 (    78.7)    126.1 [   173.5] 
+GLN 		    3 	 (    82.4)    117.9 [   153.5] 	 | 	 (    13.8)     38.1 [    62.4] 
+ASN 		    5 	 (   134.1)    161.8 [   189.6] 	 | 	 (    45.3)     83.1 [   120.8] 
+ASP 		    4 	 (    70.4)    101.6 [   132.8] 	 | 	 (    -1.4)     30.2 [    61.8] 
+GLU 		    7 	 (   176.3)    250.2 [   324.0] 	 | 	 (    21.7)     76.3 [   130.9] 
+HIS 		    3 	 (   162.6)    185.4 [   208.2] 	 | 	 (     9.8)     37.5 [    65.3] 
+LYS 		    7 	 (   215.0)    272.0 [   329.1] 	 | 	 (   -32.6)     21.6 [    75.9] 
+ARG 		    8 	 (   320.1)    433.7 [   547.3] 	 | 	 (    66.5)    130.1 [   193.7] 
+CYS 		    3 	 (   164.5)    194.7 [   224.8] 	 | 	 (    14.1)     38.6 [    63.0] 
+Total 		  109 	 (  4638.6)   5541.8 [  6449.9] 	 | 	 (   715.9)   1490.3 [  2264.6] 
+
+
+Sidechain and Backbone free energy contributions to the calculated m-value. 
+
+1M TMAO       	    # 	 DD_g_transfer (cal/mol/M) 			 DD_g_transfer/D_ASA (cal/mol/M/Ang^2) 
+ALA 		    5 	 (   -11.6)    -20.3 [   -28.9] 	 | 		   -0.2036 
+PHE 		    5 	 (   -22.6)    -25.1 [   -27.9] 	 | 		   -0.0505 
+LEU 		   11 	 (    68.7)     75.3 [    81.9] 	 | 		    0.0736 
+ILE 		    3 	 (   -44.3)    -53.0 [   -61.6] 	 | 		   -0.1694 
+VAL 		    5 	 (    -2.9)     -3.5 [    -4.0] 	 | 		   -0.0079 
+PRO 		    3 	 (   -47.2)    -60.2 [   -73.3] 	 | 		   -1.2408 
+MET 		    1 	 (     1.8)      1.0 [     0.2] 	 | 		   -0.0464 
+TRP 		    2 	 (  -136.6)   -139.0 [  -141.5] 	 | 		   -0.6679 
+GLY 		    7 	 (     0.0)      0.0 [     0.0] 	 | 		       nan 
+SER 		    9 	 (  -124.5)   -152.3 [  -180.2] 	 | 		   -0.4550 
+THR 		    7 	 (     6.5)      8.0 [     9.5] 	 | 		    0.0312 
+TYR 		    6 	 (  -328.0)   -364.8 [  -401.7] 	 | 		   -0.5771 
+GLN 		    3 	 (    22.0)     31.4 [    40.9] 	 | 		    0.2665 
+ASN 		    5 	 (    59.6)     71.9 [    84.3] 	 | 		    0.4445 
+ASP 		    4 	 (   -39.7)    -57.3 [   -74.9] 	 | 		   -0.5640 
+GLU 		    7 	 (   -98.9)   -140.3 [  -181.8] 	 | 		   -0.5610 
+HIS 		    3 	 (    42.2)     48.1 [    54.0] 	 | 		    0.2595 
+LYS 		    7 	 (  -126.7)   -160.3 [  -193.9] 	 | 		   -0.5892 
+ARG 		    8 	 (  -161.3)   -218.5 [  -275.7] 	 | 		   -0.5038 
+CYS 		    3 	 (     0.0)      0.0 [     0.0] 	 | 		    0.0000 
+Sidechains 	  109 	 (  -943.4)  -1158.8 [ -1374.5] 	 | 	 ( -0.2034)  -0.2091 [ -0.2131] 
+Backbone   	  109 	 (  1419.7)   3121.4 [  4823.1] 	 | 	 (  1.9830)   2.0945 [  2.1298] 
+
+1M Sarcosine  	    # 	 DD_g_transfer (cal/mol/M) 			 DD_g_transfer/D_ASA (cal/mol/M/Ang^2) 
+ALA 		    5 	 (     8.7)     15.1 [    21.6] 	 | 		    0.1517 
+PHE 		    5 	 (   -30.6)    -34.0 [   -37.8] 	 | 		   -0.0685 
+LEU 		   11 	 (   226.5)    248.2 [   270.0] 	 | 		    0.2429 
+ILE 		    3 	 (    69.7)     83.2 [    96.8] 	 | 		    0.2664 
+VAL 		    5 	 (    82.7)     99.3 [   115.9] 	 | 		    0.2283 
+PRO 		    3 	 (   -11.7)    -15.0 [   -18.2] 	 | 		   -0.3084 
+MET 		    1 	 (    -1.9)     -1.1 [    -0.3] 	 | 		    0.0496 
+TRP 		    2 	 (  -101.0)   -102.8 [  -104.6] 	 | 		   -0.4938 
+GLY 		    7 	 (     0.0)      0.0 [     0.0] 	 | 		       nan 
+SER 		    9 	 (   -89.2)   -109.2 [  -129.1] 	 | 		   -0.3261 
+THR 		    7 	 (   -13.7)    -16.9 [   -20.1] 	 | 		   -0.0658 
+TYR 		    6 	 (   -75.6)    -84.2 [   -92.7] 	 | 		   -0.1331 
+GLN 		    3 	 (    -5.4)     -7.7 [   -10.1] 	 | 		   -0.0656 
+ASN 		    5 	 (   -43.8)    -52.9 [   -61.9] 	 | 		   -0.3267 
+ASP 		    4 	 (    -8.5)    -12.2 [   -16.0] 	 | 		   -0.1201 
+GLU 		    7 	 (   -15.0)    -21.3 [   -27.5] 	 | 		   -0.0850 
+HIS 		    3 	 (   -20.9)    -23.8 [   -26.7] 	 | 		   -0.1283 
+LYS 		    7 	 (   -31.5)    -39.9 [   -48.2] 	 | 		   -0.1466 
+ARG 		    8 	 (   -47.6)    -64.5 [   -81.4] 	 | 		   -0.1486 
+CYS 		    3 	 (     0.0)      0.0 [     0.0] 	 | 		    0.0000 
+Sidechains 	  109 	 (  -108.9)   -139.4 [  -170.3] 	 | 	 ( -0.0235)  -0.0252 [ -0.0264] 
+Backbone   	  109 	 (   820.2)   1803.5 [  2786.7] 	 | 	 (  1.1457)   1.2102 [  1.2305] 
+
+1M Betaine    	    # 	 DD_g_transfer (cal/mol/M) 			 DD_g_transfer/D_ASA (cal/mol/M/Ang^2) 
+ALA 		    5 	 (     3.8)      6.6 [     9.4] 	 | 		    0.0663 
+PHE 		    5 	 (  -273.3)   -304.1 [  -337.9] 	 | 		   -0.6124 
+LEU 		   11 	 (  -104.8)   -114.8 [  -124.9] 	 | 		   -0.1124 
+ILE 		    3 	 (    -2.2)     -2.6 [    -3.1] 	 | 		   -0.0085 
+VAL 		    5 	 (   -55.4)    -66.5 [   -77.6] 	 | 		   -0.1529 
+PRO 		    3 	 (   -42.9)    -54.7 [   -66.6] 	 | 		   -1.1276 
+MET 		    1 	 (     3.4)      1.9 [     0.4] 	 | 		   -0.0859 
+TRP 		    2 	 (  -330.4)   -336.4 [  -342.4] 	 | 		   -1.6161 
+GLY 		    7 	 (     0.0)      0.0 [     0.0] 	 | 		       nan 
+SER 		    9 	 (  -133.4)   -163.3 [  -193.1] 	 | 		   -0.4878 
+THR 		    7 	 (    -0.6)     -0.7 [    -0.9] 	 | 		   -0.0029 
+TYR 		    6 	 (  -611.3)   -680.0 [  -748.8] 	 | 		   -1.0757 
+GLN 		    3 	 (     4.0)      5.7 [     7.5] 	 | 		    0.0487 
+ASN 		    5 	 (    35.5)     42.8 [    50.2] 	 | 		    0.2647 
+ASP 		    4 	 (   -69.4)   -100.2 [  -131.0] 	 | 		   -0.9861 
+GLU 		    7 	 (  -133.2)   -188.9 [  -244.7] 	 | 		   -0.7553 
+HIS 		    3 	 (   -36.1)    -41.2 [   -46.2] 	 | 		   -0.2219 
+LYS 		    7 	 (  -197.6)   -250.1 [  -302.5] 	 | 		   -0.9192 
+ARG 		    8 	 (  -161.5)   -218.9 [  -276.2] 	 | 		   -0.5046 
+CYS 		    3 	 (     0.0)      0.0 [     0.0] 	 | 		    0.0000 
+Sidechains 	  109 	 ( -2105.5)  -2465.4 [ -2828.3] 	 | 	 ( -0.4539)  -0.4449 [ -0.4385] 
+Backbone   	  109 	 (  1056.9)   2323.7 [  3590.5] 	 | 	 (  1.4762)   1.5592 [  1.5855] 
+
+1M Proline    	    # 	 DD_g_transfer (cal/mol/M) 			 DD_g_transfer/D_ASA (cal/mol/M/Ang^2) 
+ALA 		    5 	 (    -0.1)     -0.1 [    -0.1] 	 | 		   -0.0010 
+PHE 		    5 	 (  -172.5)   -191.9 [  -213.2] 	 | 		   -0.3864 
+LEU 		   11 	 (    28.2)     30.9 [    33.6] 	 | 		    0.0302 
+ILE 		    3 	 (    -4.7)     -5.7 [    -6.6] 	 | 		   -0.0181 
+VAL 		    5 	 (    22.4)     27.0 [    31.5] 	 | 		    0.0620 
+PRO 		    3 	 (   -21.9)    -28.0 [   -34.0] 	 | 		   -0.5762 
+MET 		    1 	 (     8.4)      4.7 [     1.1] 	 | 		   -0.2131 
+TRP 		    2 	 (  -177.2)   -180.4 [  -183.6] 	 | 		   -0.8666 
+GLY 		    7 	 (     0.0)      0.0 [     0.0] 	 | 		       nan 
+SER 		    9 	 (  -106.8)   -130.7 [  -154.5] 	 | 		   -0.3903 
+THR 		    7 	 (   -33.4)    -41.2 [   -49.0] 	 | 		   -0.1599 
+TYR 		    6 	 (  -397.1)   -441.7 [  -486.4] 	 | 		   -0.6987 
+GLN 		    3 	 (   -17.1)    -24.5 [   -31.9] 	 | 		   -0.2076 
+ASN 		    5 	 (   -18.9)    -22.9 [   -26.8] 	 | 		   -0.1413 
+ASP 		    4 	 (   -53.9)    -77.8 [  -101.7] 	 | 		   -0.7657 
+GLU 		    7 	 (  -105.9)   -150.3 [  -194.7] 	 | 		   -0.6009 
+HIS 		    3 	 (   -45.3)    -51.6 [   -57.9] 	 | 		   -0.2782 
+LYS 		    7 	 (   -68.8)    -87.1 [  -105.3] 	 | 		   -0.3200 
+ARG 		    8 	 (   -88.8)   -120.3 [  -151.9] 	 | 		   -0.2775 
+CYS 		    3 	 (     0.0)      0.0 [     0.0] 	 | 		    0.0000 
+Sidechains 	  109 	 ( -1253.4)  -1491.4 [ -1731.4] 	 | 	 ( -0.2702)  -0.2691 [ -0.2684] 
+Backbone   	  109 	 (   757.2)   1664.7 [  2572.3] 	 | 	 (  1.0576)   1.1171 [  1.1359] 
+
+1M Glycerol   	    # 	 DD_g_transfer (cal/mol/M) 			 DD_g_transfer/D_ASA (cal/mol/M/Ang^2) 
+ALA 		    5 	 (     6.2)     10.8 [    15.3] 	 | 		    0.1081 
+PHE 		    5 	 (   144.7)    161.0 [   178.9] 	 | 		    0.3242 
+LEU 		   11 	 (  -203.3)   -222.9 [  -242.4] 	 | 		   -0.2181 
+ILE 		    3 	 (    63.1)     75.4 [    87.7] 	 | 		    0.2414 
+VAL 		    5 	 (    -3.9)     -4.6 [    -5.4] 	 | 		   -0.0107 
+PRO 		    3 	 (   -20.8)    -26.5 [   -32.2] 	 | 		   -0.5454 
+MET 		    1 	 (    -3.3)     -1.9 [    -0.4] 	 | 		    0.0842 
+TRP 		    2 	 (  -109.6)   -111.5 [  -113.5] 	 | 		   -0.5358 
+GLY 		    7 	 (     0.0)      0.0 [     0.0] 	 | 		       nan 
+SER 		    9 	 (    20.1)     24.6 [    29.1] 	 | 		    0.0735 
+THR 		    7 	 (    31.9)     39.4 [    46.8] 	 | 		    0.1530 
+TYR 		    6 	 (  -428.9)   -477.1 [  -525.3] 	 | 		   -0.7547 
+GLN 		    3 	 (    -1.5)     -2.1 [    -2.7] 	 | 		   -0.0177 
+ASN 		    5 	 (    55.2)     66.6 [    78.0] 	 | 		    0.4116 
+ASP 		    4 	 (   -50.9)    -73.5 [   -96.0] 	 | 		   -0.7229 
+GLU 		    7 	 (   -88.2)   -125.1 [  -162.0] 	 | 		   -0.5000 
+HIS 		    3 	 (   -17.2)    -19.6 [   -22.0] 	 | 		   -0.1059 
+LYS 		    7 	 (   -39.1)    -49.4 [   -59.8] 	 | 		   -0.1817 
+ARG 		    8 	 (   -45.4)    -61.5 [   -77.6] 	 | 		   -0.1417 
+CYS 		    3 	 (     0.0)      0.0 [     0.0] 	 | 		    0.0000 
+Sidechains 	  109 	 (  -690.6)   -797.9 [  -903.5] 	 | 	 ( -0.1489)  -0.1440 [ -0.1401] 
+Backbone   	  109 	 (   220.8)    485.5 [   750.3] 	 | 	 (  0.3085)   0.3258 [  0.3313] 
+
+1M Sorbitol   	    # 	 DD_g_transfer (cal/mol/M) 			 DD_g_transfer/D_ASA (cal/mol/M/Ang^2) 
+ALA 		    5 	 (    13.1)     22.9 [    32.7] 	 | 		    0.2305 
+PHE 		    5 	 (    63.8)     71.0 [    78.9] 	 | 		    0.1431 
+LEU 		   11 	 (   230.8)    253.0 [   275.2] 	 | 		    0.2476 
+ILE 		    3 	 (    64.3)     76.8 [    89.4] 	 | 		    0.2458 
+VAL 		    5 	 (    69.5)     83.5 [    97.5] 	 | 		    0.1920 
+PRO 		    3 	 (    -1.5)     -2.0 [    -2.4] 	 | 		   -0.0404 
+MET 		    1 	 (    -5.0)     -2.8 [    -0.6] 	 | 		    0.1272 
+TRP 		    2 	 (   -60.1)    -61.1 [   -62.2] 	 | 		   -0.2937 
+GLY 		    7 	 (     0.0)      0.0 [     0.0] 	 | 		       nan 
+SER 		    9 	 (    -5.0)     -6.2 [    -7.3] 	 | 		   -0.0184 
+THR 		    7 	 (    24.0)     29.7 [    35.3] 	 | 		    0.1152 
+TYR 		    6 	 (  -153.5)   -170.7 [  -188.0] 	 | 		   -0.2701 
+GLN 		    3 	 (   -12.7)    -18.2 [   -23.7] 	 | 		   -0.1543 
+ASN 		    5 	 (   -22.7)    -27.4 [   -32.1] 	 | 		   -0.1693 
+ASP 		    4 	 (   -50.0)    -72.1 [   -94.3] 	 | 		   -0.7096 
+GLU 		    7 	 (   -83.2)   -118.1 [  -152.9] 	 | 		   -0.4720 
+HIS 		    3 	 (   -42.6)    -48.6 [   -54.5] 	 | 		   -0.2619 
+LYS 		    7 	 (   -37.3)    -47.2 [   -57.1] 	 | 		   -0.1735 
+ARG 		    8 	 (   -36.4)    -49.3 [   -62.2] 	 | 		   -0.1136 
+CYS 		    3 	 (     0.0)      0.0 [     0.0] 	 | 		    0.0000 
+Sidechains 	  109 	 (   -44.3)    -86.7 [  -128.4] 	 | 	 ( -0.0095)  -0.0156 [ -0.0199] 
+Backbone   	  109 	 (   552.1)   1213.9 [  1875.7] 	 | 	 (  0.7712)   0.8145 [  0.8282] 
+
+1M Sucrose    	    # 	 DD_g_transfer (cal/mol/M) 			 DD_g_transfer/D_ASA (cal/mol/M/Ang^2) 
+ALA 		    5 	 (    17.5)     30.5 [    43.6] 	 | 		    0.3067 
+PHE 		    5 	 (  -233.2)   -259.4 [  -288.3] 	 | 		   -0.5225 
+LEU 		   11 	 (   219.3)    240.3 [   261.4] 	 | 		    0.2352 
+ILE 		    3 	 (    49.0)     58.6 [    68.1] 	 | 		    0.1873 
+VAL 		    5 	 (    95.7)    114.9 [   134.1] 	 | 		    0.2642 
+PRO 		    3 	 (   -25.0)    -31.9 [   -38.8] 	 | 		   -0.6578 
+MET 		    1 	 (     1.6)      0.9 [     0.2] 	 | 		   -0.0404 
+TRP 		    2 	 (  -192.3)   -195.8 [  -199.3] 	 | 		   -0.9405 
+GLY 		    7 	 (     0.0)      0.0 [     0.0] 	 | 		       nan 
+SER 		    9 	 (    -8.9)    -10.9 [   -12.9] 	 | 		   -0.0325 
+THR 		    7 	 (    37.9)     46.8 [    55.6] 	 | 		    0.1817 
+TYR 		    6 	 (  -224.9)   -250.2 [  -275.5] 	 | 		   -0.3958 
+GLN 		    3 	 (   -21.7)    -31.0 [   -40.4] 	 | 		   -0.2630 
+ASN 		    5 	 (   -30.3)    -36.5 [   -42.8] 	 | 		   -0.2257 
+ASP 		    4 	 (   -22.1)    -32.0 [   -41.8] 	 | 		   -0.3145 
+GLU 		    7 	 (   -49.5)    -70.2 [   -90.9] 	 | 		   -0.2807 
+HIS 		    3 	 (  -119.1)   -135.8 [  -152.4] 	 | 		   -0.7320 
+LYS 		    7 	 (   -45.5)    -57.6 [   -69.7] 	 | 		   -0.2117 
+ARG 		    8 	 (  -117.1)   -158.6 [  -200.2] 	 | 		   -0.3657 
+CYS 		    3 	 (     0.0)      0.0 [     0.0] 	 | 		    0.0000 
+Sidechains 	  109 	 (  -668.6)   -778.0 [  -889.9] 	 | 	 ( -0.1441)  -0.1404 [ -0.1380] 
+Backbone   	  109 	 (   978.0)   2150.3 [  3322.6] 	 | 	 (  1.3660)   1.4429 [  1.4672] 
+
+1M Trehalose  	    # 	 DD_g_transfer (cal/mol/M) 			 DD_g_transfer/D_ASA (cal/mol/M/Ang^2) 
+ALA 		    5 	 (    26.4)     46.0 [    65.7] 	 | 		    0.4624 
+PHE 		    5 	 (   -43.3)    -48.1 [   -53.5] 	 | 		   -0.0970 
+LEU 		   11 	 (   568.2)    622.8 [   677.5] 	 | 		    0.6094 
+ILE 		    3 	 (   138.8)    165.9 [   192.9] 	 | 		    0.5307 
+VAL 		    5 	 (   273.0)    327.8 [   382.7] 	 | 		    0.7538 
+PRO 		    3 	 (   -32.5)    -41.4 [   -50.4] 	 | 		   -0.8529 
+MET 		    1 	 (    -7.0)     -3.9 [    -0.9] 	 | 		    0.1771 
+TRP 		    2 	 (  -184.3)   -187.6 [  -190.9] 	 | 		   -0.9013 
+GLY 		    7 	 (     0.0)      0.0 [     0.0] 	 | 		       nan 
+SER 		    9 	 (    -3.1)     -3.8 [    -4.5] 	 | 		   -0.0114 
+THR 		    7 	 (    47.9)     59.1 [    70.3] 	 | 		    0.2297 
+TYR 		    6 	 (  -230.4)   -256.3 [  -282.2] 	 | 		   -0.4055 
+GLN 		    3 	 (   -19.3)    -27.6 [   -35.9] 	 | 		   -0.2338 
+ASN 		    5 	 (    52.1)     62.9 [    73.6] 	 | 		    0.3884 
+ASP 		    4 	 (   -57.5)    -83.0 [  -108.5] 	 | 		   -0.8168 
+GLU 		    7 	 (  -102.1)   -144.8 [  -187.6] 	 | 		   -0.5790 
+HIS 		    3 	 (   -99.1)   -113.0 [  -126.9] 	 | 		   -0.6092 
+LYS 		    7 	 (   -57.5)    -72.8 [   -88.1] 	 | 		   -0.2677 
+ARG 		    8 	 (   -74.3)   -100.6 [  -127.0] 	 | 		   -0.2320 
+CYS 		    3 	 (     0.0)      0.0 [     0.0] 	 | 		    0.0000 
+Sidechains 	  109 	 (   196.1)    201.4 [   206.3] 	 | 	 (  0.0423)   0.0363 [  0.0320] 
+Backbone   	  109 	 (   978.0)   2150.3 [  3322.6] 	 | 	 (  1.3660)   1.4429 [  1.4672] 
+
+1M Urea       	    # 	 DD_g_transfer (cal/mol/M) 			 DD_g_transfer/D_ASA (cal/mol/M/Ang^2) 
+ALA 		    5 	 (     0.5)      0.9 [     1.2] 	 | 		    0.0088 
+PHE 		    5 	 (  -103.7)   -115.4 [  -128.2] 	 | 		   -0.2323 
+LEU 		   11 	 (   -84.5)    -92.6 [  -100.7] 	 | 		   -0.0906 
+ILE 		    3 	 (     3.2)      3.8 [     4.5] 	 | 		    0.0123 
+VAL 		    5 	 (    52.5)     63.1 [    73.6] 	 | 		    0.1450 
+PRO 		    3 	 (     7.8)      9.9 [    12.0] 	 | 		    0.2038 
+MET 		    1 	 (     1.9)      1.1 [     0.2] 	 | 		   -0.0490 
+TRP 		    2 	 (   -90.4)    -92.0 [   -93.7] 	 | 		   -0.4421 
+GLY 		    7 	 (     0.0)      0.0 [     0.0] 	 | 		       nan 
+SER 		    9 	 (    62.8)     76.9 [    91.0] 	 | 		    0.2297 
+THR 		    7 	 (    33.1)     40.8 [    48.6] 	 | 		    0.1586 
+TYR 		    6 	 (   -13.8)    -15.4 [   -16.9] 	 | 		   -0.0243 
+GLN 		    3 	 (    -7.7)    -11.0 [   -14.4] 	 | 		   -0.0936 
+ASN 		    5 	 (     1.6)      1.9 [     2.2] 	 | 		    0.0118 
+ASP 		    4 	 (    26.1)     37.7 [    49.2] 	 | 		    0.3707 
+GLU 		    7 	 (    48.6)     68.9 [    89.3] 	 | 		    0.2755 
+HIS 		    3 	 (   -10.3)    -11.7 [   -13.2] 	 | 		   -0.0632 
+LYS 		    7 	 (    20.1)     25.5 [    30.8] 	 | 		    0.0936 
+ARG 		    8 	 (    28.2)     38.2 [    48.2] 	 | 		    0.0881 
+CYS 		    3 	 (     0.0)      0.0 [     0.0] 	 | 		    0.0000 
+Sidechains 	  109 	 (   -23.9)     30.5 [    83.8] 	 | 	 ( -0.0052)   0.0055 [  0.0130] 
+Backbone   	  109 	 (  -615.2)  -1352.6 [ -2090.0] 	 | 	 ( -0.8593)  -0.9076 [ -0.9229] 
+
+
+Key References Pertinent to these Calculations: 
+
+1.  Auton, M., Holthauzen, L. M. & Bolen, D. W. Anatomy of energetic changes accompanying urea-induced protein denaturation. Proc Natl Acad Sci U S A 104, 15317-15322 (2007). 
+2.  Auton, M. & Bolen, D. W. Predicting the energetics of osmolyte-induced protein folding/unfolding. Proc Natl Acad Sci U S A 102, 15065-15068 (2005). 
+3.  Auton, M. & Bolen, D. W. Additive transfer free energies of the peptide backbone unit that are independent of the model compound and the choice of concentration scale. Biochemistry 43, 1329-1342 (2004). 
+4.  Auton, M. & Bolen, D. W. Application of the transfer model to understand how naturally occurring osmolytes affect protein stability. Methods Enzymol 428, 397-418 (2007). 
+5.  Liu, Y. & Bolen, D. W. The peptide backbone plays a dominant role in protein stabilization by naturally occurring osmolytes. Biochemistry 34, 12884-12891 (1995). 
+6.  Wang, A. & Bolen, D. W. A naturally occurring protective system in urea-rich cells: mechanism of osmolyte protection of proteins against urea denaturation. Biochemistry 36, 9101-9108 (1997). 
+7.  Qu, Y., Bolen, C. L. & Bolen, D. W. Osmolyte-driven contraction of a random coil protein. Proc Natl Acad Sci U S A 95, 9268-9273 (1998). 
+8.  Bolen, D. W. & Baskakov, I. V. The osmophobic effect: natural selection of a thermodynamic force in protein folding. J Mol Biol 310, 955-963 (2001). 
+9.  Creamer, T. P., Srinivasan, R. & Rose, G. D. Modeling unfolded states of proteins and peptides. II. Backbone solvent accessibility. Biochemistry 36, 2832-2835 (1997). 
+10. Creamer, T. P., Srinivasan, R. & Rose, G. D. Modeling unfolded states of peptides and proteins. Biochemistry 34, 16245-16250 (1995). 
+11. Lee, B. & Richards, F. M. The interpretation of protein structures: estimation of static accessibility. J Mol Biol 55, 379-400 (1971). 
+12. Nozaki, Y. & Tanford, C. The Solubility of Amino Acids and Related Compounds in Aqueous Urea Solutions. J Biol Chem 238, 4074-4081 (1963). 
+
