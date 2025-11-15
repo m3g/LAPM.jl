@@ -18,6 +18,8 @@ export plot_MH_vs_AB
 
 data_dir = joinpath(@__DIR__, "data")
 
+creamer_sasa(_, atoms) = creamer_sasa_restype(atoms)
+server_sasa(str::String, _) = sasa_server[str]
 #
 # predict m-value using a model, for a specific structure
 #
@@ -26,14 +28,14 @@ function predict_mvalue(
     model::Type{<:PDBTools.MValueModel}=MoeserHorinek,
     cosolvent::String="urea",
     type::Int=2,
+    sasas_from::Function=creamer_sasa,
 )
     atoms = read_pdb(pdb_files[str])
     m = mvalue_delta_sasa(;
         model=model,
         cosolvent=cosolvent,
         atoms=atoms,
-#        sasas=sasa_server[str],
-        sasas=creamer_sasa_restype(atoms),
+        sasas=sasas_from(str, atoms),
         type=type,
     )
     return (tot = m.tot, bb = m.bb, sc = m.sc)
@@ -44,14 +46,18 @@ mvalues_ref(::Type{AutonBolen}) = mvalues_auton_bolen
 #
 # run all predictions and plot
 #
-function plot_mvalue(model::Type{<:PDBTools.MValueModel}=MoeserHorinek, cosolvent="urea")
+function plot_mvalue(
+    model::Type{<:PDBTools.MValueModel}=MoeserHorinek, 
+    cosolvent="urea";
+    sasas_from::Function=creamer_sasa
+)
     cosolvent = lowercase(cosolvent)
     example_structs = keys(sasa_server)
     nexamples = length(example_structs)
     tot, bb, sc = zeros(nexamples), zeros(nexamples), zeros(nexamples)
     tot_ref, bb_ref, sc_ref = zeros(nexamples), zeros(nexamples), zeros(nexamples)
     for (i, str) in enumerate(example_structs)
-        p = predict_mvalue(str; cosolvent, model)
+        p = predict_mvalue(str; cosolvent, model, sasas_from)
         tot[i] = p.tot
         bb[i] = p.bb
         sc[i] = p.sc

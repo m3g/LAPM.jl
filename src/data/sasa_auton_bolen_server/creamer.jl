@@ -1,5 +1,5 @@
 
-const creamer_sasa = Dict{
+const creamer_sasas = Dict{
     String,
     @NamedTuple{bb_lower::Float64, bb_upper::Float64, sc_lower::Float64, sc_upper::Float64}
 }(
@@ -48,7 +48,7 @@ function creamer_sasa_restype(atoms::AbstractVector{<:PDBTools.Atom})
         sasa_res_bb = sasa(sasa_atoms, sel_bb)
         sasa_res_sc = sasa(sasa_atoms, sel_sc)
         rname = resname(res)
-        cr = creamer_sasa[rname]
+        cr = creamer_sasas[rname]
         csc = sasas[rname][:sc]
         cbb = sasas[rname][:bb]
         sasas[rname] = Dict(
