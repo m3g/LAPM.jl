@@ -67,7 +67,7 @@ function plot_mvalue(
     end
 
     l = @layout [a b c; d]
-    plt = plot(layout=l, framestyle=:box)
+    plt = plot(layout=l, framestyle=:box, fontfamily="Computer Modern")
     ls=(lw=2, ls=:dash, label="", lc=:lightgrey)
     for sp in 1:3
         plot!(plt, [-100,100], [-100,100]; ls..., subplot=sp)
@@ -207,7 +207,7 @@ function plot_MH_vs_AB(cosolvent::String="urea")
     end
 
     l = @layout [a b c; d; e]
-    plt = plot(layout=l, framestyle=:box)
+    plt = plot(layout=l, framestyle=:box, fontfamily="Computer Modern")
     ls=(lw=2, ls=:dash, label="", lc=:lightgrey)
     for sp in 1:3
         plot!(plt, [-100,100], [-100,100]; ls..., subplot=sp)
