@@ -5,7 +5,7 @@ using StatsPlots
 using PDBTools
 using OrderedCollections
 # At the end, qualify everything and remove the above using
-using PDBTools: 
+using PDBTools:
     PDBTools,
     MValueModel,
     mvalue_delta_sasa,
@@ -38,7 +38,7 @@ function predict_mvalue(
         sasas=sasas_from(str, atoms),
         type=type,
     )
-    return (tot = m.tot, bb = m.bb, sc = m.sc)
+    return (tot=m.tot, bb=m.bb, sc=m.sc)
 end
 
 mvalues_ref(::Type{MoeserHorinek}) = mvalues_moeser_horinek
@@ -47,7 +47,7 @@ mvalues_ref(::Type{AutonBolen}) = mvalues_auton_bolen
 # run all predictions and plot
 #
 function plot_mvalue(
-    model::Type{<:PDBTools.MValueModel}=MoeserHorinek, 
+    model::Type{<:PDBTools.MValueModel}=MoeserHorinek,
     cosolvent="urea";
     sasas_from::Function=creamer_sasa
 )
@@ -68,36 +68,36 @@ function plot_mvalue(
 
     l = @layout [a b c; d]
     plt = plot(layout=l, framestyle=:box, fontfamily="Computer Modern")
-    ls=(lw=2, ls=:dash, label="", lc=:lightgrey)
+    ls = (lw=2, ls=:dash, label="", lc=:lightgrey)
     for sp in 1:3
-        plot!(plt, [-100,100], [-100,100]; ls..., subplot=sp)
+        plot!(plt, [-100, 100], [-100, 100]; ls..., subplot=sp)
     end
-    ls=(lw=2, lc=:black, label="", legend=:topleft)
+    ls = (lw=2, lc=:black, label="", legend=:topleft)
     lims = (minimum(vcat(tot, tot_ref)), maximum(vcat(tot, tot_ref)))
-    lims = (lims[1] - 0.1*abs(lims[1]), lims[2] + 0.1 * abs(lims[2]))
-    scatter!(plt, tot_ref, tot; 
-        ls..., 
-        legend_title="Total", 
+    lims = (lims[1] - 0.1 * abs(lims[1]), lims[2] + 0.1 * abs(lims[2]))
+    scatter!(plt, tot_ref, tot;
+        ls...,
+        legend_title="Total",
         xlims=lims,
         ylims=lims,
         subplot=1,
         series_annotations=text.("\n\n" .* example_structs, 8)
     )
     lims = (minimum(vcat(bb, bb_ref)), maximum(vcat(bb, bb_ref)))
-    lims = (lims[1] - 0.1*abs(lims[1]), lims[2] + 0.1 * abs(lims[2]))
-    scatter!(plt, bb_ref, bb; 
-        ls..., 
-        legend_title="Backbone", 
+    lims = (lims[1] - 0.1 * abs(lims[1]), lims[2] + 0.1 * abs(lims[2]))
+    scatter!(plt, bb_ref, bb;
+        ls...,
+        legend_title="Backbone",
         xlims=lims,
         ylims=lims,
         subplot=2,
         series_annotations=text.("\n\n" .* example_structs, 8)
     )
     lims = (minimum(vcat(sc, sc_ref)), maximum(vcat(sc, sc_ref)))
-    lims = (lims[1] - 0.1*abs(lims[1]), lims[2] + 0.1 * abs(lims[2]))
-    scatter!(plt, sc_ref, sc; 
-        ls..., 
-        legend_title="Sidechain", 
+    lims = (lims[1] - 0.1 * abs(lims[1]), lims[2] + 0.1 * abs(lims[2]))
+    scatter!(plt, sc_ref, sc;
+        ls...,
+        legend_title="Sidechain",
         xlims=lims,
         ylims=lims,
         subplot=3,
@@ -105,30 +105,30 @@ function plot_mvalue(
     )
     xlab(::Type{MoeserHorinek}) = "Moeser&Horinek"
     xlab(::Type{AutonBolen}) = "Auton&Bolen"
-    plot!(plt, 
-        size=(1200,800),
+    plot!(plt,
+        size=(1200, 800),
         xlabel=xlab(model),
         ylabel=nothing,
         aspect_ratio=1,
         leftmargin=0.5Plots.Measures.cm,
-        bottommargin=0.5Plots.Measures.cm,
     )
     plot!(plt,
         ylabel="LAPM prediction",
         subplot=1
     )
-    
-    ys =(maximum(vcat(tot, sc, bb)) - minimum(vcat(tot, sc, bb)))
+
+    ys = (maximum(vcat(tot, sc, bb)) - minimum(vcat(tot, sc, bb)))
     groupedbar!(
         string.(example_structs),
-        hcat(tot, bb, sc); 
-        label=["Total" "BB" "SC"], 
+        hcat(tot, bb, sc);
+        label=["Total" "BB" "SC"],
         #title="Contributions",
         xlabel="Structure",
         ylabel="m-value / (kcal/mol)",
         subplot=4,
-        ylims=(minimum(vcat(tot, sc, bb, 0)) - 0.1*abs(ys), maximum(vcat(tot, sc, bb, 0)) + 0.1*abs(ys)),
+        ylims=(minimum(vcat(tot, sc, bb, 0)) - 0.1 * abs(ys), maximum(vcat(tot, sc, bb, 0)) + 0.1 * abs(ys)),
         xrotation=60,
+        bottommargin=0.5Plots.Measures.cm,
     )
     return plt
 end
@@ -161,9 +161,9 @@ function parse_mvalue_server(str)
         ldata = split(line)
         if length(ldata) > 0 && ldata[1] == "1M"
             m[lowercase(ldata[2])] = (
-                tot = 1e-3 * (parse(Float64,ldata[13]) - parse(Float64,ldata[5])),
-                bb = 1e-3 * (parse(Float64,ldata[7]) - parse(Float64,ldata[3])),
-                sc = 1e-3 * (parse(Float64,ldata[10]) - parse(Float64,ldata[4]))
+                tot=1e-3 * (parse(Float64, ldata[13]) - parse(Float64, ldata[5])),
+                bb=1e-3 * (parse(Float64, ldata[7]) - parse(Float64, ldata[3])),
+                sc=1e-3 * (parse(Float64, ldata[10]) - parse(Float64, ldata[4]))
             )
         end
     end
@@ -210,83 +210,83 @@ function plot_MH_vs_AB(cosolvent::String="urea")
 
     l = @layout [a b c; d; e]
     plt = plot(layout=l, framestyle=:box, fontfamily="Computer Modern")
-    ls=(lw=2, ls=:dash, label="", lc=:lightgrey)
+    ls = (lw=2, ls=:dash, label="", lc=:lightgrey)
     for sp in 1:3
-        plot!(plt, [-100,100], [-100,100]; ls..., subplot=sp)
+        plot!(plt, [-100, 100], [-100, 100]; ls..., subplot=sp)
     end
-    ls=(lw=2, lc=:black, label="", legend=:topleft)
+    ls = (lw=2, lc=:black, label="", legend=:topleft)
     lims = (minimum(vcat(tot_mh, tot_ab)), maximum(vcat(tot_mh, tot_ab)))
-    lims = (lims[1] - 0.1*abs(lims[1]), lims[2] + 0.1 * abs(lims[2]))
-    scatter!(plt, tot_ab, tot_mh; 
-        ls..., 
-        legend_title="Total", 
+    lims = (lims[1] - 0.1 * abs(lims[1]), lims[2] + 0.1 * abs(lims[2]))
+    scatter!(plt, tot_ab, tot_mh;
+        ls...,
+        legend_title="Total",
         xlims=lims,
         ylims=lims,
         subplot=1,
         series_annotations=text.("\n\n" .* example_structs, 8)
     )
     lims = (minimum(vcat(bb_mh, bb_ab)), maximum(vcat(bb_mh, bb_ab)))
-    lims = (lims[1] - 0.1*abs(lims[1]), lims[2] + 0.1 * abs(lims[2]))
-    scatter!(plt, bb_ab, bb_mh; 
-        ls..., 
-        legend_title="Backbone", 
+    lims = (lims[1] - 0.1 * abs(lims[1]), lims[2] + 0.1 * abs(lims[2]))
+    scatter!(plt, bb_ab, bb_mh;
+        ls...,
+        legend_title="Backbone",
         xlims=lims,
         ylims=lims,
         subplot=2,
         series_annotations=text.("\n\n" .* example_structs, 8)
     )
     lims = (minimum(vcat(sc_mh, sc_ab)), maximum(vcat(sc_ab, sc_mh)))
-    lims = (lims[1] - 0.1*abs(lims[1]), lims[2] + 0.1 * abs(lims[2]))
-    scatter!(plt, sc_ab, sc_mh; 
-        ls..., 
-        legend_title="Sidechain", 
+    lims = (lims[1] - 0.1 * abs(lims[1]), lims[2] + 0.1 * abs(lims[2]))
+    scatter!(plt, sc_ab, sc_mh;
+        ls...,
+        legend_title="Sidechain",
         xlims=lims,
         ylims=lims,
         subplot=3,
         series_annotations=text.("\n\n" .* example_structs, 8)
     )
-    plot!(plt, 
-        size=(1200,1200),
+    plot!(plt,
+        size=(1200, 1200),
         xlabel="Auton&Bolen",
         ylabel=nothing,
         aspect_ratio=1,
         leftmargin=0.5Plots.Measures.cm,
-        bottommargin=0.5Plots.Measures.cm,
     )
     plot!(plt,
         ylabel="Moeser&Horniek",
         subplot=1
     )
-    
-    ys =(maximum(vcat(tot_ab, sc_ab, bb_ab)) - minimum(vcat(tot_ab, sc_ab, bb_ab)))
+
+    ys = (maximum(vcat(tot_ab, sc_ab, bb_ab)) - minimum(vcat(tot_ab, sc_ab, bb_ab)))
     groupedbar!(
         string.(example_structs),
-        hcat(tot_ab, bb_ab, sc_ab); 
-        label=["Total" "BB" "SC"], 
+        hcat(tot_ab, bb_ab, sc_ab);
+        label=["Total" "BB" "SC"],
         #title="Contributions",
         xlabel="Structure",
         ylabel="m-value (Auton&Bolen) / (kcal/mol)",
         subplot=4,
         ylims=(
-            minimum(vcat(tot_ab, sc_ab, bb_ab, 0)) - 0.1*abs(ys), 
-            maximum(vcat(tot_ab, sc_ab, bb_ab, 0)) + 0.1*abs(ys)
+            minimum(vcat(tot_ab, sc_ab, bb_ab, 0)) - 0.1 * abs(ys),
+            maximum(vcat(tot_ab, sc_ab, bb_ab, 0)) + 0.1 * abs(ys)
         ),
         fontfamily="Computer Modern",
         xrotation=60,
+        bottommargin=0.5Plots.Measures.cm,
     )
 
-    ys =(maximum(vcat(tot_mh, sc_mh, bb_mh)) - minimum(vcat(tot_mh, sc_mh, bb_mh)))
+    ys = (maximum(vcat(tot_mh, sc_mh, bb_mh)) - minimum(vcat(tot_mh, sc_mh, bb_mh)))
     groupedbar!(
         string.(example_structs),
-        hcat(tot_mh, bb_mh, sc_mh); 
-        label=["Total" "BB" "SC"], 
+        hcat(tot_mh, bb_mh, sc_mh);
+        label=["Total" "BB" "SC"],
         #title="Contributions",
         xlabel="Structure",
         ylabel="m-value (Moeser&Horinek) / (kcal/mol)",
         subplot=5,
         ylims=(
-            minimum(vcat(tot_mh, sc_mh, bb_mh, 0)) - 0.1*abs(ys), 
-            maximum(vcat(tot_mh, sc_mh, bb_mh, 0)) + 0.1*abs(ys)
+            minimum(vcat(tot_mh, sc_mh, bb_mh, 0)) - 0.1 * abs(ys),
+            maximum(vcat(tot_mh, sc_mh, bb_mh, 0)) + 0.1 * abs(ys)
         ),
         fontfamily="Computer Modern",
     )
