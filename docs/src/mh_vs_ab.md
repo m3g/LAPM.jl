@@ -6,15 +6,13 @@ Pkg.develop(url="https://github.com/m3g/LAPM.jl")
 using LAPM
 ```
 
-## Urea
-
-### Using the A&B server SASAs
+## Urea (Server) 
 
 ```@example mvalue
 plot_MH_vs_AB("urea"; sasas_from=LAPM.server_sasa)
 ```
 
-### Using the creamer SASAs
+## Urea (Creamer)
 
 ```@example mvalue
 plot_MH_vs_AB("urea"; sasas_from=LAPM.creamer_sasa)

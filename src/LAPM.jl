@@ -60,6 +60,7 @@ function _scatter!(plt, x, y, example_structs; legend_title, subplot)
         xlims=_lims(x, y),
         ylims=_lims(x, y),
         subplot=subplot,
+        aspect_ratio=1,
     )
     _series_annotations!(plt, subplot, x, y, example_structs)
     return plt
@@ -102,7 +103,7 @@ function plot_mvalue(
     xlab(::Type{MoeserHorinek}) = "Moeser&Horinek"
     xlab(::Type{AutonBolen}) = "Auton&Bolen"
 
-    plot!(plt, xlabel=xlab(model), ylabel=nothing, aspect_ratio=1)
+    plot!(plt, xlabel=xlab(model), ylabel=nothing)
     plot!(plt, ylabel="LAPM prediction", subplot=1)
 
     ys = (maximum(vcat(tot, sc, bb)) - minimum(vcat(tot, sc, bb)))
@@ -227,7 +228,6 @@ function plot_MH_vs_AB(cosolvent::String="urea"; sasas_from=server_sasa)
         size=(1200, 1200),
         xlabel="Auton&Bolen",
         ylabel=nothing,
-        aspect_ratio=1,
         leftmargin=0.5Plots.Measures.cm,
     )
     plot!(plt,
