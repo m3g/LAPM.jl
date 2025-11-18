@@ -14,8 +14,8 @@ using LAPM
 plot_MH_vs_AB("urea"; sasa_from=LAPM.server_sasa)
 ```
 
-### Using the Cremer SASAs
+### Using the creamer SASAs
 
 ```@example mvalue
-plot_MH_vs_AB("urea"; sasa_from=LAPM.cremer_sasa)
+plot_MH_vs_AB("urea"; sasa_from=LAPM.creamer_sasa)
 ```
