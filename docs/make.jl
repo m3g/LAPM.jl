@@ -4,7 +4,8 @@ makedocs(
     sitename="LAPM.jl",
     pages=[
         "Introduction" => "index.md",
-        "Auton & Bolen" => "autonbolen.md",
+        "Auton & Bolen (Creamer)" => "autonbolen.md",
+        "Auton & Bolen (Server)" => "autonbolen2.md",
         "Moeser & Horinek" => "moeserhorinek.md",
         "M&H vs A&B" => "mh_vs_ab.md",
         "References" => "references.md",
