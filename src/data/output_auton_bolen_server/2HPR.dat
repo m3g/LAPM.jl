@@ -1,10 +1,10 @@
-/var/www/html/mvalue/bin/TMO /tmp/phpsi43Jw
+/var/www/html/mvalue/bin/TMO /tmp/phpJddvAq
 Array
-/tmp/mval_WLdii1
+/tmp/mval_HVDg4W
 20244
-Osmolyte-Induced Protein Folding/Unfolding Energetics Prediction for /tmp/phpsi43Jw 
+Osmolyte-Induced Protein Folding/Unfolding Energetics Prediction for /tmp/phpJddvAq 
 
-Protein Molecular Weight of /tmp/phpsi43Jw = 8939.93 g/mol. 
+Protein Molecular Weight of /tmp/phpJddvAq = 8939.93 g/mol. 
 
 Key References for these calculations are located at the end of this file. 
 
@@ -15,7 +15,7 @@ Values in [ ] represent the Upper Bound Denatured State Accessiblity.
 Values without parentheses or brackets represent the Average Denatured State Accessiblity. 
 
 
-Calculated m-values for /tmp/phpsi43Jw.  
+Calculated m-values for /tmp/phpJddvAq.  
  		 Native <-> Denatured  
 Osmolyte 	 m-value (cal/mol/M)  
 1M TMAO      	 (  1067)   2253 [  3439] 
@@ -29,7 +29,7 @@ Osmolyte 	 m-value (cal/mol/M)
 1M Urea      	 (  -586)  -1102 [ -1617] 
 
 
-Native and Denatured State Transfer Free Energy Contributions to the m-value for /tmp/phpsi43Jw. 
+Native and Denatured State Transfer Free Energy Contributions to the m-value for /tmp/phpJddvAq. 
 		    Native State (cal/mol/M) 							 Denatured State (cal/mol/M) 
 Osmolyte 	 Backbone   Sidechains    Total 	 | 		 Backbone 			 Sidechains 			 Total 
 1M TMAO            1927        -921        1006 	 | 	 (  3664)   5001 [  6338] 	 ( -1591)  -1742 [ -1893] 	 (  2074)   3259 [  4445] 

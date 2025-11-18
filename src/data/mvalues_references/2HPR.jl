@@ -11,7 +11,7 @@ mvalues_moeser_horinek["2HPR"] = OrderedDict(
 )
 
 mvalues_auton_bolen["2HPR"] = parse_mvalue_server("""
-Native and Denatured State Transfer Free Energy Contributions to the m-value for /tmp/phpsi43Jw. 
+Native and Denatured State Transfer Free Energy Contributions to the m-value for /tmp/phpJddvAq. 
 		    Native State (cal/mol/M) 							 Denatured State (cal/mol/M) 
 Osmolyte 	 Backbone   Sidechains    Total 	 | 		 Backbone 			 Sidechains 			 Total 
 1M TMAO            1927        -921        1006 	 | 	 (  3664)   5001 [  6338] 	 ( -1591)  -1742 [ -1893] 	 (  2074)   3259 [  4445] 
@@ -22,5 +22,5 @@ Osmolyte 	 Backbone   Sidechains    Total 	 | 		 Backbone 			 Sidechains 			 Tot
 1M Sorbitol         749        -634         116 	 | 	 (  1425)   1945 [  2465] 	 (  -380)   -381 [  -383] 	 (  1045)   1564 [  2082] 
 1M Sucrose         1327        -539         788 	 | 	 (  2524)   3445 [  4366] 	 (  -381)   -371 [  -363] 	 (  2144)   3074 [  4004] 
 1M Trehalose       1327        -471         857 	 | 	 (  2524)   3445 [  4366] 	 (   365)    481 [   596] 	 (  2889)   3926 [  4962] 
-1M Urea            -835         435        -400 	 | 	 ( -1588)  -2167 [ -2747] 	 (   602)    666 [   729] 	 (  -986)  -1502 [ -2017] 
+1M Urea            -835         435        -400 	 | 	 ( -1588)  -2167 [ -2747] 	 (   602)    666 [   729] 	 (  -986)  -1502 [ -2017]  
 """)
