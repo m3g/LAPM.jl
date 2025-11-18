@@ -81,8 +81,8 @@ function plot_mvalue(
         xlims=lims,
         ylims=lims,
         subplot=1,
-        series_annotations=text.("\n\n" .* example_structs, 8)
     )
+    _series_annotations!(plt, 1, lims, tot_ref, tot, example_structs)
     lims = (minimum(vcat(bb, bb_ref)), maximum(vcat(bb, bb_ref)))
     lims = (lims[1] - 0.1 * abs(lims[1]), lims[2] + 0.1 * abs(lims[2]))
     scatter!(plt, bb_ref, bb;
@@ -91,8 +91,8 @@ function plot_mvalue(
         xlims=lims,
         ylims=lims,
         subplot=2,
-        series_annotations=text.("\n\n" .* example_structs, 8)
     )
+    _series_annotations!(plt, 2, lims, bb_ref, bb, example_structs)
     lims = (minimum(vcat(sc, sc_ref)), maximum(vcat(sc, sc_ref)))
     lims = (lims[1] - 0.1 * abs(lims[1]), lims[2] + 0.1 * abs(lims[2]))
     scatter!(plt, sc_ref, sc;
@@ -101,8 +101,8 @@ function plot_mvalue(
         xlims=lims,
         ylims=lims,
         subplot=3,
-        series_annotations=text.("\n\n" .* example_structs, 8)
     )
+    _series_annotations!(plt, 3, lims, sc_ref, sc, example_structs)
     xlab(::Type{MoeserHorinek}) = "Moeser&Horinek"
     xlab(::Type{AutonBolen}) = "Auton&Bolen"
     plot!(plt,
@@ -191,6 +191,17 @@ const mvalues_moeser_horinek = OrderedDict{String,Dict}()
 include("./data/load_data.jl")
 include("./data/sasa_auton_bolen_server/creamer.jl")
 
+function _series_annotations!(plt, subplot, lims, x, y, labels)
+    x_inds = collect(1:length(x))
+    x_inds = sort!(x_inds; by = i -> x[i])
+    w = lims[2] - lims[1] 
+    for (ix, s) in enumerate(labels)
+        i = x_inds[ix]
+        sx, sy = i%2 == 1 ? (-0.06*w, 0.03*w) : (0.06*w, -0.03*w)
+        annotate!(plt, (x[ix] + sx, y[ix] + sy, text(s, 8)); subplot=subplot)
+    end
+end
+
 function plot_MH_vs_AB(cosolvent::String="urea")
     cosolvent = lowercase(cosolvent)
     example_structs = keys(sasa_server)
@@ -223,8 +234,8 @@ function plot_MH_vs_AB(cosolvent::String="urea")
         xlims=lims,
         ylims=lims,
         subplot=1,
-        series_annotations=text.("\n\n" .* example_structs, 8)
     )
+    _series_annotations!(plt, 1, lims, tot_ab, tot_mh, example_structs)
     lims = (minimum(vcat(bb_mh, bb_ab)), maximum(vcat(bb_mh, bb_ab)))
     lims = (lims[1] - 0.1 * abs(lims[1]), lims[2] + 0.1 * abs(lims[2]))
     scatter!(plt, bb_ab, bb_mh;
@@ -233,8 +244,8 @@ function plot_MH_vs_AB(cosolvent::String="urea")
         xlims=lims,
         ylims=lims,
         subplot=2,
-        series_annotations=text.("\n\n" .* example_structs, 8)
     )
+    _series_annotations!(plt, 2, lims, bb_ab, bb_mh, example_structs)
     lims = (minimum(vcat(sc_mh, sc_ab)), maximum(vcat(sc_ab, sc_mh)))
     lims = (lims[1] - 0.1 * abs(lims[1]), lims[2] + 0.1 * abs(lims[2]))
     scatter!(plt, sc_ab, sc_mh;
@@ -243,8 +254,8 @@ function plot_MH_vs_AB(cosolvent::String="urea")
         xlims=lims,
         ylims=lims,
         subplot=3,
-        series_annotations=text.("\n\n" .* example_structs, 8)
     )
+    _series_annotations!(plt, 3, lims, sc_ab, sc_mh, example_structs)
     plot!(plt,
         size=(1200, 1200),
         xlabel="Auton&Bolen",
