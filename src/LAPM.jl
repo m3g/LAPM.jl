@@ -221,9 +221,9 @@ function plot_MH_vs_AB(cosolvent::String="urea"; sasas_from=server_sasa)
     for sp in 1:3
         plot!(plt, [-100, 100], [-100, 100]; ls..., subplot=sp)
     end
-    _scatter!(plt, tot_mh, tot_ab, example_structs; legend_title="Total", subplot=1)
-    _scatter!(plt, bb_mh, bb_ab, example_structs; legend_title="Backbone", subplot=2)
-    _scatter!(plt, sc_mh, sc_ab, example_structs; legend_title="Sidechain", subplot=3)
+    _scatter!(plt, tot_ab, tot_mh, example_structs; legend_title="Total", subplot=1)
+    _scatter!(plt, bb_ab, bb_mh, example_structs; legend_title="Backbone", subplot=2)
+    _scatter!(plt, sc_ab, sc_mh, example_structs; legend_title="Sidechain", subplot=3)
     plot!(plt,
         size=(1200, 1200),
         xlabel="Auton&Bolen",
