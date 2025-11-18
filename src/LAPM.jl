@@ -41,6 +41,30 @@ function predict_mvalue(
     return (tot=m.tot, bb=m.bb, sc=m.sc)
 end
 
+#
+# Plot functions
+#
+
+function _lims(x, y)
+    lims = (minimum(vcat(x, y)), maximum(vcat(x, y)))
+    dx = lims[2] - lims[1]
+    lims = (lims[1] - 0.15 * dx, lims[2] + 0.15 * dx)
+    return lims
+end
+
+function _scatter!(plt, x, y, example_structs; legend_title, subplot)
+    ls = (lw=2, lc=:black, label="", legend=:topleft)
+    scatter!(plt, x, y;
+        ls...,
+        legend_title=legend_title,
+        xlims=_lims(x, y),
+        ylims=_lims(x, y),
+        subplot=subplot,
+    )
+    _series_annotations!(plt, subplot, x, y, example_structs)
+    return plt
+end
+
 mvalues_ref(::Type{MoeserHorinek}) = mvalues_moeser_horinek
 mvalues_ref(::Type{AutonBolen}) = mvalues_auton_bolen
 #
@@ -72,64 +96,34 @@ function plot_mvalue(
     for sp in 1:3
         plot!(plt, [-100, 100], [-100, 100]; ls..., subplot=sp)
     end
-    ls = (lw=2, lc=:black, label="", legend=:topleft)
-    lims = (minimum(vcat(tot, tot_ref)), maximum(vcat(tot, tot_ref)))
-    lims = (lims[1] - 0.1 * abs(lims[1]), lims[2] + 0.1 * abs(lims[2]))
-    scatter!(plt, tot_ref, tot;
-        ls...,
-        legend_title="Total",
-        xlims=lims,
-        ylims=lims,
-        subplot=1,
-    )
-    _series_annotations!(plt, 1, lims, tot_ref, tot, example_structs)
-    lims = (minimum(vcat(bb, bb_ref)), maximum(vcat(bb, bb_ref)))
-    lims = (lims[1] - 0.1 * abs(lims[1]), lims[2] + 0.1 * abs(lims[2]))
-    scatter!(plt, bb_ref, bb;
-        ls...,
-        legend_title="Backbone",
-        xlims=lims,
-        ylims=lims,
-        subplot=2,
-    )
-    _series_annotations!(plt, 2, lims, bb_ref, bb, example_structs)
-    lims = (minimum(vcat(sc, sc_ref)), maximum(vcat(sc, sc_ref)))
-    lims = (lims[1] - 0.1 * abs(lims[1]), lims[2] + 0.1 * abs(lims[2]))
-    scatter!(plt, sc_ref, sc;
-        ls...,
-        legend_title="Sidechain",
-        xlims=lims,
-        ylims=lims,
-        subplot=3,
-    )
-    _series_annotations!(plt, 3, lims, sc_ref, sc, example_structs)
+    _scatter!(plt, tot_ref, tot, example_structs; legend_title="Total", subplot=1)
+    _scatter!(plt, bb_ref, bb, example_structs; legend_title="Backbone", subplot=2)
+    _scatter!(plt, sc_ref, sc, example_structs; legend_title="Sidechain", subplot=3)
     xlab(::Type{MoeserHorinek}) = "Moeser&Horinek"
     xlab(::Type{AutonBolen}) = "Auton&Bolen"
-    plot!(plt,
-        size=(1200, 800),
-        xlabel=xlab(model),
-        ylabel=nothing,
-        aspect_ratio=1,
-        leftmargin=0.5Plots.Measures.cm,
-    )
-    plot!(plt,
-        ylabel="LAPM prediction",
-        subplot=1
-    )
+
+    plot!(plt, xlabel=xlab(model), ylabel=nothing, aspect_ratio=1)
+    plot!(plt, ylabel="LAPM prediction", subplot=1)
 
     ys = (maximum(vcat(tot, sc, bb)) - minimum(vcat(tot, sc, bb)))
     groupedbar!(
         string.(example_structs),
         hcat(tot, bb, sc);
         label=["Total" "BB" "SC"],
-        #title="Contributions",
         xlabel="Structure",
         ylabel="m-value / (kcal/mol)",
         subplot=4,
         ylims=(minimum(vcat(tot, sc, bb, 0)) - 0.1 * abs(ys), maximum(vcat(tot, sc, bb, 0)) + 0.1 * abs(ys)),
         xrotation=60,
-        bottommargin=0.5Plots.Measures.cm,
+        #bottommargin=0.5Plots.Measures.cm,
     )
+
+    plot!(plt,
+        size=(1200, 800),
+        rightmargin=0.2Plots.Measures.cm,
+        leftmargin=0.5Plots.Measures.cm,
+    )
+
     return plt
 end
 
@@ -191,29 +185,30 @@ const mvalues_moeser_horinek = OrderedDict{String,Dict}()
 include("./data/load_data.jl")
 include("./data/sasa_auton_bolen_server/creamer.jl")
 
-function _series_annotations!(plt, subplot, lims, x, y, labels)
+function _series_annotations!(plt, subplot, x, y, labels)
+    lims = _lims(x,y)
     x_inds = collect(1:length(x))
-    x_inds = sort!(x_inds; by = i -> x[i])
-    w = lims[2] - lims[1] 
+    x_inds = sort!(x_inds; by=i -> x[i])
+    w = lims[2] - lims[1]
     for (ix, s) in enumerate(labels)
         i = x_inds[ix]
-        sx, sy = i%2 == 1 ? (-0.06*w, 0.03*w) : (0.06*w, -0.03*w)
+        sx, sy = i % 2 == 1 ? (-0.06 * w, 0.03 * w) : (0.06 * w, -0.03 * w)
         annotate!(plt, (x[ix] + sx, y[ix] + sy, text(s, 8)); subplot=subplot)
     end
 end
 
-function plot_MH_vs_AB(cosolvent::String="urea")
+function plot_MH_vs_AB(cosolvent::String="urea"; sasas_from=server_sasa)
     cosolvent = lowercase(cosolvent)
     example_structs = keys(sasa_server)
     nexamples = length(example_structs)
     tot_mh, bb_mh, sc_mh = zeros(nexamples), zeros(nexamples), zeros(nexamples)
     tot_ab, bb_ab, sc_ab = zeros(nexamples), zeros(nexamples), zeros(nexamples)
     for (i, str) in enumerate(example_structs)
-        p_mh = predict_mvalue(str; model=MoeserHorinek, cosolvent)
+        p_mh = predict_mvalue(str; model=MoeserHorinek, cosolvent, sasas_from)
         tot_mh[i] = p_mh.tot
         bb_mh[i] = p_mh.bb
         sc_mh[i] = p_mh.sc
-        p_ab = predict_mvalue(str; model=AutonBolen, cosolvent)
+        p_ab = predict_mvalue(str; model=AutonBolen, cosolvent, sasas_from)
         tot_ab[i] = p_ab.tot
         bb_ab[i] = p_ab.bb
         sc_ab[i] = p_ab.sc
@@ -225,37 +220,9 @@ function plot_MH_vs_AB(cosolvent::String="urea")
     for sp in 1:3
         plot!(plt, [-100, 100], [-100, 100]; ls..., subplot=sp)
     end
-    ls = (lw=2, lc=:black, label="", legend=:topleft)
-    lims = (minimum(vcat(tot_mh, tot_ab)), maximum(vcat(tot_mh, tot_ab)))
-    lims = (lims[1] - 0.1 * abs(lims[1]), lims[2] + 0.1 * abs(lims[2]))
-    scatter!(plt, tot_ab, tot_mh;
-        ls...,
-        legend_title="Total",
-        xlims=lims,
-        ylims=lims,
-        subplot=1,
-    )
-    _series_annotations!(plt, 1, lims, tot_ab, tot_mh, example_structs)
-    lims = (minimum(vcat(bb_mh, bb_ab)), maximum(vcat(bb_mh, bb_ab)))
-    lims = (lims[1] - 0.1 * abs(lims[1]), lims[2] + 0.1 * abs(lims[2]))
-    scatter!(plt, bb_ab, bb_mh;
-        ls...,
-        legend_title="Backbone",
-        xlims=lims,
-        ylims=lims,
-        subplot=2,
-    )
-    _series_annotations!(plt, 2, lims, bb_ab, bb_mh, example_structs)
-    lims = (minimum(vcat(sc_mh, sc_ab)), maximum(vcat(sc_ab, sc_mh)))
-    lims = (lims[1] - 0.1 * abs(lims[1]), lims[2] + 0.1 * abs(lims[2]))
-    scatter!(plt, sc_ab, sc_mh;
-        ls...,
-        legend_title="Sidechain",
-        xlims=lims,
-        ylims=lims,
-        subplot=3,
-    )
-    _series_annotations!(plt, 3, lims, sc_ab, sc_mh, example_structs)
+    _scatter!(plt, tot_mh, tot_ab, example_structs; legend_title="Total", subplot=1)
+    _scatter!(plt, bb_mh, bb_ab, example_structs; legend_title="Backbone", subplot=2)
+    _scatter!(plt, sc_mh, sc_ab, example_structs; legend_title="Sidechain", subplot=3)
     plot!(plt,
         size=(1200, 1200),
         xlabel="Auton&Bolen",
@@ -283,7 +250,6 @@ function plot_MH_vs_AB(cosolvent::String="urea")
         ),
         fontfamily="Computer Modern",
         xrotation=60,
-        bottommargin=0.5Plots.Measures.cm,
     )
 
     ys = (maximum(vcat(tot_mh, sc_mh, bb_mh)) - minimum(vcat(tot_mh, sc_mh, bb_mh)))
@@ -299,7 +265,9 @@ function plot_MH_vs_AB(cosolvent::String="urea")
             minimum(vcat(tot_mh, sc_mh, bb_mh, 0)) - 0.1 * abs(ys),
             maximum(vcat(tot_mh, sc_mh, bb_mh, 0)) + 0.1 * abs(ys)
         ),
+        xrotation=60,
         fontfamily="Computer Modern",
+        bottommargin=0.5Plots.Measures.cm,
     )
 
     return plt
