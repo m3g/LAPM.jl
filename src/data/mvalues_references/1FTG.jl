@@ -7,7 +7,7 @@ mvalues_moeser_horinek["1FTG"] = OrderedDict(
     "sorbitol"  => (tot=NaN, bb=NaN, sc=NaN), 
     "sucrose"   => (tot=NaN, bb=NaN, sc=NaN), 
     "trehalose" => (tot=NaN, bb=NaN, sc=NaN), 
-    "urea"      => (tot=-2.781, bb=-2.865, sc=0.118), 
+    "urea"      => (tot=-3.017, bb=-1.483, sc=-1.601), 
 )
 
 

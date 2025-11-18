@@ -7,7 +7,7 @@ mvalues_moeser_horinek["2SNS"] = OrderedDict(
     "sorbitol"  => (tot=NaN, bb=NaN, sc=NaN), 
     "sucrose"   => (tot=NaN, bb=NaN, sc=NaN), 
     "trehalose" => (tot=NaN, bb=NaN, sc=NaN), 
-    "urea"      => (tot=-1.652, bb=-2.140, sc=0.506), 
+    "urea"      => (tot=-1.904, bb=-1.062, sc=-0.893), 
 )
 
 mvalues_auton_bolen["2SNS"] = parse_mvalue_server("""
