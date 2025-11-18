@@ -110,7 +110,8 @@ function plot_mvalue(
         xlabel=xlab(model),
         ylabel=nothing,
         aspect_ratio=1,
-        leftmargin=0.5Plots.Measures.cm
+        leftmargin=0.5Plots.Measures.cm,
+        bottommargin=0.5Plots.Measures.cm,
     )
     plot!(plt,
         ylabel="LAPM prediction",
@@ -127,6 +128,7 @@ function plot_mvalue(
         ylabel="m-value / (kcal/mol)",
         subplot=4,
         ylims=(minimum(vcat(tot, sc, bb, 0)) - 0.1*abs(ys), maximum(vcat(tot, sc, bb, 0)) + 0.1*abs(ys)),
+        xrotation=60,
     )
     return plt
 end
@@ -248,7 +250,8 @@ function plot_MH_vs_AB(cosolvent::String="urea")
         xlabel="Auton&Bolen",
         ylabel=nothing,
         aspect_ratio=1,
-        leftmargin=0.5Plots.Measures.cm
+        leftmargin=0.5Plots.Measures.cm,
+        bottommargin=0.5Plots.Measures.cm,
     )
     plot!(plt,
         ylabel="Moeser&Horniek",
@@ -269,6 +272,7 @@ function plot_MH_vs_AB(cosolvent::String="urea")
             maximum(vcat(tot_ab, sc_ab, bb_ab, 0)) + 0.1*abs(ys)
         ),
         fontfamily="Computer Modern",
+        xrotation=60,
     )
 
     ys =(maximum(vcat(tot_mh, sc_mh, bb_mh)) - minimum(vcat(tot_mh, sc_mh, bb_mh)))
