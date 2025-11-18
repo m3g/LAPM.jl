@@ -25,11 +25,11 @@ const pdb_files = OrderedDict{String,String}(
     "2HPR" => joinpath(@__DIR__, "pdb", "2HPR_clean.pdb"),
     "1BTA" => joinpath(@__DIR__, "pdb", "1BTA_clean.pdb"),
     "1K8M" => joinpath(@__DIR__, "pdb", "1K8M_clean.pdb"),
-
+    "1LMB_2" => joinpath(@__DIR__, "pdb", "1LMB_2_clean.pdb"),
     "1HRC" => joinpath(@__DIR__, "pdb", "1HRC_clean.pdb"),
     "2BU4" => joinpath(@__DIR__, "pdb", "2BU4_clean.pdb"),
     "1F2F" => joinpath(@__DIR__, "pdb", "1F2F_clean.pdb"),
-
+    "2BU4_2" => joinpath(@__DIR__, "pdb", "2BU4_2_clean.pdb"),
     "1EDH" => joinpath(@__DIR__, "pdb", "1EDH_clean.pdb"),
     "1FKD" => joinpath(@__DIR__, "pdb", "1FKD_clean.pdb"),
     "1YCC" => joinpath(@__DIR__, "pdb", "1YCC_clean.pdb"),
@@ -48,7 +48,7 @@ const pdb_files = OrderedDict{String,String}(
     "1DRB" => joinpath(@__DIR__, "pdb", "1DRB_clean.pdb"),
     "1FTG" => joinpath(@__DIR__, "pdb", "1FTG_clean.pdb"),
     "1AO3" => joinpath(@__DIR__, "pdb", "1AO3_clean.pdb"),
-
+    "1OT8_2" => joinpath(@__DIR__, "pdb", "1OT8_2_clean.pdb"),
 )
 
 #
@@ -66,11 +66,11 @@ include("./sasa_auton_bolen_server/1POH.jl")
 include("./sasa_auton_bolen_server/2HPR.jl")
 include("./sasa_auton_bolen_server/1BTA.jl")
 include("./sasa_auton_bolen_server/1K8M.jl")
-
+include("./sasa_auton_bolen_server/1LMB_2.jl")
 include("./sasa_auton_bolen_server/1HRC.jl")
 include("./sasa_auton_bolen_server/2BU4.jl")
 include("./sasa_auton_bolen_server/1F2F.jl")
-
+include("./sasa_auton_bolen_server/2BU4_2.jl")
 include("./sasa_auton_bolen_server/1EDH.jl")
 include("./sasa_auton_bolen_server/1FKD.jl")
 include("./sasa_auton_bolen_server/1YCC.jl")
@@ -88,7 +88,8 @@ include("./sasa_auton_bolen_server/2RN2.jl")
 include("./sasa_auton_bolen_server/1DC2.jl")
 include("./sasa_auton_bolen_server/1DRB.jl")
 include("./sasa_auton_bolen_server/1FTG.jl")
-include("./sasa_auton_bolen_server/1AO3.jl")    
+include("./sasa_auton_bolen_server/1AO3.jl")
+include("./sasa_auton_bolen_server/1OT8_2.jl")    
 
 
 
@@ -108,11 +109,11 @@ include("./mvalues_references/1POH.jl")
 include("./mvalues_references/2HPR.jl")
 include("./mvalues_references/1BTA.jl")
 include("./mvalues_references/1K8M.jl")
-
+include("./mvalues_references/1LMB_2.jl")
 include("./mvalues_references/1HRC.jl")
 include("./mvalues_references/2BU4.jl")
 include("./mvalues_references/1F2F.jl")
-
+include("./mvalues_references/2BU4_2.jl")
 include("./mvalues_references/1EDH.jl")
 include("./mvalues_references/1FKD.jl")
 include("./mvalues_references/1YCC.jl")
@@ -131,5 +132,6 @@ include("./mvalues_references/1DC2.jl")
 include("./mvalues_references/1DRB.jl")
 include("./mvalues_references/1FTG.jl")
 include("./mvalues_references/1AO3.jl")
+include("./mvalues_references/1OT8_2.jl")
 
 
