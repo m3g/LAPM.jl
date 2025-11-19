@@ -24,3 +24,15 @@ Osmolyte 	 Backbone   Sidechains    Total 	 | 		 Backbone 			 Sidechains 			 Tot
 1M Trehalose       2145       -1615         529 	 | 	 (  4415)   6160 [  7905] 	 ( -1175)  -1130 [ -1084] 	 (  3239)   5030 [  6820] 
 1M Urea           -1349         695        -655 	 | 	 ( -2777)  -3875 [ -4972] 	 (   575)    645 [   712] 	 ( -2202)  -3230 [ -4260] 
 """)
+
+mvalues_experimental["1YMB"] = OrderedDict(
+    "tmao"      => NaN,
+    "sarcosine" => NaN,
+    "betaine"   => NaN, 
+    "proline"   => NaN, 
+    "glycerol"  => NaN, 
+    "sorbitol"  => NaN, 
+    "sucrose"   => NaN, 
+    "trehalose" => NaN, 
+    "urea"      => -1800.0,
+)

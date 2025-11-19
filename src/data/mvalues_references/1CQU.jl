@@ -25,3 +25,15 @@ Osmolyte         Backbone   Sidechains    Total          |               Backbon
 1M Urea            -720         243        -477          |       ( -1017)  -1422 [ -1828]        (   232)    252 [   272]        (  -786)  -1170 [ -1556]
 """)
 
+mvalues_experimental["1CQU"] = OrderedDict(
+    "tmao"      => NaN,
+    "sarcosine" => NaN,
+    "betaine"   => NaN, 
+    "proline"   => NaN, 
+    "glycerol"  => NaN, 
+    "sorbitol"  => NaN, 
+    "sucrose"   => NaN, 
+    "trehalose" => NaN, 
+    "urea"      => -580.0,
+)
+

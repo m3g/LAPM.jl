@@ -10,7 +10,6 @@ mvalues_moeser_horinek["1FTG"] = OrderedDict(
     "urea"      => (tot=-3.017, bb=-1.483, sc=-1.601), 
 )
 
-
 mvalues_auton_bolen["1FTG"] = parse_mvalue_server("""
 Native and Denatured State Transfer Free Energy Contributions to the m-value for /tmp/phpbblaNQ. 
 		    Native State (cal/mol/M) 							 Denatured State (cal/mol/M) 
@@ -25,3 +24,15 @@ Osmolyte 	 Backbone   Sidechains    Total 	 | 		 Backbone 			 Sidechains 			 Tot
 1M Trehalose       2299       -1397         902 	 | 	 (  4935)   6799 [  8663] 	 ( -1172)  -1136 [ -1101] 	 (  3763)   5663 [  7563] 
 1M Urea           -1446         799        -646 	 | 	 ( -3104)  -4277 [ -5449] 	 (   755)    864 [   971] 	 ( -2349)  -3413 [ -4479] 
 """)
+
+mvalues_experimental["1FTG"] = OrderedDict(
+    "tmao"      => NaN,
+    "sarcosine" => NaN,
+    "betaine"   => NaN, 
+    "proline"   => NaN, 
+    "glycerol"  => NaN, 
+    "sorbitol"  => NaN, 
+    "sucrose"   => NaN, 
+    "trehalose" => NaN, 
+    "urea"      => -2550.0,
+)
