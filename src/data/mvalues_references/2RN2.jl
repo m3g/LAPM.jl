@@ -34,5 +34,5 @@ mvalues_experimental["2RN2"] = Dict(
     "sorbitol"  => NaN, 
     "sucrose"   => NaN, 
     "trehalose" => NaN, 
-    "urea"      => -1930.0,
+    "urea"      => -1930.0e-3,
 )

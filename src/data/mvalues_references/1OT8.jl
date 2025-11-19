@@ -34,5 +34,5 @@ mvalues_experimental["1OT8"] = OrderedDict(
     "sorbitol"  => 2049.0, 
     "sucrose"   => NaN, 
     "trehalose" => NaN, 
-    "urea"      => -1938.0,
+    "urea"      => -1938.0e-3,
 )
