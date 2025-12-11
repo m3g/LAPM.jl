@@ -20,5 +20,5 @@ Within Julia, to install the packages required for running the examples here you
 ```julia-repl
 julia> import Pkg
 
-julia> Pkg.add(["PDBTools", "MolSimToolkit", "Plots"])
+julia> Pkg.develop(url="https://github.com/m3g/LAPM.jl")
 ```

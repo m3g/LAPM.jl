@@ -10,7 +10,9 @@ using PDBTools:
     MValueModel,
     mvalue_delta_sasa,
     parse_mvalue_server_sasa,
-    read_pdb
+    read_pdb,
+    StringType
+using EasyFit
 
 export MoeserHorinek, AutonBolen
 export plot_mvalue
@@ -19,7 +21,7 @@ export plot_experimental
 
 data_dir = joinpath(@__DIR__, "data")
 
-creamer_sasa(_, atoms) = creamer_sasa_restype(atoms)
+
 server_sasa(str::String, _) = sasa_server[str]
 #
 # predict m-value using a model, for a specific structure
@@ -298,7 +300,14 @@ function plot_experimental(
     plot!(plt, xlabel="Experimental")
     plot!(plt, ylabel="LAPM prediction ($(ylab(model)))")
     plot!(plt, size=(400,400))
+    fit = fitlinear(tot_exp, tot_pred)
+    plot!(legend_title="a=$(round(fit.a; digits=3))\nb=$(round(fit.b; digits=3))\nR2=$(round(fit.R2; digits=3))", legend=:topleft)
+    plot!(xlims=(-3.5,0.2), ylims=(-3.5,0.2))
     return plt
+#    return fit
 end
+
+include("./per_atom_type/get_sasa_per_type.jl")
+include("./per_atom_type/creamer_per_atom.jl")
 
 end
