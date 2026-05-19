@@ -17,6 +17,7 @@ using EasyFit
 export MoeserHorinek, AutonBolen
 export plot_mvalue
 export plot_MH_vs_AB
+export plot_MHFit_vs_AB
 export plot_experimental
 
 data_dir = joinpath(@__DIR__, "data")
@@ -201,18 +202,23 @@ function _series_annotations!(plt, subplot, x, y, labels)
     end
 end
 
-function plot_MH_vs_AB(cosolvent::String="urea"; sasas_from=server_sasa)
+function plot_MH_vs_AB(
+    cosolvent::String="urea"; 
+    m1=AutonBolen,
+    m2=MoeserHorinek,
+    sasas_from=server_sasa
+)
     cosolvent = lowercase(cosolvent)
     example_structs = keys(sasa_server)
     nexamples = length(example_structs)
     tot_mh, bb_mh, sc_mh = zeros(nexamples), zeros(nexamples), zeros(nexamples)
     tot_ab, bb_ab, sc_ab = zeros(nexamples), zeros(nexamples), zeros(nexamples)
     for (i, str) in enumerate(example_structs)
-        p_mh = predict_mvalue(str; model=MoeserHorinek, cosolvent, sasas_from)
+        p_mh = predict_mvalue(str; model=m1, cosolvent, sasas_from)
         tot_mh[i] = p_mh.tot
         bb_mh[i] = p_mh.bb
         sc_mh[i] = p_mh.sc
-        p_ab = predict_mvalue(str; model=AutonBolen, cosolvent, sasas_from)
+        p_ab = predict_mvalue(str; model=m2, cosolvent, sasas_from)
         tot_ab[i] = p_ab.tot
         bb_ab[i] = p_ab.bb
         sc_ab[i] = p_ab.sc
@@ -229,12 +235,12 @@ function plot_MH_vs_AB(cosolvent::String="urea"; sasas_from=server_sasa)
     _scatter!(plt, sc_ab, sc_mh, example_structs; legend_title="Sidechain", subplot=3)
     plot!(plt,
         size=(1200, 1200),
-        xlabel="Auton&Bolen",
+        xlabel=string(m1),
         ylabel=nothing,
         leftmargin=0.5Plots.Measures.cm,
     )
     plot!(plt,
-        ylabel="Moeser&Horniek",
+        ylabel=string(m2),
         subplot=1
     )
 
@@ -245,7 +251,7 @@ function plot_MH_vs_AB(cosolvent::String="urea"; sasas_from=server_sasa)
         label=["Total" "BB" "SC"],
         #title="Contributions",
         xlabel="Structure",
-        ylabel="m-value (Auton&Bolen) / (kcal/mol)",
+        ylabel="m-value ($(string(m1)) / (kcal/mol)",
         subplot=4,
         ylims=(
             minimum(vcat(tot_ab, sc_ab, bb_ab, 0)) - 0.1 * abs(ys),
@@ -262,7 +268,7 @@ function plot_MH_vs_AB(cosolvent::String="urea"; sasas_from=server_sasa)
         label=["Total" "BB" "SC"],
         #title="Contributions",
         xlabel="Structure",
-        ylabel="m-value (Moeser&Horinek) / (kcal/mol)",
+        ylabel="m-value ($(string(m2)) / (kcal/mol)",
         subplot=5,
         ylims=(
             minimum(vcat(tot_mh, sc_mh, bb_mh, 0)) - 0.1 * abs(ys),
@@ -309,5 +315,6 @@ end
 
 include("./per_atom_type/get_sasa_per_type.jl")
 include("./per_atom_type/creamer_per_atom.jl")
+include("./MH_fit_to_AB.jl")
 
 end

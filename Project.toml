@@ -4,6 +4,7 @@ version = "1.0.0-DEV"
 authors = ["lmiq <lmartine@unicamp.br> and contributors"]
 
 [deps]
+BlackBoxOptim = "a134a8b2-14d6-55f6-9291-3336d3ab0209"
 EasyFit = "fde71243-0cda-4261-b7c7-4845bd106b21"
 JSON = "682c06a0-de6a-54ab-a142-c8b1cf79cde6"
 LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
@@ -17,13 +18,14 @@ Statistics = "10745b16-79ce-11e8-11f9-7d13ad32a3b2"
 StatsPlots = "f3b207a7-027a-5e70-b257-86293d7955fd"
 
 [compat]
+BlackBoxOptim = "0.6.4"
 EasyFit = "0.7.3"
 JSON = "1.3.0"
 LinearAlgebra = "1"
-MolSimToolkit = "1.31.1"
+MolSimToolkit = "2"
 Optim = "1.13.3"
 OrderedCollections = "1.8.1"
-PDBTools = "3.16.1"
+PDBTools = "3.27"
 Plots = "1.41.1"
 ProgressMeter = "1.11.0"
 Statistics = "1"
