@@ -1,7 +1,7 @@
 # Moeser & Horinek adjusted by Gly non-ideality 
 
 ```@example mvalue
-using LAPM
+using LAPM, PDBTools
 ```
 
 ## Against Moeser&Horinek

@@ -2,7 +2,7 @@
 
 julia_version = "1.12.6"
 manifest_format = "2.0"
-project_hash = "7752bd86180f471e5fac2743e914c14e5dcff4ae"
+project_hash = "5517c3358a40554fd389f9ebdd334a42f27948d9"
 
 [[deps.ADTypes]]
 git-tree-sha1 = "bbc22a9a08a0ef6460041086d8a7b27940ed4ffd"
@@ -137,9 +137,9 @@ version = "0.1.9"
 
 [[deps.BlackBoxOptim]]
 deps = ["Compat", "Distributed", "Distributions", "LinearAlgebra", "Printf", "Random", "Requires", "SpatialIndexing", "StatsBase"]
-git-tree-sha1 = "ff10af3e88099d442ca1d5c39a0e30a874524230"
+git-tree-sha1 = "870e8b6e05cbf498491392b911c71e97b9fe1423"
 uuid = "a134a8b2-14d6-55f6-9291-3336d3ab0209"
-version = "0.6.4"
+version = "0.6.5"
 weakdeps = ["HTTP", "Sockets"]
 
 [[deps.Bzip2_jll]]
@@ -717,7 +717,7 @@ uuid = "c1c5ebd0-6772-5130-a774-d5fcae4a789d"
 version = "3.100.3+0"
 
 [[deps.LAPM]]
-deps = ["EasyFit", "JSON", "LinearAlgebra", "MolSimToolkit", "Optim", "OrderedCollections", "PDBTools", "Plots", "ProgressMeter", "Statistics", "StatsPlots"]
+deps = ["BlackBoxOptim", "EasyFit", "JSON", "LinearAlgebra", "MolSimToolkit", "Optim", "OrderedCollections", "PDBTools", "Plots", "ProgressMeter", "Statistics", "StatsPlots"]
 path = "."
 uuid = "900d2f21-6802-4fdd-aec4-3593e8a631ba"
 version = "1.0.0-DEV"
@@ -1038,9 +1038,9 @@ version = "10.44.0+1"
 
 [[deps.PDBTools]]
 deps = ["CellListMap", "ChunkSplitters", "Compat", "Dates", "Downloads", "Format", "InlineStrings", "InteractiveUtils", "LinearAlgebra", "MolSimToolkitShared", "OrderedCollections", "PrecompileTools", "Printf", "ProteinSecondaryStructures", "SIMD", "SparseArrays", "StaticArrays", "TestItems"]
-path = "/home/leandro/.julia/dev/PDBTools"
+git-tree-sha1 = "19a3329d418960438345fbc6df77504e2e22c3ef"
 uuid = "e29189f1-7114-4dbd-93d0-c5673a921a58"
-version = "3.26.1-DEV"
+version = "3.27.0"
 weakdeps = ["Plots"]
 
     [deps.PDBTools.extensions]
