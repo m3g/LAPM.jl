@@ -251,7 +251,7 @@ function plot_MH_vs_AB(
         label=["Total" "BB" "SC"],
         #title="Contributions",
         xlabel="Structure",
-        ylabel="m-value ($(string(m1)) / (kcal/mol)",
+        ylabel="m-value ($(string(m2)) / (kcal/mol)",
         subplot=4,
         ylims=(
             minimum(vcat(tot_ab, sc_ab, bb_ab, 0)) - 0.1 * abs(ys),
@@ -268,7 +268,7 @@ function plot_MH_vs_AB(
         label=["Total" "BB" "SC"],
         #title="Contributions",
         xlabel="Structure",
-        ylabel="m-value ($(string(m2)) / (kcal/mol)",
+        ylabel="m-value ($(string(m1)) / (kcal/mol)",
         subplot=5,
         ylims=(
             minimum(vcat(tot_mh, sc_mh, bb_mh, 0)) - 0.1 * abs(ys),
