@@ -12,6 +12,7 @@ makedocs(
         "Auton & Bolen (Server)" => "autonbolen2.md",
         "Moeser & Horinek" => "moeserhorinek.md",
         "M&H vs A&B" => "mh_vs_ab.md",
+        "MoeserHorinekFit" => "mh_vs_ab_fit.md",
         "Experimental" => "experimental.md",
         "Creamer ASAs" => "creamer_ASA.md",
         "References" => "references.md",
