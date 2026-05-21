@@ -104,10 +104,8 @@ function plot_mvalue(
     _scatter!(plt, tot_ref, tot, example_structs; legend_title="Total", subplot=1)
     _scatter!(plt, bb_ref, bb, example_structs; legend_title="Backbone", subplot=2)
     _scatter!(plt, sc_ref, sc, example_structs; legend_title="Sidechain", subplot=3)
-    xlab(::Type{MoeserHorinek}) = "Moeser&Horinek"
-    xlab(::Type{AutonBolen}) = "Auton&Bolen"
 
-    plot!(plt, xlabel=xlab(model), ylabel=nothing)
+    plot!(plt, xlabel=modelname(model), ylabel=nothing)
     plot!(plt, ylabel="LAPM prediction", subplot=1)
 
     ys = (maximum(vcat(tot, sc, bb)) - minimum(vcat(tot, sc, bb)))
@@ -282,6 +280,8 @@ function plot_MH_vs_AB(
     return plt
 end
 
+modelname(model) = replace(string(model), "PDBtools." => "")
+
 function plot_experimental(
     model::Type{<:PDBTools.MValueModel}=MoeserHorinek,
     cosolvent="urea";
@@ -301,10 +301,8 @@ function plot_experimental(
     ls = (lw=2, ls=:dash, label="", lc=:lightgrey)
     plot!(plt, [-100, 100], [-100, 100]; ls...)
     _scatter!(plt, tot_exp, tot_pred, example_structs; legend_title="", subplot=1)
-    ylab(::Type{MoeserHorinek}) = "Moeser&Horinek"
-    ylab(::Type{AutonBolen}) = "Auton&Bolen"
     plot!(plt, xlabel="Experimental")
-    plot!(plt, ylabel="LAPM prediction ($(ylab(model)))")
+    plot!(plt, ylabel="LAPM prediction ($(modelname(model)))")
     plot!(plt, size=(400,400))
     fit = fitlinear(tot_exp, tot_pred)
     plot!(legend_title="a=$(round(fit.a; digits=3))\nb=$(round(fit.b; digits=3))\nR2=$(round(fit.R2; digits=3))", legend=:topleft)

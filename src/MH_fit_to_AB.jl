@@ -47,11 +47,11 @@ function gly_correction(x; cosolvent="urea", fit=true)
         p_mh_fit = mvalue(cmodel, cosolvent; model=MoeserHorinekFit)
         tot_mh_fit[i] = p_mh_fit.tot
     end
-    f = fitlinear(tot_ab, tot_mh_fit)
     if !fit
+        f = fitlinear(tot_ab, tot_mh_fit)
         return tot_ab, tot_mh_fit, f
     end
-    return (1 - f.a)^2 + (f.b)^2
+    return sum(abs2, p_ab .- tot_ab)
 end
 
 #=
@@ -62,18 +62,14 @@ bboptimize(
     [70.0]; 
     SearchRange=(-200, 200), 
     NumDimensions=1, 
-    MaxTime=60, 
-    Method=:generating_set_search
+    MaxTime=600, 
 )
 
 Best fits:
 
-tmao: 48.1006 
-sarcosine: 27.4219
-betaine: 35.625 
-proline: 25.8594 
-sorbitol: 18.4863
-sucrose: 33.1836 
-urea: 14.0708
+# These where obtained by minmizing the sum of squared residues relative to AutonBolen predictions
+# using: BlackBoxOptim.jl - BlackBoxOptim.AdaptiveDiffEvoRandBin{3}
+#               TMAO  Sarcosine   Betaine    Proline    Sorbitol    Sucrose       Urea
+const γG =   ( 47.74,     27.57,    35.57,     25.44,      18.57,     32.91,     14.74)
 
 =#
