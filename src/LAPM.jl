@@ -22,6 +22,7 @@ export plot_experimental
 
 data_dir = joinpath(@__DIR__, "data")
 
+modelname(model) = replace(string(model), "PDBtools." => "")
 
 server_sasa(str::String, _) = sasa_server[str]
 #
@@ -267,7 +268,7 @@ function plot_MH_vs_AB(
         label=["Total" "BB" "SC"],
         #title="Contributions",
         xlabel="Structure",
-        ylabel="m-value ($(string(m1)) / (kcal/mol)",
+        ylabel="m-value ($(modelname(m1)) / (kcal/mol)",
         subplot=5,
         ylims=(
             minimum(vcat(tot_mh, sc_mh, bb_mh, 0)) - 0.1 * abs(ys),
@@ -280,8 +281,6 @@ function plot_MH_vs_AB(
 
     return plt
 end
-
-modelname(model) = replace(modelname(model), "PDBtools." => "")
 
 function plot_experimental(
     model::Type{<:PDBTools.MValueModel}=MoeserHorinek,
