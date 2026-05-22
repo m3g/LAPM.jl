@@ -4,6 +4,7 @@ using Plots
 using StatsPlots
 using PDBTools
 using OrderedCollections
+using LaTeXStrings
 # At the end, qualify everything and remove the above using
 using PDBTools:
     PDBTools,
@@ -22,7 +23,12 @@ export plot_experimental
 
 data_dir = joinpath(@__DIR__, "data")
 
-modelname(model) = replace(string(model), "PDBtools." => "")
+modelname(model) = latexstring(
+    "\\textrm{"*
+    replace(string(model), "PDBtools." => "")
+    *"~/~kcal~mol^{-1}}"
+)
+mvaluelabel() = latexstring("m-\\textrm{value~/~kcal~mol^{-1}}")
 
 server_sasa(str::String, _) = sasa_server[str]
 #
@@ -58,7 +64,7 @@ function _lims(x, y)
 end
 
 function _scatter!(plt, x, y, example_structs; legend_title, subplot)
-    ls = (lw=2, lc=:black, label="", legend=:topleft)
+    ls = (lw=2, lc=:black, label="")
     scatter!(plt, x, y;
         ls...,
         legend_title=legend_title,
@@ -107,7 +113,7 @@ function plot_mvalue(
     _scatter!(plt, sc_ref, sc, example_structs; legend_title="Sidechain", subplot=3)
 
     plot!(plt, xlabel=modelname(model), ylabel=nothing)
-    plot!(plt, ylabel="LAPM prediction", subplot=1)
+    plot!(plt, ylabel=L"\textrm{Current~implementation~/~kcal~mol^{-1}}", subplot=1)
 
     ys = (maximum(vcat(tot, sc, bb)) - minimum(vcat(tot, sc, bb)))
     groupedbar!(
@@ -115,7 +121,7 @@ function plot_mvalue(
         hcat(tot, bb, sc);
         label=["Total" "BB" "SC"],
         xlabel="Structure",
-        ylabel="m-value / (kcal/mol)",
+        ylabel=mvaluelabel(),
         subplot=4,
         ylims=(minimum(vcat(tot, sc, bb, 0)) - 0.1 * abs(ys), maximum(vcat(tot, sc, bb, 0)) + 0.1 * abs(ys)),
         xrotation=60,
@@ -123,9 +129,10 @@ function plot_mvalue(
     )
 
     plot!(plt,
-        size=(1200, 800),
+        size=(1200, 830),
         rightmargin=0.2Plots.Measures.cm,
         leftmargin=0.5Plots.Measures.cm,
+        bottommargin=0.5Plots.Measures.cm,
     )
 
     return plt
@@ -251,7 +258,7 @@ function plot_MH_vs_AB(
         label=["Total" "BB" "SC"],
         #title="Contributions",
         xlabel="Structure",
-        ylabel="m-value ($(modelname(m2)) / (kcal/mol)",
+        ylabel=modelname(m2),
         subplot=4,
         ylims=(
             minimum(vcat(tot_ab, sc_ab, bb_ab, 0)) - 0.1 * abs(ys),
@@ -268,7 +275,7 @@ function plot_MH_vs_AB(
         label=["Total" "BB" "SC"],
         #title="Contributions",
         xlabel="Structure",
-        ylabel="m-value ($(modelname(m1)) / (kcal/mol)",
+        ylabel=modelname(m1),
         subplot=5,
         ylims=(
             minimum(vcat(tot_mh, sc_mh, bb_mh, 0)) - 0.1 * abs(ys),
@@ -302,8 +309,8 @@ function plot_experimental(
     ls = (lw=2, ls=:dash, label="", lc=:lightgrey)
     plot!(plt, [-100, 100], [-100, 100]; ls...)
     _scatter!(plt, tot_exp, tot_pred, example_structs; legend_title="", subplot=1)
-    plot!(plt, xlabel="Experimental")
-    plot!(plt, ylabel="LAPM prediction ($(modelname(model)))")
+    plot!(plt, xlabel=L"\textrm{Experimental~/~kcal~mol^{-1}}")
+    plot!(plt, ylabel=modelname(model))
     plot!(plt, size=(400,400))
     fit = fitlinear(tot_exp, tot_pred)
     plot!(legend_title="a=$(round(fit.a; digits=3))\nb=$(round(fit.b; digits=3))\nR2=$(round(fit.R2; digits=3))", legend=:topleft)
