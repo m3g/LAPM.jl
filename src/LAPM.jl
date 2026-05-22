@@ -207,6 +207,7 @@ function plot_MH_vs_AB(
     sasas_from=server_sasa
 )
     cosolvent = lowercase(cosolvent)
+    cosolvent_mh = cosolvent == "urea-app" ? "urea" : cosolvent
     example_structs = keys(sasa_server)
     nexamples = length(example_structs)
     tot_mh, bb_mh, sc_mh = zeros(nexamples), zeros(nexamples), zeros(nexamples)
@@ -216,7 +217,7 @@ function plot_MH_vs_AB(
         tot_mh[i] = p_mh.tot
         bb_mh[i] = p_mh.bb
         sc_mh[i] = p_mh.sc
-        p_ab = predict_mvalue(str; model=m2, cosolvent, sasas_from)
+        p_ab = predict_mvalue(str; model=m2, cosolvent=cosolvent_mh, sasas_from)
         tot_ab[i] = p_ab.tot
         bb_ab[i] = p_ab.bb
         sc_ab[i] = p_ab.sc
@@ -233,12 +234,12 @@ function plot_MH_vs_AB(
     _scatter!(plt, sc_ab, sc_mh, example_structs; legend_title="Sidechain", subplot=3)
     plot!(plt,
         size=(1200, 1200),
-        xlabel=string(m1),
+        xlabel=modelname(m1),
         ylabel=nothing,
         leftmargin=0.5Plots.Measures.cm,
     )
     plot!(plt,
-        ylabel=string(m2),
+        ylabel=modelname(m2),
         subplot=1
     )
 
@@ -249,7 +250,7 @@ function plot_MH_vs_AB(
         label=["Total" "BB" "SC"],
         #title="Contributions",
         xlabel="Structure",
-        ylabel="m-value ($(string(m2)) / (kcal/mol)",
+        ylabel="m-value ($(modelname(m2)) / (kcal/mol)",
         subplot=4,
         ylims=(
             minimum(vcat(tot_ab, sc_ab, bb_ab, 0)) - 0.1 * abs(ys),
@@ -280,7 +281,7 @@ function plot_MH_vs_AB(
     return plt
 end
 
-modelname(model) = replace(string(model), "PDBtools." => "")
+modelname(model) = replace(modelname(model), "PDBtools." => "")
 
 function plot_experimental(
     model::Type{<:PDBTools.MValueModel}=MoeserHorinek,
@@ -288,6 +289,7 @@ function plot_experimental(
     sasas_from::Function=creamer_sasa
 )
     cosolvent = lowercase(cosolvent)
+    cosolvent_exp = cosolvent == "urea-app" ? "urea" : cosolvent
     example_structs = keys(sasa_server)
     nexamples = length(example_structs)
     tot_pred = zeros(nexamples)
@@ -295,7 +297,7 @@ function plot_experimental(
     for (i, str) in enumerate(example_structs)
         p = predict_mvalue(str; cosolvent, model, sasas_from)
         tot_pred[i] = p.tot
-        tot_exp[i] = mvalues_experimental[str][cosolvent]
+        tot_exp[i] = mvalues_experimental[str][cosolvent_exp]
     end
     plt = plot(framestyle=:box, fontfamily="Computer Modern")
     ls = (lw=2, ls=:dash, label="", lc=:lightgrey)

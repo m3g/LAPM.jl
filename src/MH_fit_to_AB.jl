@@ -27,8 +27,9 @@ const tfe_sc_bb_MoeserHorinekFit0 = Dict{String, NTuple{7,Float32}}(
 )
 
 function gly_correction(x; cosolvent="urea", fit=true)
+    cosolvent_fit = cosolvent == "urea-app" ? "urea" : cosolvent
     tfe_sc_bb = PDBTools.tfe_sc_bb(MoeserHorinekFit)
-    col = PDBTools.cosolvent_column(MoeserHorinekFit)[cosolvent]
+    col = PDBTools.cosolvent_column(MoeserHorinekFit)[cosolvent_fit]
     for key in keys(tfe_sc_bb)
         if !(key in ("BB", "GLY", "CYS"))
             vals = tfe_sc_bb_MoeserHorinekFit0[key]
@@ -44,14 +45,14 @@ function gly_correction(x; cosolvent="urea", fit=true)
         cmodel = CreamerDenaturedModel(read_pdb(pdb_files[str]))
         p_ab = mvalue(cmodel, cosolvent; model=AutonBolen)
         tot_ab[i] = p_ab.tot
-        p_mh_fit = mvalue(cmodel, cosolvent; model=MoeserHorinekFit)
+        p_mh_fit = mvalue(cmodel, cosolvent_fit; model=MoeserHorinekFit)
         tot_mh_fit[i] = p_mh_fit.tot
     end
     if !fit
         f = fitlinear(tot_ab, tot_mh_fit)
         return tot_ab, tot_mh_fit, f
     end
-    return sum(abs2, p_ab .- tot_ab)
+    return sum(abs2, tot_ab .- tot_mh_fit)
 end
 
 #=
