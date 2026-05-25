@@ -39,7 +39,8 @@ const pdb_files = OrderedDict{String,String}(
     "1HCE" => joinpath(@__DIR__, "pdb", "1HCE_clean.pdb"),
     "9RSA" => joinpath(@__DIR__, "pdb", "9RSA_clean.pdb"),
     "3CHY" => joinpath(@__DIR__, "pdb", "3CHY_clean.pdb"),
-    "1OT8" => joinpath(@__DIR__, "pdb", "1OT8_clean.pdb"),
+    "1OT8" => joinpath(@__DIR__, "pdb", "1OT8_4-7_clean.pdb"),
+    "1OT8_2" => joinpath(@__DIR__, "pdb", "1OT8_1-7_clean.pdb"),
     "2AFG" => joinpath(@__DIR__, "pdb", "2AFG_clean.pdb"),
     "2SNS" => joinpath(@__DIR__, "pdb", "2SNS_clean.pdb"),
     "1YMB" => joinpath(@__DIR__, "pdb", "1YMB_clean.pdb"),
@@ -48,7 +49,8 @@ const pdb_files = OrderedDict{String,String}(
     "1DRB" => joinpath(@__DIR__, "pdb", "1DRB_clean.pdb"),
     "1FTG" => joinpath(@__DIR__, "pdb", "1FTG_clean.pdb"),
     "1AO3" => joinpath(@__DIR__, "pdb", "1AO3_clean.pdb"),
-    "1OT8_2" => joinpath(@__DIR__, "pdb", "1OT8_2_clean.pdb"),
+    "2AZS" => joinpath(@__DIR__, "pdb", "2AZS.cif"),
+    "2RMM" => joinpath(@__DIR__, "pdb", "2RMM.cif"),
 )
 
 #

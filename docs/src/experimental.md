@@ -24,4 +24,57 @@ plot_experimental(MoeserHorinek; sasas_from=LAPM.server_sasa)
 plot_experimental(AutonBolen; sasas_from=LAPM.server_sasa)
 ```
 
+## Other osmolytes
+
+### Using mean denatured Creamer model
+
+```@example mvalue
+other_osmolytes(; type=2)
+```
+
+### Using maximally denatured Creamer model
+
+```@example mvalue
+other_osmolytes(; type=3)
+```
+
+### Using minimially denatured Creamer model
+
+```@example mvalue
+other_osmolytes(; type=1)
+```
+
+## SH3 and DM1 - Pielak data.
+
+Pannel A is for unfolding of SH3, pannel B for the dissociation of the GB1 dimer.
+
+```@example mvalue
+using PDBTools
+```
+
+### Using mean unfolded Creamer model (in A) 
+
+```@example mvalue
+plt1 = plot_rydeen_folding(read_pdb(pdb_files["2AZS"]); type=2)
+plt2 = plot_rydeen_dimmer(read_pdb(pdb_files["2RMM"]))
+```
+
+### Using maximally unfolded Creamer model (in A) 
+
+```@example mvalue
+plt1 = plot_rydeen_folding(read_pdb(pdb_files["2AZS"]); type=3)
+plt2 = plot_rydeen_dimmer(read_pdb(pdb_files["2RMM"]))
+```
+
+### Using minimally unfolded Creamer model (in A) 
+
+```@example mvalue
+plt1 = plot_rydeen_folding(read_pdb(pdb_files["2AZS"]); type=1)
+plt2 = plot_rydeen_dimmer(read_pdb(pdb_files["2RMM"]))
+```
+
+
+
+
+
 

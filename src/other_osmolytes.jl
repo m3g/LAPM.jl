@@ -58,7 +58,7 @@ ab_table = OrderedDict(
     ),
 )
 
-function other_osmolytes()
+function other_osmolytes(; type=2)
     name = String[]
     osmo = String[]
     mhfit = Float64[]
@@ -75,7 +75,7 @@ function other_osmolytes()
             if length(eachresidue(p)) != nres
                 error("Wrong number of residues for $pdb")
             end
-            cm = CreamerDenaturedModel(p)
+            cm = CreamerDenaturedModel(p, type)
             _m_ab = mvalue(cm, osm; model=AutonBolen).tot
             _m_mhfit = mvalue(cm, osm; model=MoeserHorinekFit).tot
             push!(name, pdb)

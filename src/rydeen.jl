@@ -17,7 +17,8 @@ const rydeen = OrderedDict(
 )
 
 function plot_rydeen_folding(
-    prot=read_pdb(joinpath(@__DIR__ ,"/data/pdb/2AZS.cif"))
+    prot=read_pdb(joinpath(@__DIR__ ,"/data/pdb/2AZS.cif"));
+    type=2,
 )
     predictions = OrderedDict()
     for cosolvent in keys(rydeen) 
@@ -27,7 +28,7 @@ function plot_rydeen_folding(
             m_mh = copy(m_ab)
         end
         for (i, model) in enumerate(eachmodel(prot))
-            c = CreamerDenaturedModel(model)
+            c = CreamerDenaturedModel(model, type)
             m_ab[i] = mvalue(c, cosolvent; model=AutonBolen).tot
             m_mhfit[i] = mvalue(c, cosolvent; model=MoeserHorinekFit).tot
             if cosolvent == "urea"
@@ -48,6 +49,7 @@ function plot_rydeen_folding(
         end
     end
     plt = plot(MolSimStyle)
+#    @show extrema(val[2] - val[1] for (_, val) in predictions)
 
     exp = [ val[2] for (key, val) in rydeen ]
     preds = [ val[1] for (key, val) in predictions ]
@@ -95,19 +97,19 @@ function plot_rydeen_folding(
     )
     f = fitlinear(getfield.(exp, :val), getfield.(preds, :val))
     plot!(plt, f.x, f.y, 
-#        label=latexstring("a=$(round(f.a,digits=2)), R^2=$(round(f.R2; digits=2))"),
-        label="",
+        label=latexstring("a=$(round(f.a,digits=2)), R^2=$(round(f.R2; digits=2))"),
+#        label="",
         linecolor=3,
     )
 
-    plot!(plt, [-0.4, 0.5], [-0.4, 0.5], 
+    plot!(plt, [-0.4, 0.6], [-0.4, 0.6], 
         linecolor=:black,
         linealpha=0.5,
         label="",
         aspect_ratio=1,
         linestyle=:dash,
-        xlims=(-0.4, 0.5),
-        ylims=(-0.4, 0.5),
+#        xlims=(-0.4, 0.6),
+#        ylims=(-0.4, 0.6),
         xlabel=L"\Delta \Delta G^\textrm{exp}\textrm{~/~kcal~mol^{-1}}",
         ylabel=L"\Delta \Delta G^\textrm{pred}\textrm{~/~kcal~mol^{-1}}",
         size=(500,500),
@@ -162,6 +164,7 @@ function plot_rydeen_dimmer(
         end
     end
     plt = plot(MolSimStyle)
+#    @show extrema(val[2] - val[1] for (_, val) in predictions)
 
     exp = [ val[1] for (key, val) in rydeen ]
     preds = [ val[1] for (key, val) in predictions ]
