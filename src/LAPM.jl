@@ -295,7 +295,7 @@ function plot_MH_vs_AB(
 end
 
 plot_experimental(
-    model::Type{<:PDBTools.MValueModel}=MoeserHorinek,
+    model::Type{<:PDBTools.MValueModel},
     cosolvent="urea";
     sasas_from::Function=creamer_sasa
 ) = plot_experimental([model], cosolvent; sasas_from)
