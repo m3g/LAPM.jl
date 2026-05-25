@@ -108,8 +108,8 @@ function plot_rydeen_folding(
         label="",
         aspect_ratio=1,
         linestyle=:dash,
-#        xlims=(-0.4, 0.6),
-#        ylims=(-0.4, 0.6),
+        xlims=(-0.4, 0.6),
+        ylims=(-0.4, 0.6),
         xlabel=L"\Delta \Delta G^\textrm{exp}\textrm{~/~kcal~mol^{-1}}",
         ylabel=L"\Delta \Delta G^\textrm{pred}\textrm{~/~kcal~mol^{-1}}",
         size=(500,500),
@@ -164,7 +164,7 @@ function plot_rydeen_dimmer(
         end
     end
     plt = plot(MolSimStyle)
-#    @show extrema(val[2] - val[1] for (_, val) in predictions)
+    @show extrema(val[2] - val[1] for (_, val) in predictions)
 
     exp = [ val[1] for (key, val) in rydeen ]
     preds = [ val[1] for (key, val) in predictions ]
@@ -237,8 +237,8 @@ function plot_rydeen_both(plt1, plt2)
     scalefontsizes(); scalefontsizes(1.4)
     l = @layout [ a{0.445w} b{0.555w} ]
     plt = plot(plt1, plt2; size=(1000,500), layout=l)
-    annotate!(plt, -0.6, 0.48, text("A)", "Computer Modern", 14); subplot=1)
-    annotate!(plt, 0.6, 0.48, text("B)", "Computer Modern", 14); subplot=1)
+    annotate!(plt, -0.6, 0.63, text("A)", "Computer Modern", 14); subplot=1)
+    annotate!(plt, 0.7, 0.63, text("B)", "Computer Modern", 14); subplot=1)
     return plt
 end
 
