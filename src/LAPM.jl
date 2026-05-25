@@ -5,6 +5,7 @@ using StatsPlots
 using PDBTools
 using OrderedCollections
 using LaTeXStrings
+using Measurements
 # At the end, qualify everything and remove the above using
 using PDBTools:
     PDBTools,
@@ -296,7 +297,7 @@ plot_experimental(
 ) = plot_experimental([model], cosolvent; sasas_from)
 
 function plot_experimental(
-    models=[AutonBolen, MoeserHorinek, MoeserHorinekFit],
+    models::Vector=[AutonBolen, MoeserHorinek, MoeserHorinekFit],
     cosolvent="urea";
     sasas_from::Function=creamer_sasa
 )
@@ -344,5 +345,6 @@ end
 include("./per_atom_type/get_sasa_per_type.jl")
 include("./per_atom_type/creamer_per_atom.jl")
 include("./MH_fit_to_AB.jl")
+include("rydeen.jl")
 
 end
