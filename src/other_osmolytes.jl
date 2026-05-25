@@ -94,7 +94,7 @@ function other_osmolytes()
     plot!(plt,
         xlabel=L"\textrm{Experimental~}m\textrm{-value~/~kcal~mol^{-1}}",
         ylabel=L"\textrm{Predicted~}m\textrm{-value~/~kcal~mol^{-1}}",
-        legend=:bottomright,
+#        legend=:bottomright,
         subplot=1,
     )
     f = fitlinear(exp, mab)
@@ -109,20 +109,36 @@ function other_osmolytes()
         ),
         subplot=1,
     )
-    bar!(plt, 1000 * (mab .- mhfit) ./ l; 
-        xticks = (eachindex(name), [ "$(name[i])-$(osmo[i])" for i in eachindex(name) ]),
-        xrotation=90,
-        ylabel=L"\Delta m \textrm{-value~per~residue~/~cal~mol^{-1}}",
-        ylims=(-3.0, 3.0),
-        label="",
+    groupedbar!(plt,
+        repeat(collect("$(name[i])-$(osmo[i])" for i in eachindex(name)); outer=3),
+        vcat(exp, mab, mhfit),
+        group=categorical(
+            repeat([ "Experimental" , "AutonBolen", "MoeserHorinekFit"]; inner=length(name)),
+            levels=[ "Experimental" , "AutonBolen", "MoeserHorinekFit"], 
+        ),
         xlabel="",
-        subplot=2,
+        #xticks=:none,
+        ylims=(-0.5, 7.5),
+        xticks = (eachindex(name), [ "$(name[i])-$(osmo[i])" for i in eachindex(name) ]),
+        xrotation=70,
         topmargin=0.0Plots.Measures.cm,
+        ylabel=L"\textrm{Predicted~}m\textrm{-value~/~kcal~mol^{-1}}",
+        subplot=2,
     )
+    #bar!(plt, 1000 * (mab .- mhfit) ./ l; 
+    #    xticks = (eachindex(name), [ "$(name[i])-$(osmo[i])" for i in eachindex(name) ]),
+    #    xrotation=90,
+    #    ylabel=L"\Delta m \textrm{-value~per~residue~/~cal~mol^{-1}}",
+    #    ylims=(-3.0, 3.0),
+    #    label="",
+    #    xlabel="",
+    #    subplot=2,
+    #    topmargin=0.0Plots.Measures.cm,
+    #)
     plot!(plt,
         size=(800,800),
     )
-    annotate!(plt, -3, 3.2, text("A)", "Computer Modern", 14); subplot=2)
-    annotate!(plt, -3, 11, text("B)", "Computer Modern", 14); subplot=2)
+    annotate!(plt, -3, 7.5, text("A)", "Computer Modern", 14); subplot=2)
+    annotate!(plt, -3, 18.3, text("B)", "Computer Modern", 14); subplot=2)
     return plt
 end

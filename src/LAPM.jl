@@ -6,6 +6,9 @@ using PDBTools
 using OrderedCollections
 using LaTeXStrings
 using Measurements
+using StatsPlots
+using CategoricalArrays
+
 # At the end, qualify everything and remove the above using
 using PDBTools:
     PDBTools,
