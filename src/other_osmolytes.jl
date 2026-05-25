@@ -58,6 +58,22 @@ ab_table = OrderedDict(
     ),
 )
 
+const os_pdb_files = Dict(
+    "2AZS" => joinpath(@__DIR__, "data", "pdb", "2AZS.cif"),
+    "2RMM" => joinpath(@__DIR__, "data", "pdb", "2RMM.cif"),
+    "1A6F" => joinpath(@__DIR__, "data", "pdb", "1A6F_clean.pdb"),
+    "1AKE" => joinpath(@__DIR__, "data", "pdb", "1AKE_clean.pdb"),
+    "1IL8" => joinpath(@__DIR__, "data", "pdb", "1IL8_clean.pdb"),
+    "1OT8_4-7" => joinpath(@__DIR__, "data", "pdb", "1OT8_4-7_clean.pdb"),
+    "1OT8_1-7" => joinpath(@__DIR__, "data", "pdb", "1OT8_1-7_clean.pdb"),
+    "2BU4" => joinpath(@__DIR__, "data", "pdb", "2BU4_clean.pdb"),
+    "2BU4_2" => joinpath(@__DIR__, "data", "pdb", "2BU4_2_clean.pdb"),
+    "1BTA" => joinpath(@__DIR__, "data", "pdb", "1BTA_clean.pdb"),
+    "1RNB" => joinpath(@__DIR__, "data", "pdb", "1RNB_clean.pdb"),
+    "1A6F" => joinpath(@__DIR__, "data", "pdb", "1A6F_clean.pdb"),
+    "2SNS" => joinpath(@__DIR__, "data", "pdb", "2SNS_clean.pdb"),
+)
+
 function other_osmolytes(; type=2)
     name = String[]
     osmo = String[]
@@ -71,7 +87,7 @@ function other_osmolytes(; type=2)
             nres = ab_table[osm][pdb][2]
             _exp = ab_table[osm][pdb][3]
             _ab_orig = ab_table[osm][pdb][4]
-            p = read_pdb(joinpath(@__DIR__,"data/pdb/$(pdb)_clean.pdb"))
+            p = read_pdb(os_pdb_files[pdb])
             if length(eachresidue(p)) != nres
                 error("Wrong number of residues for $pdb")
             end
