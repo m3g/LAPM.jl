@@ -29,7 +29,7 @@ ab_table = OrderedDict(
         "1BTA" => ("protein", 89, 2330, 2008),
         "2BU4" => ("protein", 104, 1780, 1495),
         "1OT8_4-7" => ("protein", 123, 2793, 2798),
-        "1IL8" => ("protein", 142, 451, 134),
+        "1IL8" => ("protein", 142, 451, 2648), # obs: the data in the original table of the manuscript (134) does not match the server prediction
         "1AKE" => ("protein and chain A and not resnum 110 to 164", 159, 1581, 3518),
     ),
     "betaine" => OrderedDict(
@@ -54,16 +54,18 @@ ab_table = OrderedDict(
 #        "1AKE" => ("protein and chain A and not resnum 110 to 164", 159, 771, -81),
 #    ),
     "sorbitol" => OrderedDict(
-        "1AKE" => ("protein and chain A and not resnum 110 to 164", 159, 4435, 4741),
+        "1AKE" => ("protein and chain A and not resnum 110 to 164", 159, 2139, 2331),
     ),
 )
 
 function other_osmolytes()
     name = String[]
+    osmo = String[]
     mhfit = Float64[]
     mab = Float64[]
     mab_orig = Float64[]
     exp = Float64[]
+    l = Int[]
     for osm in keys(ab_table)
         for pdb in keys(ab_table[osm])
             nres = ab_table[osm][pdb][2]
@@ -77,11 +79,50 @@ function other_osmolytes()
             _m_ab = mvalue(cm, osm; model=AutonBolen).tot
             _m_mhfit = mvalue(cm, osm; model=MoeserHorinekFit).tot
             push!(name, pdb)
+            push!(osmo, osm)
+            push!(l, nres)
             push!(exp, _exp / 1000)
             push!(mab_orig, _ab_orig / 1000)
             push!(mab, _m_ab)
             push!(mhfit, _m_mhfit)
         end
     end
-    return name, exp, mab_orig, mab, mhfit
+    #return name, exp, mab_orig, mab, mhfit
+    plt = plot(MolSimStyle, layout=(2,1))
+    scatter!(plt, exp, mab; label="AutonBolen", subplot=1)
+    scatter!(plt, exp, mhfit; label="MoeserHorinekFit", subplot=1)
+    plot!(plt,
+        xlabel=L"\textrm{Experimental~}m\textrm{-value~/~kcal~mol^{-1}}",
+        ylabel=L"\textrm{Predicted~}m\textrm{-value~/~kcal~mol^{-1}}",
+        legend=:bottomright,
+        subplot=1,
+    )
+    f = fitlinear(exp, mab)
+    plot!(plt, f.x, f.y; label="", color=1, ls=:dash, subplot=1)
+    f = fitlinear(exp, mhfit)
+    plot!(plt, f.x, f.y; label="", color=2, ls=:dash, subplot=1)
+    annotate!(plt, 5.3, 4, 
+        text(
+            latexstring("y=$(round(f.a; digits=2))x+$(round(f.b; digits=2)); R^2=$(round(f.R2; digits=2))"),
+            "Computer Modern",
+            10,
+        ),
+        subplot=1,
+    )
+    bar!(plt, 1000 * (mab .- mhfit) ./ l; 
+        xticks = (eachindex(name), [ "$(name[i])-$(osmo[i])" for i in eachindex(name) ]),
+        xrotation=90,
+        ylabel=L"\Delta m \textrm{-value~per~residue~/~cal~mol^{-1}}",
+        ylims=(-3.0, 3.0),
+        label="",
+        xlabel="",
+        subplot=2,
+        topmargin=0.0Plots.Measures.cm,
+    )
+    plot!(plt,
+        size=(800,800),
+    )
+    annotate!(plt, -3, 3.2, text("A)", "Computer Modern", 14); subplot=2)
+    annotate!(plt, -3, 11, text("B)", "Computer Modern", 14); subplot=2)
+    return plt
 end
