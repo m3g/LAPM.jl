@@ -346,5 +346,6 @@ include("./per_atom_type/get_sasa_per_type.jl")
 include("./per_atom_type/creamer_per_atom.jl")
 include("./MH_fit_to_AB.jl")
 include("rydeen.jl")
+include("./other_osmolytes.jl")
 
 end
