@@ -4,7 +4,7 @@ Publications directly cited in the companion paper, organized by topic.
 
 ## Companion paper
 
-* A. B. B. Lima, A. F. Pereira, L. V. Araújo, W. Tárraga, C. A. Tavares, J. de Oliveira Araújo, L. Martínez, **Additive Transfer Free Energy Models of Osmolyte Effects on Protein Conformations: Self-contained, Free, Fast Implementations with a Novel Glycine-Activity Corrections for Multi-Cosolvent Predictions**, 2026.
+* A. B. B. Lima, A. F. Pereira, L. V. Araújo, W. Tárraga, C. A. Tavares, J. de Oliveira Araújo, L. Martínez, **Osmolyte Effects on Protein Conformations: Self-contained, Free, Fast Implementations of Additive Transfer Models with Novel Glycine-Activity Corrections for Multi-Cosolvent Predictions**, 2026.
 
 ## Tanford additive transfer model
 

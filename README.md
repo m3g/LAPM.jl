@@ -8,7 +8,7 @@
 Supplementary information repository for the paper:
 
 > A. B. B. Lima, A. F. Pereira, L. V. Araújo, W. Tárraga, C. A. Tavares, J. de Oliveira Araújo, L. Martínez,
-> **Additive Transfer Free Energy Models of Osmolyte Effects on Protein Conformations: Self-contained, Free, Fast Implementations with a Novel Glycine-Activity Corrections for Multi-Cosolvent Predictions**, 2026.
+> **Osmolyte Effects on Protein Conformations: Self-contained, Free, Fast Implementations of Additive Transfer Models with Novel Glycine-Activity Corrections for Multi-Cosolvent Predictions**, 2026.
 
 This package contains the validation scripts, reference datasets, and analysis code used to benchmark the Auton–Bolen (AB), Moeser–Horinek (MH), and MoeserHorinekFit implementations available in [PDBTools.jl](https://m3g.github.io/PDBTools.jl).
 

@@ -1,6 +1,6 @@
 # Introduction
 
-This repository ([LAPM.jl](https://github.com/m3g/LAPM.jl)) is the supplementary information package for the paper *"Additive Transfer Free Energy Models of Osmolyte Effects on Protein Conformations: Self-contained, Free, Fast Implementations with a Novel Glycine-Activity Corrections for Multi-Cosolvent Predictions"* (Lima et al., 2026). It contains the validation scripts, reference datasets, and analysis code used to benchmark the implementations of the Auton–Bolen (AB), Moeser–Horinek (MH), and MoeserHorinekFit models available in [PDBTools.jl](https://m3g.github.io/PDBTools.jl).
+This repository ([LAPM.jl](https://github.com/m3g/LAPM.jl)) is the supplementary information package for the paper *"Osmolyte Effects on Protein Conformations: Self-contained, Free, Fast Implementations of Additive Transfer Models with Novel Glycine-Activity Corrections for Multi-Cosolvent Predictions"* (Lima et al., 2026). It contains the validation scripts, reference datasets, and analysis code used to benchmark the implementations of the Auton–Bolen (AB), Moeser–Horinek (MH), and MoeserHorinekFit models available in [PDBTools.jl](https://m3g.github.io/PDBTools.jl).
 
 ## Installation
 
