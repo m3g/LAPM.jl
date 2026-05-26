@@ -305,6 +305,7 @@ function plot_experimental(
     cosolvent="urea";
     sasas_from::Function=creamer_sasa
 )
+    scalefontsizes()
     plt = plot(layout=(1,length(models)))
     cosolvent = lowercase(cosolvent)
     cosolvent_exp = cosolvent == "urea-app" ? "urea" : cosolvent
@@ -352,5 +353,6 @@ include("./MH_fit_to_AB.jl")
 include("rydeen.jl")
 include("./other_osmolytes.jl")
 include("./alfa_beta.jl")
+include("./generate_figures.jl")
 
 end

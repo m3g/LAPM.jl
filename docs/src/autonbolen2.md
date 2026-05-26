@@ -1,64 +1,79 @@
 # Auton & Bolen (Server SASAs)
 
-```@example mvalue
+These plots show AutonBolen m-value predictions computed using the SASA values obtained directly from the AB server, compared against the server's own m-value outputs. Agreement is essentially exact for all seven cosolvents (R² ≈ 1), confirming that the group transfer free energy parameters and SASA decomposition are correctly implemented in PDBTools.jl.
+
+```julia
 using LAPM
 ```
 
-These plots show AutonBolen m-value predictions computed using the SASA values obtained directly from the AB server, compared against the server's own m-value outputs. Agreement is essentially exact for all seven cosolvents (R² ≈ 1), confirming that the group transfer free energy parameters and SASA decomposition are correctly implemented in PDBTools.jl.
+## Urea — Figure S17
 
-## Urea
-
-```@example mvalue
+```julia
 plot_mvalue(AutonBolen, "urea"; sasas_from=LAPM.server_sasa)
 ```
 
-## TMAO
+![Figure S17](./figures/fig_S17_autonbolen_server_urea.svg)
 
-```@example mvalue
+## TMAO — Figure S18
+
+```julia
 plot_mvalue(AutonBolen, "tmao"; sasas_from=LAPM.server_sasa)
 ```
 
-## Sucrose
+![Figure S18](./figures/fig_S18_autonbolen_server_tmao.svg)
 
-```@example mvalue
+## Sucrose — Figure S19
+
+```julia
 plot_mvalue(AutonBolen, "sucrose"; sasas_from=LAPM.server_sasa)
 ```
 
-## Betaine 
+![Figure S19](./figures/fig_S19_autonbolen_server_sucrose.svg)
 
-```@example mvalue
+## Betaine — Figure S20
+
+```julia
 plot_mvalue(AutonBolen, "betaine"; sasas_from=LAPM.server_sasa)
 ```
 
-## Sarcosine
+![Figure S20](./figures/fig_S20_autonbolen_server_betaine.svg)
 
-```@example mvalue
+## Sarcosine — Figure S21
+
+```julia
 plot_mvalue(AutonBolen, "sarcosine"; sasas_from=LAPM.server_sasa)
 ```
 
-## Proline
+![Figure S21](./figures/fig_S21_autonbolen_server_sarcosine.svg)
 
-```@example mvalue
+## Proline — Figure S22
+
+```julia
 plot_mvalue(AutonBolen, "proline"; sasas_from=LAPM.server_sasa)
 ```
 
-## Sorbitol
+![Figure S22](./figures/fig_S22_autonbolen_server_proline.svg)
 
-```@example mvalue
+## Sorbitol — Figure S23
+
+```julia
 plot_mvalue(AutonBolen, "sorbitol"; sasas_from=LAPM.server_sasa)
 ```
 
-## Glycerol
+![Figure S23](./figures/fig_S23_autonbolen_server_sorbitol.svg)
 
-```@example mvalue
+## Glycerol — Figure S24
+
+```julia
 plot_mvalue(AutonBolen, "glycerol"; sasas_from=LAPM.server_sasa)
 ```
 
-## Trehalose
+![Figure S24](./figures/fig_S24_autonbolen_server_glycerol.svg)
 
-```@example mvalue
+## Trehalose — Figure S25
+
+```julia
 plot_mvalue(AutonBolen, "trehalose"; sasas_from=LAPM.server_sasa)
 ```
 
-
-
+![Figure S25](./figures/fig_S25_autonbolen_server_trehalose.svg)

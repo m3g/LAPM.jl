@@ -29,12 +29,12 @@ function run_get_creamer_sasa()
     # Function that reproduces Figure 2 of Creamer paper:
     #
     plt = plot_cd_creamer(mean_asa_restype)
-    savefig("$(@__DIR__)/output/creamer_fig2.png")
+    savefig("$(@__DIR__)/output/creamer_fig2.svg")
     #
     # Comparing the ASAs obtained here with those reported by Creamer:
     #
     plt = scatter_cremer_vs_current(mean_asa_restype; n=17)
-    savefig("$(@__DIR__)/output/ASA_creamer_vs_LAPM.png")
+    savefig("$(@__DIR__)/output/ASA_creamer_vs_LAPM.svg")
     # This will be used to generate the atom-type model
     mean_asa_atomtype = creamer_data_per_atom(;proteins=proteins)
     JSON.json("$(@__DIR__)/output/creamer_per_atom.json", mean_asa_atomtype; pretty=true)
@@ -200,6 +200,24 @@ function creamer_data_per_residue(;proteins=protein_list)
     end
 
     return mean_asa_restype
+end
+
+function load_creamer_per_residue(
+    jsonfile = joinpath(@__DIR__, "output", "creamer_per_residue.json")
+)
+    raw = JSON.parsefile(jsonfile)
+    OrderedDict(
+        parse(Int, lk) => OrderedDict(
+            rk => (
+                bb_lower = rv["bb_lower"],
+                bb_upper = rv["bb_upper"],
+                sc_lower = rv["sc_lower"],
+                sc_upper = rv["sc_upper"],
+            )
+            for (rk, rv) in sort(collect(lv); by=p -> p.first)
+        )
+        for (lk, lv) in sort(collect(raw); by=p -> parse(Int, p.first))
+    )
 end
 
 function plot_cd_creamer(mean_asa_restype)

@@ -1,9 +1,5 @@
 using Documenter
 
-per_atom_type_dir="$(@__DIR__)/../src/per_atom_type/output/"
-cp("$(per_atom_type_dir)/ASA_creamer_vs_LAPM.png","$(@__DIR__)/src/figures/ASA_creamer_vs_LAPM.png"; force=true)
-cp("$(per_atom_type_dir)/creamer_fig2.png","$(@__DIR__)/src/figures/creamer_fig2.png"; force=true)
-
 makedocs(
     sitename="LAPM.jl",
     format = Documenter.HTML(
@@ -13,14 +9,14 @@ makedocs(
     pages=[
         "Introduction" => "index.md",
         "Installation" => "installation.md",
-        "Creamer ASAs (Figs. S1-S2)" => "creamer_ASA.md",
-        "Auton & Bolen (Creamer) (Figs. S3-S11)" => "autonbolen.md",
-        "Auton & Bolen (Server)" => "autonbolen2.md",
-        "Moeser & Horinek" => "moeserhorinek.md",
-        "M&H vs A&B (Figs. S12-S20)" => "mh_vs_ab.md",
-        "MoeserHorinekFit (Figs. S21-S29)" => "mh_vs_ab_fit.md",
-        "Fold families (Figs. S30-S47)" => "alpha_beta.md",
-        "Experimental (Fig. S48)" => "experimental.md",
+        "Creamer ASAs (Figs. S4-S7)" => "creamer_ASA.md",
+        "Auton & Bolen (Creamer) (Figs. S8-S16)" => "autonbolen.md",
+        "Auton & Bolen (Server) (Figs. S17-S25)" => "autonbolen2.md",
+        "Moeser & Horinek (Figs. S26-S27)" => "moeserhorinek.md",
+        "M&H vs A&B (Figs. S28-S29)" => "mh_vs_ab.md",
+        "MoeserHorinekFit (Figs. S30-S39)" => "mh_vs_ab_fit.md",
+        "Fold families (Figs. S40-S48)" => "alpha_beta.md",
+        "Experimental (Figs. S49-S58)" => "experimental.md",
         "References" => "references.md",
     ],
 )

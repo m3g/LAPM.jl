@@ -2,63 +2,80 @@
 
 Using the `MoeserHorinekFit` model, these plots show the distribution of total, backbone, and side-chain m-value contributions per residue across the full set of non-homologous proteins from the CATH-S20 database (~15k domains), classified into mainly-α (3936 models) and mainly-β (3131 models) folds. The analysis reveals that urea interacts similarly with both fold classes, while proline shows an asymmetry in side-chain interactions that leads to stronger favorable interactions with β-folds than with helical structures. These results correspond to Figure 7 of the paper.
 
-```@example ab
+```julia
 using LAPM
-import DataFrames
-import CSV
+import DataFrames, CSV
 df = CSV.read(cath_data_file, DataFrames.DataFrame);
 ```
 
-## Urea — Figures S30–S31
+## Urea — Figure S40
 
-```@example ab
+```julia
 plot_cosolvent(df, "urea")
 ```
 
-## TMAO — Figures S32–S33
+![Figure S40](./figures/fig_S40_alpha_beta_urea.svg)
 
-```@example ab
+## TMAO — Figure S41
+
+```julia
 plot_cosolvent(df, "tmao")
 ```
 
-## Proline — Figures S34–S35
+![Figure S41](./figures/fig_S41_alpha_beta_tmao.svg)
 
-```@example ab
+## Proline — Figure S42
+
+```julia
 plot_cosolvent(df, "proline")
 ```
 
-## Sarcosine — Figures S36–S37
+![Figure S42](./figures/fig_S42_alpha_beta_proline.svg)
 
-```@example ab
+## Sarcosine — Figure S43
+
+```julia
 plot_cosolvent(df, "sarcosine")
 ```
 
-## Betaine — Figures S38–S39
+![Figure S43](./figures/fig_S43_alpha_beta_sarcosine.svg)
 
-```@example ab
+## Betaine — Figure S44
+
+```julia
 plot_cosolvent(df, "betaine")
 ```
 
-## Sorbitol — Figures S40–S41
+![Figure S44](./figures/fig_S44_alpha_beta_betaine.svg)
 
-```@example ab
+## Sorbitol — Figure S45
+
+```julia
 plot_cosolvent(df, "sorbitol")
 ```
 
-## Sucrose — Figures S42–S43
+![Figure S45](./figures/fig_S45_alpha_beta_sorbitol.svg)
 
-```@example ab
+## Sucrose — Figure S46
+
+```julia
 plot_cosolvent(df, "sucrose")
 ```
 
-## Glycerol — Figures S44–S45
+![Figure S46](./figures/fig_S46_alpha_beta_sucrose.svg)
 
-```@example ab
+## Glycerol — Figure S47
+
+```julia
 plot_cosolvent(df, "glycerol")
 ```
 
-## Trehalose — Figures S46–S47
+![Figure S47](./figures/fig_S47_alpha_beta_glycerol.svg)
 
-```@example ab
+## Trehalose — Figure S48
+
+```julia
 plot_cosolvent(df, "trehalose")
 ```
+
+![Figure S48](./figures/fig_S48_alpha_beta_trehalose.svg)

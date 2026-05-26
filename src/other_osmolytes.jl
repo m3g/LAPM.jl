@@ -75,6 +75,7 @@ const os_pdb_files = Dict(
 )
 
 function other_osmolytes(; type=2)
+    scalefontsizes()
     name = String[]
     osmo = String[]
     mhfit = Float64[]

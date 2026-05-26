@@ -4,7 +4,7 @@ This repository ([LAPM.jl](https://github.com/m3g/LAPM.jl)) is the supplementary
 
 ## Installation
 
-```@example mvalue
+```julia
 using LAPM
 ```
 
@@ -13,29 +13,32 @@ can then be edited there.
 
 ## Examples
 
-### Moeser & Horinek: Urea
+### Moeser & Horinek: Urea — Figure S1
 
 Compute and compare predictions with the Moeser & Horinek model, for urea:
 
-```@example mvalue
+```julia
 plot_mvalue(MoeserHorinek, "urea")
 ```
 
-### Auton & Bolen: Urea
+![Figure S1](./figures/fig_S01_index_mh_urea.svg)
+
+### Auton & Bolen: Urea — Figure S2
 
 Plot comparison with Auton & Bolen, for urea:
 
-```@example mvalue
+```julia
 plot_mvalue(AutonBolen, "urea")
 ```
 
-### Auton & Bolen: TMAO
+![Figure S2](./figures/fig_S02_index_ab_urea.svg)
+
+### Auton & Bolen: TMAO — Figure S3
 
 Plot comparison with Auton & Bolen, for another solvent (TMAO):
 
-```@example mvalue
+```julia
 plot_mvalue(AutonBolen, "tmao")
 ```
 
-
-
+![Figure S3](./figures/fig_S03_index_ab_tmao.svg)

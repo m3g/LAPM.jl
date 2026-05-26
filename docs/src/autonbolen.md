@@ -1,63 +1,79 @@
 # Auton & Bolen (Creamer SASAs)
 
-```@example mvalue
+These plots validate the AutonBolen m-value predictions computed with Creamer denatured-state SASAs against those obtained from the AB server, for all nine cosolvents. The excellent agreement (R² ≈ 1) shown here corresponds to Figure 1 of the paper, confirming that the reparameterized Creamer model is a reliable surrogate for the server SASA across all cosolvents.
+
+```julia
 using LAPM
 ```
 
-These plots validate the AutonBolen m-value predictions computed with Creamer denatured-state SASAs against those obtained from the AB server, for all nine cosolvents. The excellent agreement (R² ≈ 1) shown here corresponds to Figure 1 of the paper, confirming that the reparameterized Creamer model is a reliable surrogate for the server SASA across all cosolvents.
+## Urea — Figure S8
 
-## Urea — Figure S3
-
-```@example mvalue
+```julia
 plot_mvalue(AutonBolen, "urea")
 ```
 
-## TMAO — Figure S4
+![Figure S8](./figures/fig_S08_autonbolen_creamer_urea.svg)
 
-```@example mvalue
+## TMAO — Figure S9
+
+```julia
 plot_mvalue(AutonBolen, "tmao")
 ```
 
-## Sucrose — Figure S5
+![Figure S9](./figures/fig_S09_autonbolen_creamer_tmao.svg)
 
-```@example mvalue
+## Sucrose — Figure S10
+
+```julia
 plot_mvalue(AutonBolen, "sucrose")
 ```
 
-## Betaine — Figure S6
+![Figure S10](./figures/fig_S10_autonbolen_creamer_sucrose.svg)
 
-```@example mvalue
+## Betaine — Figure S11
+
+```julia
 plot_mvalue(AutonBolen, "betaine")
 ```
 
-## Sarcosine — Figure S7
+![Figure S11](./figures/fig_S11_autonbolen_creamer_betaine.svg)
 
-```@example mvalue
+## Sarcosine — Figure S12
+
+```julia
 plot_mvalue(AutonBolen, "sarcosine")
 ```
 
-## Proline — Figure S8
+![Figure S12](./figures/fig_S12_autonbolen_creamer_sarcosine.svg)
 
-```@example mvalue
+## Proline — Figure S13
+
+```julia
 plot_mvalue(AutonBolen, "proline")
 ```
 
-## Sorbitol — Figure S9
+![Figure S13](./figures/fig_S13_autonbolen_creamer_proline.svg)
 
-```@example mvalue
+## Sorbitol — Figure S14
+
+```julia
 plot_mvalue(AutonBolen, "sorbitol")
 ```
 
-## Glycerol — Figure S10
+![Figure S14](./figures/fig_S14_autonbolen_creamer_sorbitol.svg)
 
-```@example mvalue
+## Glycerol — Figure S15
+
+```julia
 plot_mvalue(AutonBolen, "glycerol")
 ```
 
-## Trehalose — Figure S11
+![Figure S15](./figures/fig_S15_autonbolen_creamer_glycerol.svg)
 
-```@example mvalue
+## Trehalose — Figure S16
+
+```julia
 plot_mvalue(AutonBolen, "trehalose")
 ```
 
-
+![Figure S16](./figures/fig_S16_autonbolen_creamer_trehalose.svg)

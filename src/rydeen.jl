@@ -166,7 +166,7 @@ function plot_rydeen_dimmer(
         end
     end
     plt = plot(MolSimStyle)
-    @show extrema(val[2] - val[1] for (_, val) in predictions)
+    # @show extrema(val[2] - val[1] for (_, val) in predictions)
 
     exp = [ val[1] for (key, val) in rydeen ]
     preds = [ val[1] for (key, val) in predictions ]
