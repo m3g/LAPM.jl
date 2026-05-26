@@ -4,9 +4,9 @@ Using the `MoeserHorinekFit` model, these plots show the distribution of total, 
 
 ```@example ab
 using LAPM
-using DataFrames
-using CSV
-df = CSV.read(cath_data_file, DataFrame);
+import DataFrames
+import CSV
+df = CSV.read(cath_data_file, DataFrames.DataFrame);
 ```
 
 ## Urea
