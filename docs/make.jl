@@ -6,15 +6,21 @@ cp("$(per_atom_type_dir)/creamer_fig2.png","$(@__DIR__)/src/figures/creamer_fig2
 
 makedocs(
     sitename="LAPM.jl",
+    format = Documenter.HTML(
+        size_threshold = 30_000_000,       # 30 MiB — needed for alpha_beta.md (density plots over ~15k structures)
+        size_threshold_warn = 5_000_000,   # warn above 5 MiB
+    ),
     pages=[
         "Introduction" => "index.md",
-        "Auton & Bolen (Creamer)" => "autonbolen.md",
+        "Installation" => "installation.md",
+        "Creamer ASAs (Figs. S1-S2)" => "creamer_ASA.md",
+        "Auton & Bolen (Creamer) (Figs. S3-S11)" => "autonbolen.md",
         "Auton & Bolen (Server)" => "autonbolen2.md",
         "Moeser & Horinek" => "moeserhorinek.md",
-        "M&H vs A&B" => "mh_vs_ab.md",
-        "MoeserHorinekFit" => "mh_vs_ab_fit.md",
-        "Experimental" => "experimental.md",
-        "Creamer ASAs" => "creamer_ASA.md",
+        "M&H vs A&B (Figs. S12-S20)" => "mh_vs_ab.md",
+        "MoeserHorinekFit (Figs. S21-S29)" => "mh_vs_ab_fit.md",
+        "Fold families (Figs. S30-S47)" => "alpha_beta.md",
+        "Experimental (Fig. S48)" => "experimental.md",
         "References" => "references.md",
     ],
 )

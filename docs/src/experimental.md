@@ -28,7 +28,7 @@ plot_experimental(AutonBolen; sasas_from=LAPM.server_sasa)
 
 ## Other osmolytes
 
-### Using mean denatured Creamer model
+### Using mean denatured Creamer model — Figure S48
 
 ```@example mvalue
 other_osmolytes(; type=2)
@@ -48,7 +48,7 @@ other_osmolytes(; type=1)
 
 ## SH3 and DM1 - Pielak data.
 
-Pannel A is for unfolding of SH3, pannel B for the dissociation of the GB1 dimer.
+Panel A is for unfolding of SH3, panel B for the dissociation of the GB1 dimer.
 
 ```@example mvalue
 using PDBTools

@@ -6,55 +6,55 @@ using LAPM
 
 These plots validate the AutonBolen m-value predictions computed with Creamer denatured-state SASAs against those obtained from the AB server, for all nine cosolvents. The excellent agreement (R² ≈ 1) shown here corresponds to Figure 1 of the paper, confirming that the reparameterized Creamer model is a reliable surrogate for the server SASA across all cosolvents.
 
-## Urea
+## Urea — Figure S3
 
 ```@example mvalue
 plot_mvalue(AutonBolen, "urea")
 ```
 
-## TMAO
+## TMAO — Figure S4
 
 ```@example mvalue
 plot_mvalue(AutonBolen, "tmao")
 ```
 
-## Sucrose
+## Sucrose — Figure S5
 
 ```@example mvalue
 plot_mvalue(AutonBolen, "sucrose")
 ```
 
-## Betaine 
+## Betaine — Figure S6
 
 ```@example mvalue
 plot_mvalue(AutonBolen, "betaine")
 ```
 
-## Sarcosine
+## Sarcosine — Figure S7
 
 ```@example mvalue
 plot_mvalue(AutonBolen, "sarcosine")
 ```
 
-## Proline
+## Proline — Figure S8
 
 ```@example mvalue
 plot_mvalue(AutonBolen, "proline")
 ```
 
-## Sorbitol
+## Sorbitol — Figure S9
 
 ```@example mvalue
 plot_mvalue(AutonBolen, "sorbitol")
 ```
 
-## Glycerol
+## Glycerol — Figure S10
 
 ```@example mvalue
 plot_mvalue(AutonBolen, "glycerol")
 ```
 
-## Trehalose
+## Trehalose — Figure S11
 
 ```@example mvalue
 plot_mvalue(AutonBolen, "trehalose")

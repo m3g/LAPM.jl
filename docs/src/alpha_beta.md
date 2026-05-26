@@ -9,55 +9,55 @@ import CSV
 df = CSV.read(cath_data_file, DataFrames.DataFrame);
 ```
 
-## Urea
+## Urea — Figures S30–S31
 
 ```@example ab
 plot_cosolvent(df, "urea")
 ```
 
-## TMAO
+## TMAO — Figures S32–S33
 
 ```@example ab
 plot_cosolvent(df, "tmao")
 ```
 
-## Proline
+## Proline — Figures S34–S35
 
 ```@example ab
 plot_cosolvent(df, "proline")
 ```
 
-## Sarcosine
+## Sarcosine — Figures S36–S37
 
 ```@example ab
 plot_cosolvent(df, "sarcosine")
 ```
 
-## Betaine
+## Betaine — Figures S38–S39
 
 ```@example ab
 plot_cosolvent(df, "betaine")
 ```
 
-## Sorbitol
+## Sorbitol — Figures S40–S41
 
 ```@example ab
 plot_cosolvent(df, "sorbitol")
 ```
 
-## Sucrose
+## Sucrose — Figures S42–S43
 
 ```@example ab
 plot_cosolvent(df, "sucrose")
 ```
 
-## Glycerol
+## Glycerol — Figures S44–S45
 
 ```@example ab
 plot_cosolvent(df, "glycerol")
 ```
 
-## Trehalose
+## Trehalose — Figures S46–S47
 
 ```@example ab
 plot_cosolvent(df, "trehalose")

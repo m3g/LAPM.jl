@@ -16,55 +16,55 @@ plot_MH_vs_AB("urea"; m1=MoeserHorinek, m2=MoeserHorinekFit)
 
 ## Against Auton&Bolen
 
-### Urea 
+### Urea — Figure S21
 
 ```@example mvalue
 plot_MH_vs_AB("urea"; m1=AutonBolen, m2=MoeserHorinekFit)
 ```
 
-### TMAO
+### TMAO — Figure S22
 
 ```@example mvalue
 plot_MH_vs_AB("tmao"; m1=AutonBolen, m2=MoeserHorinekFit)
 ```
 
-### Sarcosine
+### Sarcosine — Figure S23
 
 ```@example mvalue
 plot_MH_vs_AB("sarcosine"; m1=AutonBolen, m2=MoeserHorinekFit)
 ```
 
-### Proline
+### Proline — Figure S24
 
 ```@example mvalue
 plot_MH_vs_AB("proline"; m1=AutonBolen, m2=MoeserHorinekFit)
 ```
 
-### Sorbitol
+### Sorbitol — Figure S25
 
 ```@example mvalue
 plot_MH_vs_AB("sorbitol"; m1=AutonBolen, m2=MoeserHorinekFit)
 ```
 
-### Sucrose
+### Sucrose — Figure S26
 
 ```@example mvalue
 plot_MH_vs_AB("sucrose"; m1=AutonBolen, m2=MoeserHorinekFit)
 ```
 
-### Betaine
+### Betaine — Figure S27
 
 ```@example mvalue
 plot_MH_vs_AB("sucrose"; m1=AutonBolen, m2=MoeserHorinekFit)
 ```
 
-### Glycerol
+### Glycerol — Figure S28
 
 ```@example mvalue
 plot_MH_vs_AB("glycerol"; m1=AutonBolen, m2=MoeserHorinekFit)
 ```
 
-### Trehalose
+### Trehalose — Figure S29
 
 ```@example mvalue
 plot_MH_vs_AB("trehalose"; m1=AutonBolen, m2=MoeserHorinekFit)
