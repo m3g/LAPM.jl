@@ -30,7 +30,7 @@ data_dir = joinpath(@__DIR__, "data")
 
 modelname(model) = latexstring(
     "\\textrm{"*
-    replace(string(model), "PDBtools." => "")
+    replace(string(model), "PDBTools." => "")
     *"~/~kcal~mol^{-1}}"
 )
 mvaluelabel() = latexstring("m-\\textrm{value~/~kcal~mol^{-1}}")
