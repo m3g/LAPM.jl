@@ -1088,9 +1088,9 @@ version = "10.44.0+1"
 
 [[deps.PDBTools]]
 deps = ["CellListMap", "ChunkSplitters", "Compat", "Dates", "Downloads", "Format", "InlineStrings", "InteractiveUtils", "LinearAlgebra", "MolSimToolkitShared", "OrderedCollections", "PrecompileTools", "Printf", "ProteinSecondaryStructures", "SIMD", "SparseArrays", "StaticArrays", "TestItems"]
-path = "/home/leandro/.julia/dev/PDBTools"
+git-tree-sha1 = "6355e87859f55c3bba2763b401fbbcc685161144"
 uuid = "e29189f1-7114-4dbd-93d0-c5673a921a58"
-version = "3.29.0"
+version = "3.28.0"
 weakdeps = ["Plots"]
 
     [deps.PDBTools.extensions]
