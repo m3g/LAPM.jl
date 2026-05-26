@@ -4,6 +4,8 @@
 using LAPM, PDBTools
 ```
 
+These plots show the novel MoeserHorinekFit model, which extends the MH glycine-activity correction to all cosolvents covered by the AB parameterization. For each cosolvent, a single correction constant $$\gamma$$ is fit so that MoeserHorinekFit total m-value predictions reproduce those of AutonBolen across 36 reference proteins, while retaining the MH universal backbone treatment. The fitted urea correction (≈15 cal mol⁻¹ M⁻¹) closely reproduces the theoretical Moeser–Horinek value, validating the approach. Comparisons against AutonBolen correspond to Figure 3 of the paper; fitted $$\gamma$$ values for all cosolvents are listed in Table 1 of the paper.
+
 ## Against Moeser&Horinek
 
 ### Urea 

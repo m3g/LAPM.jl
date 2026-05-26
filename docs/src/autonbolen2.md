@@ -4,6 +4,8 @@
 using LAPM
 ```
 
+These plots show AutonBolen m-value predictions computed using the SASA values obtained directly from the AB server, compared against the server's own m-value outputs. Agreement is essentially exact for all seven cosolvents (R² ≈ 1), confirming that the group transfer free energy parameters and SASA decomposition are correctly implemented in PDBTools.jl.
+
 ## Urea
 
 ```@example mvalue
