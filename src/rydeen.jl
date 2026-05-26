@@ -6,13 +6,13 @@ export plot_rydeen_both
 
 const rydeen = OrderedDict(
     "TMAO" =>      ( 0.4 ±   0.1,  0.46 ± 0.02 ),
-#    "trehalose" => ( 0.26 ± 0.06,  0.45 ± 0.05 ),
+    "trehalose" => ( 0.26 ± 0.06,  0.45 ± 0.05 ),
     "sarcosine" => ( 0.24 ± 0.03,  0.45 ± 0.02 ),
     "betaine" =>   ( 0.13 ± 0.05,  0.21 ± 0.06 ),
     "proline" =>   ( 0.02 ± 0.07,  0.31 ±0.02 ),
     "sorbitol" =>  (-0.07 ± 0.03,  0.42 ± 0.03 ),
     "sucrose" =>   (-0.08 ± 0.04,  0.38 ± 0.02 ),
-#    "glycerol" =>  (-0.10 ± 0.07,  0.16 ± 0.03 ),
+    "glycerol" =>  (-0.10 ± 0.07,  0.16 ± 0.03 ),
     "urea" =>      (-0.11 ± 0.02,  -0.31 ± 0.04 ),
 )
 
@@ -74,6 +74,8 @@ function plot_rydeen_folding(
         "sorbitol" =>  (0.00, -0.08),
         "sucrose" =>   (-0.10, -0.02 ),
         "urea" =>      (0.0, 0.10),
+        "glycerol" =>  (-0.05, 0.15),
+        "trehalose" => (0.0, 0.05),
     )
     for (i, c) in enumerate(keys(rydeen))
         annotate!(plt, (exp[i].val + s[c][1], preds[i].val + s[c][2], text(c, 8)))
@@ -189,6 +191,8 @@ function plot_rydeen_dimmer(
         "sorbitol" =>  (-0.06, -0.05),
         "sucrose" =>   (0.0, 0.05 ),
         "urea" =>      (0.0, -0.03),
+        "glycerol" =>  (0.0, -0.03),
+        "trehalose" => (0.0, 0.03),
     )
     for (i, c) in enumerate(keys(rydeen))
         annotate!(plt, (exp[i].val + s[c][1], preds[i].val + s[c][2], text(c, 8)))

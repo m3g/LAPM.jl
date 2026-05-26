@@ -50,9 +50,9 @@ ab_table = OrderedDict(
         "2BU4" => ("protein", 104, 1550, 1058),
         "1AKE" => ("protein and chain A and not resnum 110 to 164", 159, 2992, 3372),
     ),
-#    "glycerol" => OrderedDict(
-#        "1AKE" => ("protein and chain A and not resnum 110 to 164", 159, 771, -81),
-#    ),
+    "glycerol" => OrderedDict(
+        "1AKE" => ("protein and chain A and not resnum 110 to 164", 159, 771, -81),
+    ),
     "sorbitol" => OrderedDict(
         "1AKE" => ("protein and chain A and not resnum 110 to 164", 159, 2139, 2331),
     ),

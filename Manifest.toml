@@ -745,7 +745,7 @@ uuid = "c1c5ebd0-6772-5130-a774-d5fcae4a789d"
 version = "3.100.3+0"
 
 [[deps.LAPM]]
-deps = ["BlackBoxOptim", "EasyFit", "JSON", "LaTeXStrings", "LinearAlgebra", "Measurements", "MolSimToolkit", "Optim", "OrderedCollections", "PDBTools", "Plots", "ProgressMeter", "Statistics", "StatsPlots"]
+deps = ["BlackBoxOptim", "CategoricalArrays", "EasyFit", "JSON", "LaTeXStrings", "LinearAlgebra", "Measurements", "MolSimToolkit", "Optim", "OrderedCollections", "PDBTools", "Plots", "ProgressMeter", "Statistics", "StatsPlots"]
 path = "."
 uuid = "900d2f21-6802-4fdd-aec4-3593e8a631ba"
 version = "1.0.0-DEV"
@@ -1088,9 +1088,9 @@ version = "10.44.0+1"
 
 [[deps.PDBTools]]
 deps = ["CellListMap", "ChunkSplitters", "Compat", "Dates", "Downloads", "Format", "InlineStrings", "InteractiveUtils", "LinearAlgebra", "MolSimToolkitShared", "OrderedCollections", "PrecompileTools", "Printf", "ProteinSecondaryStructures", "SIMD", "SparseArrays", "StaticArrays", "TestItems"]
-git-tree-sha1 = "e87d4e385b1deb78d81c49a0f640d545833c1c68"
+path = "/Users/leandro/.julia/dev/PDBTools"
 uuid = "e29189f1-7114-4dbd-93d0-c5673a921a58"
-version = "3.27.1"
+version = "3.27.2-DEV"
 weakdeps = ["Plots"]
 
     [deps.PDBTools.extensions]
