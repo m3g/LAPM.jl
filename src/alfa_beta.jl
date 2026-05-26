@@ -1,9 +1,9 @@
 using PDBTools
-using DataFrames
+import CSV
+import DataFrames as DF
 using ProgressMeter
 using Plots
 using StatsPlots
-using CSV
 using Base.Threads
 using LaTeXStrings
 
@@ -26,14 +26,14 @@ function alpha_beta(cath_pdb_dir)
     cosolvents = ["betaine", "proline", "sarcosine", "sorbitol", "sucrose", "tmao", "urea", "glycerol", "trehalose"]
     files = readdir(cath_pdb_dir)
     cosolvent_cols = [(Symbol(c, "_tot"), Symbol(c, "_bb"), Symbol(c, "_sc")) for c in cosolvents]
-    df = DataFrame(
+    df = DF.DataFrame(
         :entry => String[],
         :length => Int[],
         :class => Int[],
         (col => Float32[] for (tot, bb, sc) in cosolvent_cols for col in (tot, bb, sc))...
     )
     list = CSV.read(
-        "./cath-domain-list.txt", DataFrame; 
+        "./cath-domain-list.txt", DF.DataFrame; 
         header=false, select=[1,2],
         comment="#", delim=' ', ignorerepeated=true
     )
