@@ -46,4 +46,16 @@ plot_mvalue(AutonBolen, "proline")
 plot_mvalue(AutonBolen, "sorbitol")
 ```
 
+## Glycerol
+
+```@example mvalue
+plot_mvalue(AutonBolen, "glycerol")
+```
+
+## Trehalose
+
+```@example mvalue
+plot_mvalue(AutonBolen, "trehalose")
+```
+
 

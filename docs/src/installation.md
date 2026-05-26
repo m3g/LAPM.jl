@@ -2,7 +2,7 @@
 
 ## Install Julia
 
-First you need to install the Julia language, version 1.9 or greater is required. 
+First you need to install the Julia language, version 1.10 or greater is required. 
 Using the [juliaup](https://github.com/JuliaLang/juliaup) tool is a highly recommended way of installing and keeping Julia up to date.
 
 Alternatively, you can install Julia by downloading the binaries directly from [the Julia webpage](https://julialang.org).
@@ -21,4 +21,6 @@ Within Julia, to install the packages required for running the examples here you
 julia> import Pkg
 
 julia> Pkg.develop(url="https://github.com/m3g/LAPM.jl")
+
+julia> using LAPM
 ```

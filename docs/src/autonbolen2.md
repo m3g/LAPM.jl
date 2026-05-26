@@ -46,4 +46,17 @@ plot_mvalue(AutonBolen, "proline"; sasas_from=LAPM.server_sasa)
 plot_mvalue(AutonBolen, "sorbitol"; sasas_from=LAPM.server_sasa)
 ```
 
+## Glycerol
+
+```@example mvalue
+plot_mvalue(AutonBolen, "glycerol"; sasas_from=LAPM.server_sasa)
+```
+
+## Trehalose
+
+```@example mvalue
+plot_mvalue(AutonBolen, "trehalose"; sasas_from=LAPM.server_sasa)
+```
+
+
 

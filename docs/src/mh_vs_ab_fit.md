@@ -55,3 +55,15 @@ plot_MH_vs_AB("sucrose"; m1=AutonBolen, m2=MoeserHorinekFit)
 ```@example mvalue
 plot_MH_vs_AB("sucrose"; m1=AutonBolen, m2=MoeserHorinekFit)
 ```
+
+### Glycerol
+
+```@example mvalue
+plot_MH_vs_AB("glycerol"; m1=AutonBolen, m2=MoeserHorinekFit)
+```
+
+### Trehalose
+
+```@example mvalue
+plot_MH_vs_AB("trehalose"; m1=AutonBolen, m2=MoeserHorinekFit)
+```
