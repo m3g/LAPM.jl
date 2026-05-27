@@ -6,74 +6,74 @@ These plots validate the AutonBolen m-value predictions computed with Creamer de
 using LAPM
 ```
 
-## Urea — Figure S8
+## Urea — Figure S10
 
 ```julia
 plot_mvalue(AutonBolen, "urea")
 ```
 
-![Figure S8](./figures/fig_S08_autonbolen_creamer_urea.svg)
+![Figure S10](./figures/fig_S10_autonbolen_creamer_urea.svg)
 
-## TMAO — Figure S9
+## TMAO — Figure S11
 
 ```julia
 plot_mvalue(AutonBolen, "tmao")
 ```
 
-![Figure S9](./figures/fig_S09_autonbolen_creamer_tmao.svg)
+![Figure S11](./figures/fig_S11_autonbolen_creamer_tmao.svg)
 
-## Sucrose — Figure S10
+## Sucrose — Figure S12
 
 ```julia
 plot_mvalue(AutonBolen, "sucrose")
 ```
 
-![Figure S10](./figures/fig_S10_autonbolen_creamer_sucrose.svg)
+![Figure S12](./figures/fig_S12_autonbolen_creamer_sucrose.svg)
 
-## Betaine — Figure S11
+## Betaine — Figure S13
 
 ```julia
 plot_mvalue(AutonBolen, "betaine")
 ```
 
-![Figure S11](./figures/fig_S11_autonbolen_creamer_betaine.svg)
+![Figure S13](./figures/fig_S13_autonbolen_creamer_betaine.svg)
 
-## Sarcosine — Figure S12
+## Sarcosine — Figure S14
 
 ```julia
 plot_mvalue(AutonBolen, "sarcosine")
 ```
 
-![Figure S12](./figures/fig_S12_autonbolen_creamer_sarcosine.svg)
+![Figure S14](./figures/fig_S14_autonbolen_creamer_sarcosine.svg)
 
-## Proline — Figure S13
+## Proline — Figure S15
 
 ```julia
 plot_mvalue(AutonBolen, "proline")
 ```
 
-![Figure S13](./figures/fig_S13_autonbolen_creamer_proline.svg)
+![Figure S15](./figures/fig_S15_autonbolen_creamer_proline.svg)
 
-## Sorbitol — Figure S14
+## Sorbitol — Figure S16
 
 ```julia
 plot_mvalue(AutonBolen, "sorbitol")
 ```
 
-![Figure S14](./figures/fig_S14_autonbolen_creamer_sorbitol.svg)
+![Figure S16](./figures/fig_S16_autonbolen_creamer_sorbitol.svg)
 
-## Glycerol — Figure S15
+## Glycerol — Figure S17
 
 ```julia
 plot_mvalue(AutonBolen, "glycerol")
 ```
 
-![Figure S15](./figures/fig_S15_autonbolen_creamer_glycerol.svg)
+![Figure S17](./figures/fig_S17_autonbolen_creamer_glycerol.svg)
 
-## Trehalose — Figure S16
+## Trehalose — Figure S18
 
 ```julia
 plot_mvalue(AutonBolen, "trehalose")
 ```
 
-![Figure S16](./figures/fig_S16_autonbolen_creamer_trehalose.svg)
+![Figure S18](./figures/fig_S18_autonbolen_creamer_trehalose.svg)

@@ -8,74 +8,74 @@ import DataFrames, CSV
 df = CSV.read(cath_data_file, DataFrames.DataFrame);
 ```
 
-## Urea — Figure S40
+## Urea — Figure S42
 
 ```julia
 plot_cosolvent(df, "urea")
 ```
 
-![Figure S40](./figures/fig_S40_alpha_beta_urea.svg)
+![Figure S42](./figures/fig_S42_alpha_beta_urea.svg)
 
-## TMAO — Figure S41
+## TMAO — Figure S43
 
 ```julia
 plot_cosolvent(df, "tmao")
 ```
 
-![Figure S41](./figures/fig_S41_alpha_beta_tmao.svg)
+![Figure S43](./figures/fig_S43_alpha_beta_tmao.svg)
 
-## Proline — Figure S42
+## Proline — Figure S44
 
 ```julia
 plot_cosolvent(df, "proline")
 ```
 
-![Figure S42](./figures/fig_S42_alpha_beta_proline.svg)
+![Figure S44](./figures/fig_S44_alpha_beta_proline.svg)
 
-## Sarcosine — Figure S43
+## Sarcosine — Figure S45
 
 ```julia
 plot_cosolvent(df, "sarcosine")
 ```
 
-![Figure S43](./figures/fig_S43_alpha_beta_sarcosine.svg)
+![Figure S45](./figures/fig_S45_alpha_beta_sarcosine.svg)
 
-## Betaine — Figure S44
+## Betaine — Figure S46
 
 ```julia
 plot_cosolvent(df, "betaine")
 ```
 
-![Figure S44](./figures/fig_S44_alpha_beta_betaine.svg)
+![Figure S46](./figures/fig_S46_alpha_beta_betaine.svg)
 
-## Sorbitol — Figure S45
+## Sorbitol — Figure S47
 
 ```julia
 plot_cosolvent(df, "sorbitol")
 ```
 
-![Figure S45](./figures/fig_S45_alpha_beta_sorbitol.svg)
+![Figure S47](./figures/fig_S47_alpha_beta_sorbitol.svg)
 
-## Sucrose — Figure S46
+## Sucrose — Figure S48
 
 ```julia
 plot_cosolvent(df, "sucrose")
 ```
 
-![Figure S46](./figures/fig_S46_alpha_beta_sucrose.svg)
+![Figure S48](./figures/fig_S48_alpha_beta_sucrose.svg)
 
-## Glycerol — Figure S47
+## Glycerol — Figure S49
 
 ```julia
 plot_cosolvent(df, "glycerol")
 ```
 
-![Figure S47](./figures/fig_S47_alpha_beta_glycerol.svg)
+![Figure S49](./figures/fig_S49_alpha_beta_glycerol.svg)
 
-## Trehalose — Figure S48
+## Trehalose — Figure S50
 
 ```julia
 plot_cosolvent(df, "trehalose")
 ```
 
-![Figure S48](./figures/fig_S48_alpha_beta_trehalose.svg)
+![Figure S50](./figures/fig_S50_alpha_beta_trehalose.svg)

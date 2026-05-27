@@ -8,84 +8,84 @@ using LAPM, PDBTools
 
 ## Against Moeser & Horinek
 
-### Urea — Figure S30
+### Urea — Figure S32
 
 ```julia
 plot_MH_vs_AB("urea"; m1=MoeserHorinek, m2=MoeserHorinekFit)
 ```
 
-![Figure S30](./figures/fig_S30_mhfit_vs_mh_urea.svg)
+![Figure S32](./figures/fig_S32_mhfit_vs_mh_urea.svg)
 
 ## Against Auton & Bolen
 
-### Urea — Figure S31
+### Urea — Figure S33
 
 ```julia
 plot_MH_vs_AB("urea"; m1=AutonBolen, m2=MoeserHorinekFit)
 ```
 
-![Figure S31](./figures/fig_S31_mhfit_vs_ab_urea.svg)
+![Figure S33](./figures/fig_S33_mhfit_vs_ab_urea.svg)
 
-### TMAO — Figure S32
+### TMAO — Figure S34
 
 ```julia
 plot_MH_vs_AB("tmao"; m1=AutonBolen, m2=MoeserHorinekFit)
 ```
 
-![Figure S32](./figures/fig_S32_mhfit_vs_ab_tmao.svg)
+![Figure S34](./figures/fig_S34_mhfit_vs_ab_tmao.svg)
 
-### Sarcosine — Figure S33
+### Sarcosine — Figure S35
 
 ```julia
 plot_MH_vs_AB("sarcosine"; m1=AutonBolen, m2=MoeserHorinekFit)
 ```
 
-![Figure S33](./figures/fig_S33_mhfit_vs_ab_sarcosine.svg)
+![Figure S35](./figures/fig_S35_mhfit_vs_ab_sarcosine.svg)
 
-### Proline — Figure S34
+### Proline — Figure S36
 
 ```julia
 plot_MH_vs_AB("proline"; m1=AutonBolen, m2=MoeserHorinekFit)
 ```
 
-![Figure S34](./figures/fig_S34_mhfit_vs_ab_proline.svg)
+![Figure S36](./figures/fig_S36_mhfit_vs_ab_proline.svg)
 
-### Sorbitol — Figure S35
+### Sorbitol — Figure S37
 
 ```julia
 plot_MH_vs_AB("sorbitol"; m1=AutonBolen, m2=MoeserHorinekFit)
 ```
 
-![Figure S35](./figures/fig_S35_mhfit_vs_ab_sorbitol.svg)
+![Figure S37](./figures/fig_S37_mhfit_vs_ab_sorbitol.svg)
 
-### Sucrose — Figure S36
+### Sucrose — Figure S38
 
 ```julia
 plot_MH_vs_AB("sucrose"; m1=AutonBolen, m2=MoeserHorinekFit)
 ```
 
-![Figure S36](./figures/fig_S36_mhfit_vs_ab_sucrose.svg)
+![Figure S38](./figures/fig_S38_mhfit_vs_ab_sucrose.svg)
 
-### Betaine — Figure S37
+### Betaine — Figure S39
 
 ```julia
 plot_MH_vs_AB("betaine"; m1=AutonBolen, m2=MoeserHorinekFit)
 ```
 
-![Figure S37](./figures/fig_S37_mhfit_vs_ab_betaine.svg)
+![Figure S39](./figures/fig_S39_mhfit_vs_ab_betaine.svg)
 
-### Glycerol — Figure S38
+### Glycerol — Figure S40
 
 ```julia
 plot_MH_vs_AB("glycerol"; m1=AutonBolen, m2=MoeserHorinekFit)
 ```
 
-![Figure S38](./figures/fig_S38_mhfit_vs_ab_glycerol.svg)
+![Figure S40](./figures/fig_S40_mhfit_vs_ab_glycerol.svg)
 
-### Trehalose — Figure S39
+### Trehalose — Figure S41
 
 ```julia
 plot_MH_vs_AB("trehalose"; m1=AutonBolen, m2=MoeserHorinekFit)
 ```
 
-![Figure S39](./figures/fig_S39_mhfit_vs_ab_trehalose.svg)
+![Figure S41](./figures/fig_S41_mhfit_vs_ab_trehalose.svg)

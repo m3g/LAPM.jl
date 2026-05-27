@@ -21,8 +21,7 @@ using MolSimToolkit: MolSimStyle
 # creamer_fig2.png
 # ASA_creamer_vs_LAPM.png
 #
-function run_get_creamer_sasa()
-    proteins = protein_list()
+function run_get_creamer_sasa(; proteins=protein_list_original(), sasa_parameterization)
     mean_asa_restype = creamer_data_per_residue(;proteins=proteins)
     JSON.json("$(@__DIR__)/output/creamer_per_residue.json", mean_asa_restype; pretty=true)
     #
@@ -33,7 +32,7 @@ function run_get_creamer_sasa()
     #
     # Comparing the ASAs obtained here with those reported by Creamer:
     #
-    plt = scatter_cremer_vs_current(mean_asa_restype; n=17)
+    plt = scatter_creamer_vs_current(mean_asa_restype; n=17)
     savefig("$(@__DIR__)/output/ASA_creamer_vs_LAPM.svg")
     # This will be used to generate the atom-type model
     mean_asa_atomtype = creamer_data_per_atom(;proteins=proteins)
@@ -56,7 +55,19 @@ end
 #
 # The list of proteins is that listed in the Creamer paper. 
 #
-function protein_list()
+function protein_list_cath_s20()
+    dir = "/home/leandro/Downloads/dompdb/pdbs"
+    files = readdir(dir)
+    list = OrderedDict{String, Vector{Atom{Nothing}}}()
+    for file in files
+        list[file] = read_pdb(joinpath(dir, file))
+    end
+    return list
+end
+#
+# The list of proteins is that listed in the Creamer paper. 
+#
+function protein_list_original()
     OrderedDict(
         "1bp2" => wget("1bp2", "protein"),
         "1crn" => wget("1crn", "protein"),
@@ -128,45 +139,49 @@ function creamer_data_per_residue(;proteins=protein_list)
         17 => OrderedDict{String,Any}(),
     )
 
-
-    for (pname, p) in pairs(proteins)
-        println("Running for: $pname")
-        for (i, at) in enumerate(p)
-            at.index = i
-        end
-        r = collect(eachresidue(p))
-        # Extended state for upper bound for unfolding
-        p_max = copy.(p)
-        set_phi_psi!(p_max, -120, 120)
-        set_chi1_to_180!(p_max)
-        # One can interpret that the sasa of the extended state was computed
-        # only once, or for the fragments. The result is essentially the same,
-        # so we decided here to use the fragments. 
-        # s_max = sasa_particles(p_max)
-        for l in keys(asa_restype)
-            mid = l ÷ 2
-            # skip first and last 3 residues
-            for i in (mid+1+1):(length(r)-mid-1)
-                rn = resname(r[i])
-                ifirst = index(first(r[i-mid]))
-                ilast = index(last(r[i+mid]))
-                # s_min will be the lower bound for the accessible surface areas 
-                s_min = sasa_particles_ua(p[ifirst:ilast])
-                # s_max computed for the fragments
-                s_max = sasa_particles_ua(p_max[ifirst:ilast])
-                if !haskey(asa_restype[l], rn)
-                    asa_restype[l][rn] = (n=0, bb_lower=0.0, bb_upper=0.0, sc_lower=0.0, sc_upper=0.0)
-                end
-                asa_restype[l][rn] = (
-                    n= asa_restype[l][rn].n + 1,
-                    bb_lower = asa_restype[l][rn].bb_lower + sasa(s_min, at -> isbackbone(at) && (at in r[i])),
-                    bb_upper = asa_restype[l][rn].bb_upper + sasa(s_max, at -> isbackbone(at) && (at in r[i])),
-                    sc_lower = asa_restype[l][rn].sc_lower + sasa(s_min, at -> !isbackbone(at) && (at in r[i])),
-                    sc_upper = asa_restype[l][rn].sc_upper + sasa(s_max, at -> !isbackbone(at) && (at in r[i])),
-                )
+    ip = 0
+    @showprogress for (pname, p) in pairs(proteins)
+        try 
+            for (i, at) in enumerate(p)
+                at.index = i
             end
+            r = collect(eachresidue(p))
+            # Extended state for upper bound for unfolding
+            p_max = copy.(p)
+            set_phi_psi!(p_max, -120, 120)
+            set_chi1_to_180!(p_max)
+            # One can interpret that the sasa of the extended state was computed
+            # only once, or for the fragments. The result is essentially the same,
+            # so we decided here to use the fragments. 
+            # s_max = sasa_particles(p_max)
+            for l in keys(asa_restype)
+                mid = l ÷ 2
+                # skip first and last 3 residues
+                for i in (mid+1+1):(length(r)-mid-1)
+                    rn = resname(r[i])
+                    ifirst = index(first(r[i-mid]))
+                    ilast = index(last(r[i+mid]))
+                    # s_min will be the lower bound for the accessible surface areas 
+                    s_min = sasa_particles_ua(p[ifirst:ilast])
+                    # s_max computed for the fragments
+                    s_max = sasa_particles_ua(p_max[ifirst:ilast])
+                    if !haskey(asa_restype[l], rn)
+                        asa_restype[l][rn] = (n=0, bb_lower=0.0, bb_upper=0.0, sc_lower=0.0, sc_upper=0.0)
+                    end
+                    asa_restype[l][rn] = (
+                        n= asa_restype[l][rn].n + 1,
+                        bb_lower = asa_restype[l][rn].bb_lower + sasa(s_min, at -> isbackbone(at) && (at in r[i])),
+                        bb_upper = asa_restype[l][rn].bb_upper + sasa(s_max, at -> isbackbone(at) && (at in r[i])),
+                        sc_lower = asa_restype[l][rn].sc_lower + sasa(s_min, at -> !isbackbone(at) && (at in r[i])),
+                        sc_upper = asa_restype[l][rn].sc_upper + sasa(s_max, at -> !isbackbone(at) && (at in r[i])),
+                    )
+                end
+            end
+            ip += 1
+        catch
         end
     end
+    @show ip
 
     #
     # Averaging over all types
@@ -202,8 +217,10 @@ function creamer_data_per_residue(;proteins=protein_list)
     return mean_asa_restype
 end
 
-function load_creamer_per_residue(
-    jsonfile = joinpath(@__DIR__, "output", "creamer_per_residue.json")
+function load_creamer_per_residue(;
+    cath_s20 = false,
+    jsonfile = joinpath(@__DIR__, "output",
+        cath_s20 ? "creamer_per_residue_cath_s20.json" : "creamer_per_residue.json")
 )
     raw = JSON.parsefile(jsonfile)
     OrderedDict(
@@ -220,8 +237,8 @@ function load_creamer_per_residue(
     )
 end
 
-function plot_cd_creamer(mean_asa_restype)
-    plt = plot(MolSimStyle; layout=(2, 1))
+function plot_cd_creamer(mean_asa_restype; title="")
+    plt = plot(MolSimStyle; layout=(2, 1), plot_title=title)
     for l in keys(mean_asa_restype)
         plot!(plt, getproperty.(values(mean_asa_restype[l]), :bb_lower); label="$l", lw=2, subplot=1)
         plot!(plt, getproperty.(values(mean_asa_restype[l]), :sc_lower); label="", lw=2, subplot=2)
@@ -248,16 +265,19 @@ end
 #
 # Plot the obtained SASAs vs. the results reported by Creamer
 #
-function scatter_cremer_vs_current(cd; n=17)
-    plt = plot(MolSimStyle; layout=(2,2))
+function scatter_creamer_vs_current(cd; n=17, title="")
+
+    creamer_sasas = PDBTools._sasa_parameterization(:original)
+
+    plt = plot(MolSimStyle; layout=(2,2), plot_title=title)
     ls = (lw=2, ls=:dash, label="", lc=:lightgrey)
 
-    x = [ PDBTools.creamer_sasas[key].bb_lower for key in keys(PDBTools.creamer_sasas) ]
+    x = [ creamer_sasas[key].bb_lower for key in keys(creamer_sasas) ]
     lims=collect(extrema(x) .+ (-0.2,0.2) .* extrema(x))
     plot!(plt, lims, lims; ls..., subplot=1)
     scatter!(plt,
         title="BB lower",
-        [ PDBTools.creamer_sasas[key].bb_lower for key in keys(PDBTools.creamer_sasas) ], 
+        [ creamer_sasas[key].bb_lower for key in keys(creamer_sasas) ], 
         [ cd[n][key].bb_lower for key in keys(cd[n]) ],
         subplot=1,
         xlabel="Creamer ASA / Å",
@@ -265,7 +285,7 @@ function scatter_cremer_vs_current(cd; n=17)
         label="",
         lims=lims,
     )
-    x = [ PDBTools.creamer_sasas[key].bb_upper for key in keys(PDBTools.creamer_sasas) ]
+    x = [ creamer_sasas[key].bb_upper for key in keys(creamer_sasas) ]
     lims=collect(extrema(x) .+ (-0.2,0.2) .* extrema(x))
     plot!(plt, lims, lims; ls..., subplot=2)
     scatter!(plt,
@@ -278,7 +298,7 @@ function scatter_cremer_vs_current(cd; n=17)
         label="",
         lims=lims,
     )
-    x = [ PDBTools.creamer_sasas[key].sc_lower for key in keys(PDBTools.creamer_sasas) ]
+    x = [ creamer_sasas[key].sc_lower for key in keys(creamer_sasas) ]
     lims=collect(extrema(x) .+ (-0.2,0.2) .* extrema(x))
     plot!(plt, lims, lims; ls..., subplot=3)
     scatter!(plt,
@@ -291,7 +311,7 @@ function scatter_cremer_vs_current(cd; n=17)
         label="",
         lims=lims,
     )
-    x = [ PDBTools.creamer_sasas[key].sc_upper for key in keys(PDBTools.creamer_sasas) ] 
+    x = [ creamer_sasas[key].sc_upper for key in keys(creamer_sasas) ] 
     lims=collect(extrema(x) .+ (-0.2,0.2) .* extrema(x))
     plot!(plt, lims, lims; ls..., subplot=4)
     scatter!(plt,
@@ -325,40 +345,43 @@ function creamer_data_per_atom(;proteins=protein_list)
     )
 
     for (pname, p) in pairs(proteins)
-        println("Running for: $pname")
-        for (i, at) in enumerate(p)
-            at.index = i
-        end
-        r = collect(eachresidue(p))
-        p_max = copy.(p)
-        set_phi_psi!(p_max, -120, 120)
-        set_chi1_to_180!(p_max)
-#        s_max = sasa_particles(p_max)
-        for l in keys(asa_restype)
-            mid = l ÷ 2
-            # skip first and last 3 residues
-            for i in (mid+1+1):(length(r)-mid-1)
-                rn = resname(r[i])
-                if !haskey(asa_restype[l], rn)
-                    asa_restype[l][rn] = OrderedDict{String,Any}()
-                end
-                ifirst = index(first(r[i-mid]))
-                ilast = index(last(r[i+mid]))
-                s_min = sasa_particles_ua(p[ifirst:ilast])
-                s_max = sasa_particles_ua(p_max[ifirst:ilast])
-                for at in r[i]
-                    atn = name(at)
-                    iat = index(at)
-                    if !haskey(asa_restype[l][rn], atn)
-                        asa_restype[l][rn][atn] = (n=0, lower=0.0, upper=0.0)
+        try
+            #println("Running for: $pname")
+            for (i, at) in enumerate(p)
+                at.index = i
+            end
+            r = collect(eachresidue(p))
+            p_max = copy.(p)
+            set_phi_psi!(p_max, -120, 120)
+            set_chi1_to_180!(p_max)
+#            s_max = sasa_particles(p_max)
+            for l in keys(asa_restype)
+                mid = l ÷ 2
+                # skip first and last 3 residues
+                for i in (mid+1+1):(length(r)-mid-1)
+                    rn = resname(r[i])
+                    if !haskey(asa_restype[l], rn)
+                        asa_restype[l][rn] = OrderedDict{String,Any}()
                     end
-                    asa_restype[l][rn][atn] = (
-                        n= asa_restype[l][rn][atn].n + 1,
-                        lower = asa_restype[l][rn][atn].lower + sasa(s_min, at -> index(at) == iat),
-                        upper = asa_restype[l][rn][atn].upper + sasa(s_max, at -> index(at) == iat),
-                    )
+                    ifirst = index(first(r[i-mid]))
+                    ilast = index(last(r[i+mid]))
+                    s_min = sasa_particles_ua(p[ifirst:ilast])
+                    s_max = sasa_particles_ua(p_max[ifirst:ilast])
+                    for at in r[i]
+                        atn = name(at)
+                        iat = index(at)
+                        if !haskey(asa_restype[l][rn], atn)
+                            asa_restype[l][rn][atn] = (n=0, lower=0.0, upper=0.0)
+                        end
+                        asa_restype[l][rn][atn] = (
+                            n= asa_restype[l][rn][atn].n + 1,
+                            lower = asa_restype[l][rn][atn].lower + sasa(s_min, at -> index(at) == iat),
+                            upper = asa_restype[l][rn][atn].upper + sasa(s_max, at -> index(at) == iat),
+                        )
+                    end
                 end
             end
+        catch
         end
     end
 
