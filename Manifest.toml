@@ -2,7 +2,7 @@
 
 julia_version = "1.12.6"
 manifest_format = "2.0"
-project_hash = "d3ac81df224691408460d5877700a854f75efea6"
+project_hash = "c3938fcdd69e2ad609de9e581edcaeed49301064"
 
 [[deps.ADTypes]]
 git-tree-sha1 = "bbc22a9a08a0ef6460041086d8a7b27940ed4ffd"
@@ -1121,9 +1121,9 @@ version = "10.44.0+1"
 
 [[deps.PDBTools]]
 deps = ["CellListMap", "ChunkSplitters", "Compat", "Dates", "Downloads", "Format", "InlineStrings", "InteractiveUtils", "LinearAlgebra", "MolSimToolkitShared", "OrderedCollections", "PrecompileTools", "Printf", "ProteinSecondaryStructures", "SIMD", "SparseArrays", "StaticArrays", "TestItems"]
-git-tree-sha1 = "6355e87859f55c3bba2763b401fbbcc685161144"
+path = "/Users/leandro/.julia/dev/PDBTools"
 uuid = "e29189f1-7114-4dbd-93d0-c5673a921a58"
-version = "3.28.0"
+version = "3.29.1-DEV"
 weakdeps = ["Plots"]
 
     [deps.PDBTools.extensions]

@@ -79,6 +79,7 @@ function other_osmolytes(; type=2)
     name = String[]
     osmo = String[]
     mhfit = Float64[]
+    mhapp = Float64[]
     mab = Float64[]
     mab_orig = Float64[]
     exp = Float64[]
@@ -95,6 +96,7 @@ function other_osmolytes(; type=2)
             cm = CreamerDenaturedModel(p, type)
             _m_ab = mvalue(cm, osm; model=AutonBolen).tot
             _m_mhfit = mvalue(cm, osm; model=MoeserHorinekFit).tot
+            _m_mhapp = mvalue(cm, osm; model=MoeserHorinekApp).tot
             push!(name, pdb)
             push!(osmo, osm)
             push!(l, nres)
@@ -102,12 +104,14 @@ function other_osmolytes(; type=2)
             push!(mab_orig, _ab_orig / 1000)
             push!(mab, _m_ab)
             push!(mhfit, _m_mhfit)
+            push!(mhapp, _m_mhapp)
         end
     end
     #return name, exp, mab_orig, mab, mhfit
     plt = plot(MolSimStyle, layout=(2,1))
     scatter!(plt, exp, mab; label="AutonBolen", subplot=1)
     scatter!(plt, exp, mhfit; label="MoeserHorinekFit", subplot=1)
+    scatter!(plt, exp, mhapp; label="MoeserHorinekApp", subplot=1)
     plot!(plt,
         xlabel=L"\textrm{Experimental~}m\textrm{-value~/~kcal~mol^{-1}}",
         ylabel=L"\textrm{Predicted~}m\textrm{-value~/~kcal~mol^{-1}}",
@@ -118,6 +122,8 @@ function other_osmolytes(; type=2)
     plot!(plt, f.x, f.y; label="", color=1, ls=:dash, subplot=1)
     f = fitlinear(exp, mhfit)
     plot!(plt, f.x, f.y; label="", color=2, ls=:dash, subplot=1)
+    f = fitlinear(exp, mhapp)
+    plot!(plt, f.x, f.y; label="", color=2, ls=:dash, subplot=1)
     annotate!(plt, 5.3, 4, 
         text(
             latexstring("y=$(round(f.a; digits=2))x+$(round(f.b; digits=2)); R^2=$(round(f.R2; digits=2))"),
@@ -127,11 +133,11 @@ function other_osmolytes(; type=2)
         subplot=1,
     )
     groupedbar!(plt,
-        repeat(collect("$(name[i])-$(osmo[i])" for i in eachindex(name)); outer=3),
-        vcat(exp, mab, mhfit),
+        repeat(collect("$(name[i])-$(osmo[i])" for i in eachindex(name)); outer=4),
+        vcat(exp, mab, mhfit, mhapp),
         group=categorical(
-            repeat([ "Experimental" , "AutonBolen", "MoeserHorinekFit"]; inner=length(name)),
-            levels=[ "Experimental" , "AutonBolen", "MoeserHorinekFit"], 
+            repeat([ "Experimental" , "AutonBolen", "MoeserHorinekFit", "MoeserHorinekApp"]; inner=length(name)),
+            levels=[ "Experimental" , "AutonBolen", "MoeserHorinekFit", "MoeserHorinekApp"], 
         ),
         xlabel="",
         #xticks=:none,
