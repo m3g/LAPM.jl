@@ -10,6 +10,14 @@ This section validates the from-scratch reproduction of the Creamer denatured-st
 
 ![Figure S5](./figures/fig_S05_ASA_creamer_vs_LAPM.svg)
 
+## Figure S6: Backbone SASA per fragment length (CATH S20)
+
+![Figure S6](./figures/fig_S06_creamer_fig2_cath_s20.svg)
+
+## Figure S7: Backbone and side-chain SASA comparison with Creamer (CATH S20)
+
+![Figure S7](./figures/fig_S07_ASA_creamer_vs_LAPM_cath_s20.svg)
+
 ## Using the parameterized united atom model
 
 ### For a single structure:
@@ -20,18 +28,18 @@ pdb = read_pdb(LAPM.pdb_files["1AO3"], "protein and not element H")
 LAPM.mvalue_ua(pdb)
 ```
 
-### All results vs. experimental values — Figure S6
+### All results vs. experimental values — Figure S8
 
 ```julia
 LAPM.plot_ua()
 ```
 
-![Figure S6](./figures/fig_S06_creamer_ua_vs_exp.svg)
+![Figure S8](./figures/fig_S08_creamer_ua_vs_exp.svg)
 
-### All results vs. other models — Figure S7
+### All results vs. other models — Figure S9
 
 ```julia
 LAPM.plot_mvalue_ua()
 ```
 
-![Figure S7](./figures/fig_S07_creamer_ua_vs_models.svg)
+![Figure S9](./figures/fig_S09_creamer_ua_vs_models.svg)

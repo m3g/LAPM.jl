@@ -6,18 +6,18 @@ These plots compare the total, backbone, and side-chain m-value predictions of t
 using LAPM
 ```
 
-## Urea (Server) — Figure S28
+## Urea (Server) — Figure S30
 
 ```julia
 plot_MH_vs_AB("urea"; sasas_from=LAPM.server_sasa)
 ```
 
-![Figure S28](./figures/fig_S28_mh_vs_ab_urea_server.svg)
+![Figure S30](./figures/fig_S30_mh_vs_ab_urea_server.svg)
 
-## Urea (Creamer) — Figure S29
+## Urea (Creamer) — Figure S31
 
 ```julia
 plot_MH_vs_AB("urea"; sasas_from=LAPM.creamer_sasa)
 ```
 
-![Figure S29](./figures/fig_S29_mh_vs_ab_urea_creamer.svg)
+![Figure S31](./figures/fig_S31_mh_vs_ab_urea_creamer.svg)

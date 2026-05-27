@@ -6,18 +6,18 @@ These plots show m-value predictions using the Moeser & Horinek (MH) model for u
 using LAPM
 ```
 
-## Urea (Creamer) — Figure S26
+## Urea (Creamer) — Figure S28
 
 ```julia
 plot_mvalue(MoeserHorinek, "urea")
 ```
 
-![Figure S26](./figures/fig_S26_moeserhorinek_creamer_urea.svg)
+![Figure S28](./figures/fig_S28_moeserhorinek_creamer_urea.svg)
 
-## Urea (Server) — Figure S27
+## Urea (Server) — Figure S29
 
 ```julia
 plot_mvalue(MoeserHorinek, "urea"; sasas_from=LAPM.server_sasa)
 ```
 
-![Figure S27](./figures/fig_S27_moeserhorinek_server_urea.svg)
+![Figure S29](./figures/fig_S29_moeserhorinek_server_urea.svg)

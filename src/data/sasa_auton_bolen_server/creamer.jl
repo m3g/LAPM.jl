@@ -9,7 +9,7 @@ end
 # currently implemented in PDBTools
 #
 creamer_sasa(_, atoms) = creamer_sasa_restype(atoms)
-function creamer_sasa_restype(atoms::AbstractVector{<:PDBTools.Atom})
+function creamer_sasa_restype(atoms::AbstractVector{<:PDBTools.Atom}; sasa_parameterization=:original)
     sasas = Dict{String,Dict}()
     sasa_atoms = sasa_particles(atoms;
         atom_type = PDBTools.creamer_atom_type,
@@ -29,7 +29,7 @@ function creamer_sasa_restype(atoms::AbstractVector{<:PDBTools.Atom})
         sasa_res_bb = sasa(sasa_atoms, sel_bb)
         sasa_res_sc = sasa(sasa_atoms, sel_sc)
         rname = resname(res)
-        cr = PDBTools.creamer_sasas[rname]
+        cr = PDBTools._sasa_parameterization(sasa_parameterization)[rname]
         csc = sasas[rname][:sc]
         cbb = sasas[rname][:bb]
         sasas[rname] = Dict(
