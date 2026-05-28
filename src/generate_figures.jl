@@ -130,6 +130,7 @@ function generate_documentation_figures(;
         save(ref, "fig_S$(lpad(n,2,'0'))_alpha_beta_$(cosolvent).svg",
             () -> plot_cosolvent(df, cosolvent); update_all)
     end
+    save(ref, "fig_urea_proline_alpha_beta.svg", () -> plot2cosolvents("urea", "proline", df), ; update_all)
 
     # -----------------------------------------------------------------------
     # experimental.md — Figs S51–S60

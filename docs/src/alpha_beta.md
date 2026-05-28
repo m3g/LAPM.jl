@@ -79,3 +79,9 @@ plot_cosolvent(df, "trehalose")
 ```
 
 ![Figure S50](./figures/fig_S50_alpha_beta_trehalose.svg)
+
+
+## Urea vs. Proline
+
+![Figure Paper](./figures/fig_urea_proline_alpha_beta.svg)
+
