@@ -60,7 +60,11 @@ function alpha_beta(cath_pdb_dir, cath_domain_list)
                 :class => c,
             )
             for c in cosolvents
-                m = mvalue(cm, c; model=MoeserHorinekApp)
+                m = if c == "urea"
+                    mvalue(cm, c; model=MoeserHorinek)
+                else
+                    mvalue(cm, c; model=MoeserHorinekApp)
+                end
                 row[Symbol(c, "_tot")] = m.tot
                 row[Symbol(c, "_bb")] = m.bb
                 row[Symbol(c, "_sc")] = m.sc
