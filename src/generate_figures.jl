@@ -86,16 +86,16 @@ function generate_documentation_figures(;
 
     # -----------------------------------------------------------------------
     # mh_vs_ab_fit.md — Figs S32–S41
-    # S32: MoeserHorinekFit vs MoeserHorinek (urea)
-    # S33–S41: MoeserHorinekFit vs AutonBolen (all cosolvents)
+    # S32: MoeserHorinekApp vs MoeserHorinek (urea)
+    # S33–S41: MoeserHorinekApp vs AutonBolen (all cosolvents)
     # -----------------------------------------------------------------------
     println("  mh_vs_ab_fit.md  (S32–S41)...")
-    save("fig_S32_mhfit_vs_mh_urea.svg",
-         plot_MH_vs_AB("urea"; m1=MoeserHorinek, m2=MoeserHorinekFit))
+    save("fig_S32_mhapp_vs_mh_urea.svg",
+         plot_MH_vs_AB("urea"; m1=MoeserHorinek, m2=MoeserHorinekApp))
     for (n, cosolvent) in zip(33:41, ["urea", "tmao", "sarcosine", "proline", "sorbitol",
                                        "sucrose", "betaine", "glycerol", "trehalose"])
-        save("fig_S$(lpad(n,2,'0'))_mhfit_vs_ab_$(cosolvent).svg",
-             plot_MH_vs_AB(cosolvent; m1=AutonBolen, m2=MoeserHorinekFit))
+        save("fig_S$(lpad(n,2,'0'))_mhapp_vs_ab_$(cosolvent).svg",
+             plot_MH_vs_AB(cosolvent; m1=AutonBolen, m2=MoeserHorinekApp))
     end
 
     # -----------------------------------------------------------------------

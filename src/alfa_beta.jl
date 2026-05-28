@@ -58,7 +58,7 @@ function alpha_beta(cath_pdb_dir)
                 :class => c,
             )
             for c in cosolvents
-                m = mvalue(cm, c; model=MoeserHorinekFit)
+                m = mvalue(cm, c; model=MoeserHorinekApp)
                 row[Symbol(c, "_tot")] = m.tot
                 row[Symbol(c, "_bb")] = m.bb
                 row[Symbol(c, "_sc")] = m.sc

@@ -1184,9 +1184,9 @@ version = "10.44.0+1"
 
 [[deps.PDBTools]]
 deps = ["CellListMap", "ChunkSplitters", "Compat", "Dates", "Downloads", "Format", "InlineStrings", "InteractiveUtils", "LinearAlgebra", "MolSimToolkitShared", "OrderedCollections", "PrecompileTools", "Printf", "ProteinSecondaryStructures", "SIMD", "SparseArrays", "StaticArrays", "TestItems"]
-git-tree-sha1 = "6355e87859f55c3bba2763b401fbbcc685161144"
+git-tree-sha1 = "cba82c4089d7ab45aa77f2ca76ad982684cfe447"
 uuid = "e29189f1-7114-4dbd-93d0-c5673a921a58"
-version = "3.28.0"
+version = "3.30.0"
 weakdeps = ["Plots"]
 
     [deps.PDBTools.extensions]

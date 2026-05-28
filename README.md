@@ -10,15 +10,15 @@ Supplementary information repository for the paper:
 > A. B. B. Lima, A. F. Pereira, L. V. Araújo, W. Tárraga, C. A. Tavares, J. de Oliveira Araújo, L. Martínez,
 > **Osmolyte Effects on Protein Conformations: Self-contained, Free, Fast Implementations of Additive Transfer Models with Novel Glycine-Activity Corrections for Multi-Cosolvent Predictions**, 2026.
 
-This package contains the validation scripts, reference datasets, and analysis code used to benchmark the Auton–Bolen (AB), Moeser–Horinek (MH), and MoeserHorinekFit implementations available in [PDBTools.jl](https://m3g.github.io/PDBTools.jl).
+This package contains the validation scripts, reference datasets, and analysis code used to benchmark the Auton–Bolen (AB), Moeser–Horinek (MH), and MoeserHorinekApp implementations available in [PDBTools.jl](https://m3g.github.io/PDBTools.jl).
 
 ## Contents
 
 - **Validation against the AB server** — m-value predictions for 36 protein structures compared against outputs of the Auton–Bolen web server, using both server SASAs and Creamer-model SASAs.
 - **Reproduction of the Creamer denatured-state SASA model** — from-scratch computation of backbone and side-chain SASA statistics for all 20 residue types, validated against Creamer's published values for 43 reference proteins.
 - **MH vs AB comparison** — systematic comparison of total, backbone, and side-chain m-value contributions, revealing large model differences in backbone/side-chain partitioning despite good agreement in total m-values.
-- **MoeserHorinekFit model** — fitting of per-cosolvent glycine-activity corrections (δ) that extend the MH universal backbone treatment to all nine cosolvents covered by the AB parameterization.
-- **Comparison with experimental m-values** — benchmark of MH, AB, and MoeserHorinekFit predictions against experimental urea m-values and other osmolytes, including the Rydeen et al. (2018) dataset for SH3 unfolding and GB1 dimer dissociation.
+- **MoeserHorinekApp model** — The MH universal backbone treatment to all nine cosolvents covered by the AB parameterization, using apparent transfer free energies.
+- **Comparison with experimental m-values** — benchmark of MH, AB, and MoeserHorinekApp predictions against experimental urea m-values and other osmolytes, including the Rydeen et al. (2018) dataset for SH3 unfolding and GB1 dimer dissociation.
 - **Backbone and side-chain contributions across fold families** — analysis of per-residue m-value contributions across ~15k non-homologous domains from the CATH-S20 database, classified by secondary structure content.
 
 ## Installation

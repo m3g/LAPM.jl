@@ -8,21 +8,11 @@ using LaTeXStrings
 using Measurements
 using StatsPlots
 using CategoricalArrays
-
-# At the end, qualify everything and remove the above using
-using PDBTools:
-    PDBTools,
-    MValueModel,
-    mvalue_delta_sasa,
-    parse_mvalue_server_sasa,
-    read_pdb,
-    StringType
 using EasyFit
 
-export MoeserHorinek, AutonBolen
+export MoeserHorinek, AutonBolen, MoeserHorinekApp
 export plot_mvalue
 export plot_MH_vs_AB
-export plot_MHFit_vs_AB
 export plot_experimental
 export pdb_files
 
@@ -301,7 +291,7 @@ plot_experimental(
 ) = plot_experimental([model], cosolvent; sasas_from)
 
 function plot_experimental(
-    models::Vector=[AutonBolen, MoeserHorinek, MoeserHorinekFit],
+    models::Vector=[AutonBolen, MoeserHorinek, MoeserHorinekApp],
     cosolvent="urea";
     sasas_from::Function=creamer_sasa
 )
@@ -349,7 +339,6 @@ end
 
 include("./per_atom_type/get_sasa_per_type.jl")
 include("./per_atom_type/creamer_per_atom.jl")
-include("./MH_fit_to_AB.jl")
 include("rydeen.jl")
 include("./other_osmolytes.jl")
 include("./alfa_beta.jl")

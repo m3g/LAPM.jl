@@ -23,7 +23,6 @@ function plot_rydeen_folding(
     predictions = OrderedDict()
     for cosolvent in keys(rydeen) 
         m_ab = zeros(length(eachmodel(prot)))
-        m_mhfit = copy(m_ab)
         m_mhapp = copy(m_ab)
         if cosolvent == "urea"
             m_mh = copy(m_ab)
@@ -31,7 +30,6 @@ function plot_rydeen_folding(
         for (i, model) in enumerate(eachmodel(prot))
             c = CreamerDenaturedModel(model, type)
             m_ab[i] = mvalue(c, cosolvent; model=AutonBolen).tot
-            m_mhfit[i] = mvalue(c, cosolvent; model=MoeserHorinekFit).tot
             m_mhapp[i] = mvalue(c, cosolvent; model=MoeserHorinekApp).tot
             if cosolvent == "urea"
                 m_mh[i] = mvalue(c, cosolvent; model=MoeserHorinek).tot
@@ -40,13 +38,11 @@ function plot_rydeen_folding(
         if cosolvent != "urea"
             predictions[cosolvent] = (
                 0.4 * (mean(m_ab) ± std(m_ab)),
-                0.4 * (mean(m_mhfit) ± std(m_mhfit)),
                 0.4 * (mean(m_mhapp) ± std(m_mhapp)),
             ) 
         else
             predictions[cosolvent] = (
                 0.4 * (mean(m_ab) ± std(m_ab)),
-                0.4 * (mean(m_mhfit) ± std(m_mhfit)),
                 0.4 * (mean(m_mhapp) ± std(m_mhapp)),
                 0.4 * (mean(m_mh) ± std(m_mh)),
             ) 
@@ -88,7 +84,7 @@ function plot_rydeen_folding(
 
     # mh
     exp = [ rydeen["urea"][2] ]
-    preds =  [ predictions["urea"][4] ] 
+    preds =  [ predictions["urea"][3] ] 
     scatter!(plt, exp, preds, label="MoeserHorinek",
         markeralpha=1,
         markersize=8,
@@ -96,24 +92,9 @@ function plot_rydeen_folding(
         markershape=:star,
     )
 
-    # mh_fit
-    exp = [ val[2] for (key, val) in rydeen ] 
-    preds = [ val[2] for (key, val) in predictions ]
-    scatter!(plt, exp, preds, label="MoeserHorinekFit",
-        markeralpha=1,
-        markercolor=3,
-        markershape=:square,
-    )
-    f = fitlinear(getfield.(exp, :val), getfield.(preds, :val))
-    plot!(plt, f.x, f.y, 
-        label=latexstring("a=$(round(f.a,digits=2)), R^2=$(round(f.R2; digits=2))"),
-#        label="",
-        linecolor=3,
-    )
-
     # mh_app
     exp = [ val[2] for (key, val) in rydeen ] 
-    preds = [ val[3] for (key, val) in predictions ]
+    preds = [ val[2] for (key, val) in predictions ]
     scatter!(plt, exp, preds, label="MoeserHorinekApp",
         markeralpha=1,
         markercolor=4,
@@ -149,7 +130,6 @@ function plot_rydeen_dimmer(
     predictions = OrderedDict()
     for cosolvent in keys(rydeen) 
         m_ab = zeros(length(eachmodel(prot)))
-        m_mhfit = copy(m_ab)
         m_mhapp = copy(m_ab)
         if cosolvent == "urea"
             m_mh = copy(m_ab)
@@ -162,11 +142,6 @@ function plot_rydeen_dimmer(
             tfeB = transfer_free_energy(cB, cosolvent; model=AutonBolen)
             tfe_d = transfer_free_energy(model, cosolvent; model=AutonBolen)
             m_ab[i] = tfeA.tot + tfeB.tot - tfe_d.tot 
-            # MoeserHorinekFit
-            tfeA = transfer_free_energy(cA, cosolvent; model=MoeserHorinekFit)
-            tfeB = transfer_free_energy(cB, cosolvent; model=MoeserHorinekFit)
-            tfe_d = transfer_free_energy(model, cosolvent; model=MoeserHorinekFit)
-            m_mhfit[i] = tfeA.tot + tfeB.tot - tfe_d.tot 
             # MoeserHorinekApp
             tfeA = transfer_free_energy(cA, cosolvent; model=MoeserHorinekApp)
             tfeB = transfer_free_energy(cB, cosolvent; model=MoeserHorinekApp)
@@ -183,13 +158,11 @@ function plot_rydeen_dimmer(
         if cosolvent != "urea"
             predictions[cosolvent] = (
                 0.4 * (mean(m_ab) ± std(m_ab)),
-                0.4 * (mean(m_mhfit) ± std(m_mhfit)),
                 0.4 * (mean(m_mhapp) ± std(m_mhapp)),
             ) 
         else
             predictions[cosolvent] = (
                 0.4 * (mean(m_ab) ± std(m_ab)),
-                0.4 * (mean(m_mhfit) ± std(m_mhfit)),
                 0.4 * (mean(m_mhapp) ± std(m_mhapp)),
                 0.4 * (mean(m_mh) ± std(m_mh)),
             ) 
@@ -231,7 +204,7 @@ function plot_rydeen_dimmer(
 
     # m_mh 
     exp = [ rydeen["urea"][1] ]
-    preds =  [ predictions["urea"][4] ] 
+    preds =  [ predictions["urea"][3] ] 
     scatter!(plt, exp, preds, label="MoeserHorinek",
         markeralpha=1,
         markersize=8,
@@ -239,24 +212,9 @@ function plot_rydeen_dimmer(
         markercolor=2,
     )
 
-    # mh_fit
-    exp = [ val[1] for (key, val) in rydeen ] 
-    preds = [ val[2] for (key, val) in predictions ]
-    scatter!(plt, exp, preds, label="MoeserHorinekFit",
-        markeralpha=1,
-        markershape=:square,
-        markercolor=3,
-    )
-    f = fitlinear(getfield.(exp, :val), getfield.(preds, :val))
-    plot!(plt, f.x, f.y, 
-#        label=latexstring("a=$(round(f.a,digits=2)), R^2=$(round(f.R2; digits=2))"),
-        label="",
-        linecolor=3,
-    )
-
     # mh_app
     exp = [ val[1] for (key, val) in rydeen ] 
-    preds = [ val[3] for (key, val) in predictions ]
+    preds = [ val[2] for (key, val) in predictions ]
     scatter!(plt, exp, preds, label="MoeserHorinekApp",
         markeralpha=1,
         markershape=:square,
@@ -275,8 +233,8 @@ function plot_rydeen_dimmer(
         label="",
         aspect_ratio=1,
         linestyle=:dash,
-        xlims=(-0.2, 0.55),
-        ylims=(-0.2, 0.4),
+        xlims=(-0.3, 0.55),
+        ylims=(-0.3, 0.4),
         xlabel=L"\Delta \Delta G^\textrm{exp}\textrm{~/~kcal~mol^{-1}}",
         ylabel=L"\Delta \Delta G^\textrm{pred}\textrm{~/~kcal~mol^{-1}}",
         size=(500,500),

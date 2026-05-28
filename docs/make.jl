@@ -14,7 +14,7 @@ makedocs(
         "Auton & Bolen (Server) (Figs. S19-S27)" => "autonbolen2.md",
         "Moeser & Horinek (Figs. S28-S29)" => "moeserhorinek.md",
         "M&H vs A&B (Figs. S30-S31)" => "mh_vs_ab.md",
-        "MoeserHorinekFit (Figs. S32-S41)" => "mh_vs_ab_fit.md",
+        "MoeserHorinekApp (Figs. S32-S41)" => "mh_vs_ab_fit.md",
         "Fold families (Figs. S42-S50)" => "alpha_beta.md",
         "Experimental (Figs. S51-S60)" => "experimental.md",
         "References" => "references.md",
