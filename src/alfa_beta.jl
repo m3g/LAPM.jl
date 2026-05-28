@@ -19,10 +19,12 @@ const cath_data_file = joinpath(@__DIR__, "data/cath_S20.csv")
 # /cath/releases/latest-release/non-redundant-data-sets/cath-dataset-nonredundant-S20.pdb.tgz
 #
 # Download on May 26th, 2026.
-# 
-# Extract the files and provide the files as the cath_pdb_dir argument of the following function.
 #
-function alpha_beta(cath_pdb_dir)
+# Download also the cath-domain-list.txt file, and provide as the second argument. 
+# 
+# Extract the files and provide the dir as the cath_pdb_dir argument of the following function.
+#
+function alpha_beta(cath_pdb_dir, cath_domain_list)
     cosolvents = ["betaine", "proline", "sarcosine", "sorbitol", "sucrose", "tmao", "urea", "glycerol", "trehalose"]
     files = readdir(cath_pdb_dir)
     cosolvent_cols = [(Symbol(c, "_tot"), Symbol(c, "_bb"), Symbol(c, "_sc")) for c in cosolvents]
@@ -33,7 +35,7 @@ function alpha_beta(cath_pdb_dir)
         (col => Float32[] for (tot, bb, sc) in cosolvent_cols for col in (tot, bb, sc))...
     )
     list = CSV.read(
-        "./cath-domain-list.txt", DF.DataFrame; 
+        cath_domain_list, DF.DataFrame; 
         header=false, select=[1,2],
         comment="#", delim=' ', ignorerepeated=true
     )
