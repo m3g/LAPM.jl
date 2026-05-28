@@ -10,6 +10,8 @@ using StatsPlots
 using CategoricalArrays
 using EasyFit
 
+using PDBTools: parse_mvalue_server_sasa
+
 export MoeserHorinek, AutonBolen, MoeserHorinekApp
 export plot_mvalue
 export plot_MH_vs_AB
