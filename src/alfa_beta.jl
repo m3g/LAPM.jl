@@ -72,7 +72,7 @@ function alpha_beta(cath_pdb_dir, cath_domain_list)
         end
         next!(prg)
     end
-    CSV.write("./data/cath_S20.csv", df)
+    CSV.write(cath_data_file, df)
     return df
 end
 
