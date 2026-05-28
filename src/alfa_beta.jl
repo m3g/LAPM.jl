@@ -39,7 +39,7 @@ function alpha_beta(cath_pdb_dir, cath_domain_list)
         header=false, select=[1,2],
         comment="#", delim=' ', ignorerepeated=true
     )
-    rename!(list, [:name, :class])
+    DataFrames.rename!(list, [:name, :class])
     lk = ReentrantLock()
     prg = Progress(length(files))
     @threads for file in files
