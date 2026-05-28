@@ -60,12 +60,12 @@ function plot_rydeen_folding(
         markercolor=1,
         markershape=:circle,
     )
-    f = fitlinear(getfield.(exp, :val), getfield.(preds, :val))
-    plot!(plt, f.x, f.y, 
-#        label=latexstring("a=$(round(f.a,digits=2)), R^2=$(round(f.R2; digits=2))"),
-        label="",
-        linecolor=1,
-    )
+    #f = fitlinear(getfield.(exp, :val), getfield.(preds, :val))
+    #plot!(plt, f.x, f.y, 
+    #    label=latexstring("a=$(round(f.a,digits=2)), R^2=$(round(f.R2; digits=2))"),
+    #    label="",
+    #    linecolor=1,
+    #)
     
     s = Dict(
         "TMAO" =>      (-0.03, 0.05),
@@ -100,12 +100,12 @@ function plot_rydeen_folding(
         markercolor=4,
         markershape=:square,
     )
-    f = fitlinear(getfield.(exp, :val), getfield.(preds, :val))
-    plot!(plt, f.x, f.y, 
-        label=latexstring("a=$(round(f.a,digits=2)), R^2=$(round(f.R2; digits=2))"),
-#        label="",
-        linecolor=4,
-    )
+    #f = fitlinear(getfield.(exp, :val), getfield.(preds, :val))
+    #plot!(plt, f.x, f.y, 
+    #    label=latexstring("a=$(round(f.a,digits=2)), R^2=$(round(f.R2; digits=2))"),
+    #    label="",
+    #    linecolor=4,
+    #)
 
     plot!(plt, [-0.5, 0.6], [-0.5, 0.6], 
         linecolor=:black,
@@ -180,12 +180,12 @@ function plot_rydeen_dimmer(
         markershape=:circle,
         markercolor=1,
     )
-    f = fitlinear(getfield.(exp, :val), getfield.(preds, :val))
-    plot!(plt, f.x, f.y, 
-        #label=latexstring("a=$(round(f.a,digits=2)), R^2=$(round(f.R2; digits=2))"),
-        label="",
-        linecolor=1,
-    )
+    #f = fitlinear(getfield.(exp, :val), getfield.(preds, :val))
+    #plot!(plt, f.x, f.y, 
+    #    #label=latexstring("a=$(round(f.a,digits=2)), R^2=$(round(f.R2; digits=2))"),
+    #    label="",
+    #    linecolor=1,
+    #)
     
     s = Dict(
         "TMAO" =>      (0.01, 0.05),
@@ -220,12 +220,12 @@ function plot_rydeen_dimmer(
         markershape=:square,
         markercolor=4,
     )
-    f = fitlinear(getfield.(exp, :val), getfield.(preds, :val))
-    plot!(plt, f.x, f.y, 
-#        label=latexstring("a=$(round(f.a,digits=2)), R^2=$(round(f.R2; digits=2))"),
-        label="",
-        linecolor=4,
-    )
+    #f = fitlinear(getfield.(exp, :val), getfield.(preds, :val))
+    #plot!(plt, f.x, f.y, 
+    #    label=latexstring("a=$(round(f.a,digits=2)), R^2=$(round(f.R2; digits=2))"),
+    #    label="",
+    #    linecolor=4,
+    #)
 
     plot!(plt, [-0.4, 0.5], [-0.4, 0.5], 
         linecolor=:black,
