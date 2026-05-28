@@ -44,7 +44,7 @@ function alpha_beta(cath_pdb_dir, cath_domain_list)
     prg = Progress(length(files))
     @threads for file in files
         c = list.class[findfirst(==(file), list.name)]
-        p = read_pdb(joinpath("./pdbs", file))
+        p = read_pdb(joinpath(cath_pdb_dir, file))
         for at in p
             n = resname(at)
             if length(n) == 4
