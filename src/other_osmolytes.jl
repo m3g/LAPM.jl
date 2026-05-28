@@ -106,8 +106,9 @@ function other_osmolytes(; type=2)
     end
     #return name, exp, mab_orig, mab, mhapp
     plt = plot(MolSimStyle, layout=(2,1))
-    scatter!(plt, exp, mab; label="AutonBolen", subplot=1)
-    scatter!(plt, exp, mhapp; label="MoeserHorinekApp", subplot=1)
+    plot!([-10,10],[-10,10]; ls=:dash, lc=:black, subplot=1, label="")
+    scatter!(plt, exp, mab; label="AutonBolen", subplot=1, mc=1)
+    scatter!(plt, exp, mhapp; label="MoeserHorinekApp", subplot=1, mc=2)
     plot!(plt,
         xlabel=L"\textrm{Experimental~}m\textrm{-value~/~kcal~mol^{-1}}",
         ylabel=L"\textrm{Predicted~}m\textrm{-value~/~kcal~mol^{-1}}",
@@ -124,6 +125,11 @@ function other_osmolytes(; type=2)
             "Computer Modern",
             10,
         ),
+        subplot=1,
+    )
+    plot!(;
+        xlims=(-0.,7),
+        ylims=(-1,7),
         subplot=1,
     )
     groupedbar!(plt,
