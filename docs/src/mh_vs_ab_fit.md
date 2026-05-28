@@ -1,4 +1,4 @@
-# Moeser & Horinek adjusted by Gly non-ideality
+# Moeser & Horinek with apparent TFEs
 
 These plots show the MoeserHorinekApp model, which extends the MH to all cosolvents covered by the AB parameterization. Comparisons against AutonBolen correspond to Figure 3 of the paper.
 

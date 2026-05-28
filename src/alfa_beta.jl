@@ -83,7 +83,7 @@ end
 #
 # Run with: 
 #
-# df = CSV.read("./data/cath_S20.csv")
+# df = CSV.read(cath_data_file, DataFrame)
 # plot_cosolvent(df, "urea")
 #
 function plot_cosolvent(df, cosolvent; 
@@ -129,8 +129,10 @@ function plot_cosolvent(df, cosolvent;
 
     plot(subplots...; layout=(3, 1), size=(800, 800), fontfamily="Computer Modern")
 end
-
-function plot2cosolvents(df, c1, c2)
+ 
+# Run with: 
+function plot2cosolvents(c1, c2, df=CSV.read(cath_data_file, DF.DataFrame))
+    scalefontsizes()
     p1 = plot_cosolvent(df, c1; 
         legend=[:topright, :topright, :topright],
     )
