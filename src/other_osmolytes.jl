@@ -74,7 +74,11 @@ const os_pdb_files = Dict(
     "2SNS" => joinpath(@__DIR__, "data", "pdb", "2SNS_clean.pdb"),
 )
 
-function other_osmolytes(; type=2)
+function other_osmolytes(; 
+    m1=AutonBolen,
+    m2=MoeserHorinekApp,
+    type=2
+)
     scalefontsizes()
     name = String[]
     osmo = String[]
@@ -93,8 +97,8 @@ function other_osmolytes(; type=2)
                 error("Wrong number of residues for $pdb")
             end
             cm = CreamerDenaturedModel(p, type)
-            _m_ab = mvalue(cm, osm; model=AutonBolen).tot
-            _m_mhapp = mvalue(cm, osm; model=MoeserHorinekApp).tot
+            _m_ab = mvalue(cm, osm; model=m1).tot
+            _m_mhapp = mvalue(cm, osm; model=m2).tot
             push!(name, pdb)
             push!(osmo, osm)
             push!(l, nres)
@@ -107,8 +111,8 @@ function other_osmolytes(; type=2)
     #return name, exp, mab_orig, mab, mhapp
     plt = plot(MolSimStyle, layout=(2,1))
     plot!([-10,10],[-10,10]; ls=:dash, lc=:black, subplot=1, label="")
-    scatter!(plt, exp, mab; label="AutonBolen", subplot=1, mc=1)
-    scatter!(plt, exp, mhapp; label="MoeserHorinekApp", subplot=1, mc=2)
+    scatter!(plt, exp, mab; label=modelname(m1), subplot=1, mc=1)
+    scatter!(plt, exp, mhapp; label=modelname(m2), subplot=1, mc=2)
     plot!(plt,
         xlabel=L"\textrm{Experimental~}m\textrm{-value~/~kcal~mol^{-1}}",
         ylabel=L"\textrm{Predicted~}m\textrm{-value~/~kcal~mol^{-1}}",
@@ -136,8 +140,8 @@ function other_osmolytes(; type=2)
         repeat(collect("$(name[i])-$(osmo[i])" for i in eachindex(name)); outer=3),
         vcat(exp, mab, mhapp),
         group=categorical(
-            repeat([ "Experimental" , "AutonBolen", "MoeserHorinekApp"]; inner=length(name)),
-            levels=[ "Experimental" , "AutonBolen", "MoeserHorinekApp"], 
+            repeat([ "Experimental" , modelname(m1), modelname(m2)]; inner=length(name)),
+            levels=[ "Experimental" , modelname(m1), modelname(m2)], 
         ),
         xlabel="",
         #xticks=:none,

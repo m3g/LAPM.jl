@@ -17,8 +17,10 @@ const rydeen = OrderedDict(
 )
 
 function plot_rydeen_folding(
-    prot=read_pdb(joinpath(@__DIR__ ,"/data/pdb/2AZS.cif"));
+    prot=read_pdb(joinpath(@__DIR__ ,"data/pdb/2AZS.cif"));
     type=2,
+    m1=AutonBolen,
+    m2=MoeserHorinekApp,
 )
     predictions = OrderedDict()
     for cosolvent in keys(rydeen) 
@@ -29,8 +31,8 @@ function plot_rydeen_folding(
         end
         for (i, model) in enumerate(eachmodel(prot))
             c = CreamerDenaturedModel(model, type)
-            m_ab[i] = mvalue(c, cosolvent; model=AutonBolen).tot
-            m_mhapp[i] = mvalue(c, cosolvent; model=MoeserHorinekApp).tot
+            m_ab[i] = mvalue(c, cosolvent; model=m1).tot
+            m_mhapp[i] = mvalue(c, cosolvent; model=m2).tot
             if cosolvent == "urea"
                 m_mh[i] = mvalue(c, cosolvent; model=MoeserHorinek).tot
             end
@@ -55,7 +57,7 @@ function plot_rydeen_folding(
     exp = [ val[2] for (key, val) in rydeen ]
     preds = [ val[1] for (key, val) in predictions ]
     scatter!(plt, exp, preds, 
-        label="AutonBolen", 
+        label=modelname(m1),
         markeralpha=1,
         markercolor=1,
         markershape=:circle,
@@ -95,7 +97,7 @@ function plot_rydeen_folding(
     # mh_app
     exp = [ val[2] for (key, val) in rydeen ] 
     preds = [ val[2] for (key, val) in predictions ]
-    scatter!(plt, exp, preds, label="MoeserHorinekApp",
+    scatter!(plt, exp, preds, label=modelname(m2),
         markeralpha=1,
         markercolor=4,
         markershape=:square,
@@ -125,7 +127,9 @@ function plot_rydeen_folding(
 end
 
 function plot_rydeen_dimmer(
-    prot=read_pdb(joinpath(@__DIR__ ,"/data/pdb/2RMM.cif"))
+    prot=read_pdb(joinpath(@__DIR__ ,"data/pdb/2RMM.cif"));
+    m1=AutonBolen,
+    m2=MoeserHorinekApp,
 )
     predictions = OrderedDict()
     for cosolvent in keys(rydeen) 
@@ -138,14 +142,14 @@ function plot_rydeen_dimmer(
             cA = select(model, "chain A")
             cB = select(model, "chain B")
             # AutonBolen
-            tfeA = transfer_free_energy(cA, cosolvent; model=AutonBolen)
-            tfeB = transfer_free_energy(cB, cosolvent; model=AutonBolen)
-            tfe_d = transfer_free_energy(model, cosolvent; model=AutonBolen)
+            tfeA = transfer_free_energy(cA, cosolvent; model=m1)
+            tfeB = transfer_free_energy(cB, cosolvent; model=m1)
+            tfe_d = transfer_free_energy(model, cosolvent; model=m1)
             m_ab[i] = tfeA.tot + tfeB.tot - tfe_d.tot 
             # MoeserHorinekApp
-            tfeA = transfer_free_energy(cA, cosolvent; model=MoeserHorinekApp)
-            tfeB = transfer_free_energy(cB, cosolvent; model=MoeserHorinekApp)
-            tfe_d = transfer_free_energy(model, cosolvent; model=MoeserHorinekApp)
+            tfeA = transfer_free_energy(cA, cosolvent; model=m2)
+            tfeB = transfer_free_energy(cB, cosolvent; model=m2)
+            tfe_d = transfer_free_energy(model, cosolvent; model=m2)
             m_mhapp[i] = tfeA.tot + tfeB.tot - tfe_d.tot 
             # MoeserHorinek
             if cosolvent == "urea"
@@ -176,7 +180,7 @@ function plot_rydeen_dimmer(
     exp = [ val[1] for (key, val) in rydeen ]
     preds = [ val[1] for (key, val) in predictions ]
     scatter!(plt, exp, preds, 
-        label="AutonBolen", 
+        label=modelname(m1), 
         markeralpha=1,
         markershape=:circle,
         markercolor=1,
@@ -216,7 +220,7 @@ function plot_rydeen_dimmer(
     # mh_app
     exp = [ val[1] for (key, val) in rydeen ] 
     preds = [ val[2] for (key, val) in predictions ]
-    scatter!(plt, exp, preds, label="MoeserHorinekApp",
+    scatter!(plt, exp, preds, label=modelname(m2),
         markeralpha=1,
         markershape=:square,
         markercolor=4,
