@@ -1120,10 +1120,10 @@ uuid = "efcefdf7-47ab-520b-bdef-62a2eaa19f15"
 version = "10.44.0+1"
 
 [[deps.PDBTools]]
-deps = ["CellListMap", "ChunkSplitters", "Compat", "Dates", "Downloads", "Format", "InlineStrings", "InteractiveUtils", "LinearAlgebra", "MolSimToolkitShared", "OrderedCollections", "PrecompileTools", "Printf", "ProteinSecondaryStructures", "SIMD", "SparseArrays", "StaticArrays", "TestItems"]
-git-tree-sha1 = "cba82c4089d7ab45aa77f2ca76ad982684cfe447"
+deps = ["CellListMap", "ChunkSplitters", "Compat", "Dates", "Downloads", "Format", "InlineStrings", "LinearAlgebra", "MolSimToolkitShared", "OrderedCollections", "PrecompileTools", "Printf", "ProteinSecondaryStructures", "SIMD", "SparseArrays", "StaticArrays", "TestItems"]
+path = "/home/leandro/.julia/dev/PDBTools"
 uuid = "e29189f1-7114-4dbd-93d0-c5673a921a58"
-version = "3.30.0"
+version = "3.30.1-DEV"
 weakdeps = ["Plots"]
 
     [deps.PDBTools.extensions]
