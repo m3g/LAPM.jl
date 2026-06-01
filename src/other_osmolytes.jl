@@ -53,9 +53,6 @@ ab_table = OrderedDict(
     "glycerol" => OrderedDict(
         "1AKE" => ("protein and chain A and not resnum 110 to 164", 159, 771, -81),
     ),
-    "sorbitol" => OrderedDict(
-        "1AKE" => ("protein and chain A and not resnum 110 to 164", 159, 2139, 2331),
-    ),
 )
 
 const os_pdb_files = Dict(
@@ -109,6 +106,9 @@ function other_osmolytes(;
         end
     end
     #return name, exp, mab_orig, mab, mhapp
+    alldata = vcat(exp, mab, mhapp)
+    ymin, ymax = extrema(alldata)
+    ypad = 0.05 * (ymax - ymin)
     plt = plot(MolSimStyle, layout=(2,1))
     plot!([-10,10],[-10,10]; ls=:dash, lc=:black, subplot=1, label="")
     scatter!(plt, exp, mab; label=modelname(m1), subplot=1, mc=1)
@@ -123,21 +123,22 @@ function other_osmolytes(;
     plot!(plt, f.x, f.y; label="", color=1, ls=:dash, subplot=1)
     f = fitlinear(exp, mhapp)
     plot!(plt, f.x, f.y; label="", color=2, ls=:dash, subplot=1)
-    annotate!(plt, 5.3, 4, 
-        text(
-            latexstring("y=$(round(f.a; digits=2))x+$(round(f.b; digits=2)); R^2=$(round(f.R2; digits=2))"),
-            "Computer Modern",
-            10,
-        ),
-        subplot=1,
-    )
+#    annotate!(plt, 5.3, 4, 
+#        text(
+#            latexstring("y=$(round(f.a; digits=2))x+$(round(f.b; digits=2)); R^2=$(round(f.R2; digits=2))"),
+#            "Computer Modern",
+#            10,
+#        ),
+#        subplot=1,
+#    )
     plot!(;
         xlims=(-0.,7),
-        ylims=(-1,7),
+        ylims=(ymin - ypad, ymax + ypad),
         subplot=1,
     )
+    labels = ["$(name[i])-$(osmo[i])" for i in eachindex(name)]
     groupedbar!(plt,
-        repeat(collect("$(name[i])-$(osmo[i])" for i in eachindex(name)); outer=3),
+        categorical(repeat(labels; outer=3), levels=labels),
         vcat(exp, mab, mhapp),
         group=categorical(
             repeat([ "Experimental" , modelname(m1), modelname(m2)]; inner=length(name)),
@@ -145,8 +146,7 @@ function other_osmolytes(;
         ),
         xlabel="",
         #xticks=:none,
-        ylims=(-0.5, 7.5),
-        xticks = (eachindex(name) .- 0.5, [ "$(name[i])-$(osmo[i])" for i in eachindex(name) ]),
+        ylims=(ymin - ypad, ymax + ypad),
         xrotation=70,
         topmargin=0.0Plots.Measures.cm,
         ylabel=L"\textrm{Predicted~}m\textrm{-value~/~kcal~mol^{-1}}",
