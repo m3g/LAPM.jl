@@ -479,7 +479,7 @@ function compute_accessible_fractions(; proteins=proteins)
         for ir in firstindex(rs)+1:lastindex(rs)-1
             r = rs[ir]
             rname = resname(r)
-            if !rname in keys(n_atoms_side_chain)
+            if !(rname in keys(n_atoms_side_chain))
                 continue
             end
             bb0 = select(rs[ir-1], isbackbone)
