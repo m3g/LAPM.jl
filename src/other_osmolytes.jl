@@ -149,7 +149,7 @@ function other_osmolytes(;
         ylims=(ymin - ypad, ymax + ypad),
         xrotation=70,
         topmargin=0.0Plots.Measures.cm,
-        ylabel=L"\textrm{Predicted~}m\textrm{-value~/~kcal~mol^{-1}}",
+        ylabel=L"m\textrm{-value~/~kcal~mol^{-1}}",
         subplot=2,
     )
     #bar!(plt, 1000 * (mab .- mhapp) ./ l; 
