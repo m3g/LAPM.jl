@@ -425,3 +425,94 @@ function creamer_data_per_atom(;proteins=protein_list)
 
     return mean_asa_restype
 end
+
+const n_atoms_side_chain = Dict{String,Int}(
+    "ALA" => 1,  # CB
+    "PHE" => 7,  # CB CG CD1 CD2 CE1 CE2 CZ
+    "LEU" => 4,  # CB CG CD1 CD2
+    "ILE" => 4,  # CB CG1 CG2 CD1
+    "VAL" => 3,  # CB CG1 CG2
+    "PRO" => 3,  # CB CG CD
+    "MET" => 4,  # CB CG SD CE
+    "TRP" => 10, # CB CG CD1 CD2 NE1 CE2 CE3 CZ2 CZ3 CH2
+    "GLY" => 0,  # no side chain heavy atoms
+    "SER" => 2,  # CB OG
+    "THR" => 3,  # CB OG1 CG2
+    "TYR" => 8,  # CB CG CD1 CD2 CE1 CE2 CZ OH
+    "GLN" => 5,  # CB CG CD OE1 NE2
+    "ASN" => 4,  # CB CG OD1 ND2
+    "ASP" => 4,  # CB CG OD1 OD2
+    "GLU" => 5,  # CB CG CD OE1 OE2
+    "HIS" => 6,  # CB CG ND1 CD2 CE1 NE2
+    "LYS" => 5,  # CB CG CD CE NZ
+    "ARG" => 7,  # CB CG CD NE CZ NH1 NH2
+    "CYS" => 2,  # CB SG
+)
+
+function compute_accessible_fractions(; proteins=proteins)
+    f = OrderedDict{String,OrderedDict{String,Float32}}(
+        "ALA" => OrderedDict("n"=>0.f0, "sc"=>0.f0, "sc_pure"=>0.f0, "bb" => 0.f0, "bb_pure"=>0.f0, "f_bb" => 0.0, "f_sc" => 0.0),
+        "PHE" => OrderedDict("n"=>0.f0, "sc"=>0.f0, "sc_pure"=>0.f0, "bb" => 0.f0, "bb_pure"=>0.f0, "f_bb" => 0.0, "f_sc" => 0.0),
+        "LEU" => OrderedDict("n"=>0.f0, "sc"=>0.f0, "sc_pure"=>0.f0, "bb" => 0.f0, "bb_pure"=>0.f0, "f_bb" => 0.0, "f_sc" => 0.0),
+        "ILE" => OrderedDict("n"=>0.f0, "sc"=>0.f0, "sc_pure"=>0.f0, "bb" => 0.f0, "bb_pure"=>0.f0, "f_bb" => 0.0, "f_sc" => 0.0),   
+        "VAL" => OrderedDict("n"=>0.f0, "sc"=>0.f0, "sc_pure"=>0.f0, "bb" => 0.f0, "bb_pure"=>0.f0, "f_bb" => 0.0, "f_sc" => 0.0), 
+        "PRO" => OrderedDict("n"=>0.f0, "sc"=>0.f0, "sc_pure"=>0.f0, "bb" => 0.f0, "bb_pure"=>0.f0, "f_bb" => 0.0, "f_sc" => 0.0), 
+        "MET" => OrderedDict("n"=>0.f0, "sc"=>0.f0, "sc_pure"=>0.f0, "bb" => 0.f0, "bb_pure"=>0.f0, "f_bb" => 0.0, "f_sc" => 0.0), 
+        "TRP" => OrderedDict("n"=>0.f0, "sc"=>0.f0, "sc_pure"=>0.f0, "bb" => 0.f0, "bb_pure"=>0.f0, "f_bb" => 0.0, "f_sc" => 0.0), 
+        "GLY" => OrderedDict("n"=>0.f0, "sc"=>0.f0, "sc_pure"=>0.f0, "bb" => 0.f0, "bb_pure"=>0.f0, "f_bb" => 0.0, "f_sc" => 0.0), 
+        "SER" => OrderedDict("n"=>0.f0, "sc"=>0.f0, "sc_pure"=>0.f0, "bb" => 0.f0, "bb_pure"=>0.f0, "f_bb" => 0.0, "f_sc" => 0.0), 
+        "THR" => OrderedDict("n"=>0.f0, "sc"=>0.f0, "sc_pure"=>0.f0, "bb" => 0.f0, "bb_pure"=>0.f0, "f_bb" => 0.0, "f_sc" => 0.0), 
+        "TYR" => OrderedDict("n"=>0.f0, "sc"=>0.f0, "sc_pure"=>0.f0, "bb" => 0.f0, "bb_pure"=>0.f0, "f_bb" => 0.0, "f_sc" => 0.0), 
+        "GLN" => OrderedDict("n"=>0.f0, "sc"=>0.f0, "sc_pure"=>0.f0, "bb" => 0.f0, "bb_pure"=>0.f0, "f_bb" => 0.0, "f_sc" => 0.0), 
+        "ASN" => OrderedDict("n"=>0.f0, "sc"=>0.f0, "sc_pure"=>0.f0, "bb" => 0.f0, "bb_pure"=>0.f0, "f_bb" => 0.0, "f_sc" => 0.0), 
+        "ASP" => OrderedDict("n"=>0.f0, "sc"=>0.f0, "sc_pure"=>0.f0, "bb" => 0.f0, "bb_pure"=>0.f0, "f_bb" => 0.0, "f_sc" => 0.0), 
+        "GLU" => OrderedDict("n"=>0.f0, "sc"=>0.f0, "sc_pure"=>0.f0, "bb" => 0.f0, "bb_pure"=>0.f0, "f_bb" => 0.0, "f_sc" => 0.0), 
+        "HIS" => OrderedDict("n"=>0.f0, "sc"=>0.f0, "sc_pure"=>0.f0, "bb" => 0.f0, "bb_pure"=>0.f0, "f_bb" => 0.0, "f_sc" => 0.0), 
+        "LYS" => OrderedDict("n"=>0.f0, "sc"=>0.f0, "sc_pure"=>0.f0, "bb" => 0.f0, "bb_pure"=>0.f0, "f_bb" => 0.0, "f_sc" => 0.0), 
+        "ARG" => OrderedDict("n"=>0.f0, "sc"=>0.f0, "sc_pure"=>0.f0, "bb" => 0.f0, "bb_pure"=>0.f0, "f_bb" => 0.0, "f_sc" => 0.0), 
+        "CYS" => OrderedDict("n"=>0.f0, "sc"=>0.f0, "sc_pure"=>0.f0, "bb" => 0.f0, "bb_pure"=>0.f0, "f_bb" => 0.0, "f_sc" => 0.0), 
+        "BB"  => OrderedDict("n"=>0.f0, "sc"=>0.f0, "sc_pure"=>0.f0, "bb" => 0.f0, "bb_pure"=>0.f0, "f_bb" => 0.0, "f_sc" => 0.0), 
+    )
+    for (_, prot) in pairs(proteins)
+        prot_no_H = select(prot, "not element H")
+        rs = collect(eachresidue(prot_no_H))
+        for ir in firstindex(rs)+1:lastindex(rs)-1
+            r = rs[ir]
+            rname = resname(r)
+            bb0 = select(rs[ir-1], isbackbone)
+            bb1 = select(r, isbackbone)
+            bb2 = select(rs[ir+1], isbackbone)
+            bb = vcat(bb0, bb1, bb2)
+            bb_pure = sasa(sasa_particles(bb), at -> at in r) 
+            if rname == "GLY"
+                f["GLY"]["n"] += 1
+                f["GLY"]["bb"] += bb_pure
+                f["GLY"]["bb_pure"] += bb_pure
+                continue
+            end
+            sc_only = select(r, issidechain)
+            if length(sc_only) != n_atoms_side_chain[rname] 
+                continue
+            end
+            fragment = vcat(bb0, r, bb2)
+            bb = sasa(sasa_particles(fragment), at -> isbackbone(at) && at in r)
+            sc_pure = sasa(sasa_particles(select(r, issidechain)))
+            sc = sasa(sasa_particles(r), issidechain)
+            f[rname]["n"] += 1
+            f[rname]["bb"] += bb
+            f[rname]["bb_pure"] += bb_pure
+            f[rname]["sc"] += sc
+            f[rname]["sc_pure"] += sc_pure
+        end
+    end
+    for rname in keys(f)
+        n = f[rname]["n"]
+        f[rname]["bb"] /= n 
+        f[rname]["bb_pure"] /= n 
+        f[rname]["sc"] /= n 
+        f[rname]["sc_pure"] /= n 
+        f[rname]["f_bb"] = f[rname]["bb"]/f[rname]["bb_pure"]
+        f[rname]["f_sc"] = f[rname]["sc"]/f[rname]["sc_pure"]
+    end
+    return f
+end
