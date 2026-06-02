@@ -17,7 +17,7 @@ const rydeen = OrderedDict(
 )
 
 function plot_rydeen_folding(
-    prot=read_pdb(joinpath(@__DIR__ ,"data/pdb/2AZS.cif"));
+    prot=read_pdb(joinpath(@__DIR__ ,"data/pdb/2AZS.cif"), "not element H");
     type=2,
     m1=AutonBolen,
     m2=MoeserHorinekApp,
@@ -127,7 +127,7 @@ function plot_rydeen_folding(
 end
 
 function plot_rydeen_dimmer(
-    prot=read_pdb(joinpath(@__DIR__ ,"data/pdb/2RMM.cif"));
+    prot=read_pdb(joinpath(@__DIR__ ,"data/pdb/2RMM.cif"), "not element H");
     m1=AutonBolen,
     m2=MoeserHorinekApp,
 )
