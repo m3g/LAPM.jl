@@ -471,7 +471,6 @@ function compute_accessible_fractions(; proteins=proteins)
         "LYS" => OrderedDict("n"=>0.f0, "sc"=>0.f0, "sc_pure"=>0.f0, "bb" => 0.f0, "bb_pure"=>0.f0, "f_bb" => 0.0, "f_sc" => 0.0), 
         "ARG" => OrderedDict("n"=>0.f0, "sc"=>0.f0, "sc_pure"=>0.f0, "bb" => 0.f0, "bb_pure"=>0.f0, "f_bb" => 0.0, "f_sc" => 0.0), 
         "CYS" => OrderedDict("n"=>0.f0, "sc"=>0.f0, "sc_pure"=>0.f0, "bb" => 0.f0, "bb_pure"=>0.f0, "f_bb" => 0.0, "f_sc" => 0.0), 
-        "BB"  => OrderedDict("n"=>0.f0, "sc"=>0.f0, "sc_pure"=>0.f0, "bb" => 0.f0, "bb_pure"=>0.f0, "f_bb" => 0.0, "f_sc" => 0.0), 
     )
     @showprogress for (_, prot) in pairs(proteins)
         prot_no_H = select(prot, "not element H")
