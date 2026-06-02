@@ -486,6 +486,9 @@ function compute_accessible_fractions(; proteins=proteins)
             bb1 = select(r, isbackbone)
             bb2 = select(rs[ir+1], isbackbone)
             bb = vcat(bb0, bb1, bb2)
+            if length(bb) != 12
+                continue
+            end
             bb_pure = sasa(sasa_particles(bb), at -> at in r) 
             if rname == "GLY"
                 f["GLY"]["n"] += 1
