@@ -480,8 +480,13 @@ function compute_accessible_fractions(; proteins=proteins)
         prot_no_H = select(prot, "not element H")
         rs = collect(eachresidue(prot_no_H))
         for ir in firstindex(rs)+1:lastindex(rs)-1
+            # skip non-standard residue names
+            if any(isnothing(threeletter(resname(rs[i]))) for i in ir-1:ir+1)
+                continue
+            end
             r = rs[ir]
             rname = resname(r)
+            # this is probably filtered already
             if !(rname in keys(n_atoms_side_chain))
                 continue
             end
@@ -489,6 +494,7 @@ function compute_accessible_fractions(; proteins=proteins)
             bb1 = select(r, isbackbone)
             bb2 = select(rs[ir+1], isbackbone)
             bb = vcat(bb0, bb1, bb2)
+            # If there are missing bb atoms, skip
             if length(bb) != 12
                 continue
             end
@@ -500,6 +506,7 @@ function compute_accessible_fractions(; proteins=proteins)
                 continue
             end
             sc_only = select(r, issidechain)
+            # If there are missing SC atoms, skip
             if length(sc_only) != n_atoms_side_chain[rname] 
                 continue
             end
@@ -550,7 +557,30 @@ const f_acc_Gromacs = OrderedDict{String, OrderedDict{String, Float32}}(
   "CYS" => OrderedDict("n"=>29486.0, "sc"=>103.039, "sc_pure"=>160.6, "bb"=>46.205, "bb_pure"=>85.928, "f_bb"=>0.537717, "f_sc"=>0.641584),
 )
 
-# Result from the above function computed over the original database using sasa_particles()
+const f_acc_Creamer = OrderedDict{String, OrderedDict{String, Float32}}(
+    "ALA" => OrderedDict("n"=>179233.0, "sc"=>70.878, "sc_pure"=>135.348, "bb"=>49.0121, "bb_pure"=>88.8883, "f_bb"=>0.55139, "f_sc"=>0.523674),
+    "PHE" => OrderedDict("n"=>91323.0, "sc"=>187.587, "sc_pure"=>248.851, "bb"=>38.6632, "bb_pure"=>87.374, "f_bb"=>0.442502, "f_sc"=>0.753811),
+    "LEU" => OrderedDict("n"=>213010.0, "sc"=>159.14, "sc_pure"=>219.486, "bb"=>37.3229, "bb_pure"=>88.2639, "f_bb"=>0.422855, "f_sc"=>0.725056),
+    "ILE" => OrderedDict("n"=>126589.0, "sc"=>159.817, "sc_pure"=>220.105, "bb"=>35.3226, "bb_pure"=>87.5728, "f_bb"=>0.403351, "f_sc"=>0.726092),
+    "VAL" => OrderedDict("n"=>153028.0, "sc"=>133.941, "sc_pure"=>194.604, "bb"=>36.6751, "bb_pure"=>87.2728, "f_bb"=>0.420236, "f_sc"=>0.688274),
+    "PRO" => OrderedDict("n"=>97983.0, "sc"=>130.021, "sc_pure"=>192.851, "bb"=>39.646, "bb_pure"=>91.4236, "f_bb"=>0.433651, "f_sc"=>0.674206),
+    "MET" => OrderedDict("n"=>36719.0, "sc"=>161.456, "sc_pure"=>222.969, "bb"=>39.909, "bb_pure"=>87.8564, "f_bb"=>0.454253, "f_sc"=>0.724115),
+    "TRP" => OrderedDict("n"=>31497.0, "sc"=>230.509, "sc_pure"=>291.634, "bb"=>37.4479, "bb_pure"=>88.0122, "f_bb"=>0.425485, "f_sc"=>0.790406),
+    "GLY" => OrderedDict("n"=>151702.0, "sc"=>0.0, "sc_pure"=>0.0, "bb"=>87.4824, "bb_pure"=>87.4824, "f_bb"=>1.0, "f_sc"=>1.0),
+    "SER" => OrderedDict("n"=>129971.0, "sc"=>85.2744, "sc_pure"=>148.711, "bb"=>45.9041, "bb_pure"=>87.7078, "f_bb"=>0.523376, "f_sc"=>0.573423),
+    "THR" => OrderedDict("n"=>118719.0, "sc"=>117.741, "sc_pure"=>179.107, "bb"=>39.4432, "bb_pure"=>87.0271, "f_bb"=>0.453229, "f_sc"=>0.657378),
+    "TYR" => OrderedDict("n"=>78202.0, "sc"=>202.043, "sc_pure"=>263.305, "bb"=>38.86, "bb_pure"=>87.3211, "f_bb"=>0.445025, "f_sc"=>0.767335),
+    "GLN" => OrderedDict("n"=>82612.0, "sc"=>156.603, "sc_pure"=>218.196, "bb"=>40.2219, "bb_pure"=>88.4311, "f_bb"=>0.454839, "f_sc"=>0.717718),
+    "ASN" => OrderedDict("n"=>93411.0, "sc"=>129.155, "sc_pure"=>191.405, "bb"=>40.9267, "bb_pure"=>88.7074, "f_bb"=>0.461367, "f_sc"=>0.674776),
+    "ASP" => OrderedDict("n"=>125837.0, "sc"=>121.985, "sc_pure"=>184.224, "bb"=>41.1593, "bb_pure"=>89.0758, "f_bb"=>0.46207, "f_sc"=>0.662158),
+    "GLU" => OrderedDict("n"=>142356.0, "sc"=>149.532, "sc_pure"=>211.134, "bb"=>40.8443, "bb_pure"=>89.038, "f_bb"=>0.458729, "f_sc"=>0.708232),
+    "HIS" => OrderedDict("n"=>51092.0, "sc"=>165.044, "sc_pure"=>226.829, "bb"=>40.172, "bb_pure"=>87.7198, "f_bb"=>0.457958, "f_sc"=>0.727611),
+    "LYS" => OrderedDict("n"=>117537.0, "sc"=>178.395, "sc_pure"=>240.241, "bb"=>41.6446, "bb_pure"=>88.6705, "f_bb"=>0.469655, "f_sc"=>0.742567),
+    "ARG" => OrderedDict("n"=>110038.0, "sc"=>210.225, "sc_pure"=>272.22, "bb"=>41.319, "bb_pure"=>88.3584, "f_bb"=>0.467629, "f_sc"=>0.772262),
+    "CYS" => OrderedDict("n"=>29556.0, "sc"=>92.4815, "sc_pure"=>155.731, "bb"=>44.936, "bb_pure"=>87.0777, "f_bb"=>0.516044, "f_sc"=>0.593854),
+)
+
+# Result from the above function computed over the original database using sasa_particles_ua()
 const f_acc_Creamer_Original = OrderedDict{String, OrderedDict{String, Float32}}(
   "ALA" => OrderedDict("n"=>510.0, "sc"=>70.7682, "sc_pure"=>135.195, "bb"=>48.8059, "bb_pure"=>88.7686, "f_bb"=>0.549811, "f_sc"=>0.523454),
   "PHE" => OrderedDict("n"=>239.0, "sc"=>188.069, "sc_pure"=>249.27, "bb"=>37.9977, "bb_pure"=>86.988, "f_bb"=>0.436816, "f_sc"=>0.75448),
