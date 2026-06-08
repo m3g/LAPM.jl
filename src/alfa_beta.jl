@@ -63,7 +63,7 @@ function alpha_beta(cath_pdb_dir, cath_domain_list)
                 m = if c == "urea"
                     mvalue(cm, c; model=MoeserHorinek)
                 else
-                    mvalue(cm, c; model=MoeserHorinekApp)
+                    mvalue(cm, c; model=Accessibility)
                 end
                 row[Symbol(c, "_tot")] = m.tot
                 row[Symbol(c, "_bb")] = m.bb

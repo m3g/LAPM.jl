@@ -1,13 +1,15 @@
 plot_experimental(
     model::Type{<:PDBTools.MValueModel},
     cosolvent="urea";
-    sasas_from::Function=creamer_sasa
-) = plot_experimental([model], cosolvent; sasas_from)
+    sasas_from::Function=creamer_sasa,
+    labels=true,
+) = plot_experimental([model], cosolvent; sasas_from, labels)
 
 function plot_experimental(
-    models::Vector=[AutonBolen, MoeserHorinek, MoeserHorinekApp],
+    models::Vector=[AutonBolen, MoeserHorinek, Accessibility],
     cosolvent="urea";
-    sasas_from::Function=creamer_sasa
+    sasas_from::Function=creamer_sasa,
+    labels=true,
 )
     scalefontsizes()
     plt = plot(layout=(1,length(models)))
@@ -28,7 +30,11 @@ function plot_experimental(
         plot!(plt,framestyle=:box, fontfamily="Computer Modern", subplot=sp)
         ls = (lw=2, ls=:dash, label="", lc=:lightgrey)
         plot!(plt, [-100, 100], [-100, 100]; subplot=sp, ls...)
-        _scatter!(plt, tot_exp, tot_pred, example_structs; legend_title="", subplot=sp)
+        if labels
+            _scatter!(plt, tot_exp, tot_pred, example_structs; legend_title="", subplot=sp)
+        else
+            scatter!(plt, tot_exp, tot_pred; legend_title="", subplot=sp, label="")
+        end
         plot!(plt, xlabel=L"\textrm{Experimental~/~kcal~mol^{-1}}", subplot=sp)
         plot!(plt, ylabel=modelname(model), subplot=sp)
         fit = fitlinear(tot_exp, tot_pred)

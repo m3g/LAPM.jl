@@ -9,10 +9,11 @@ using Measurements
 using StatsPlots
 using CategoricalArrays
 using EasyFit
+import DataFrames as DF
 
 using PDBTools: parse_mvalue_server_sasa
 
-export MoeserHorinek, AutonBolen, MoeserHorinekApp
+export MoeserHorinek, AutonBolen, Accessibility, Accessibility
 export plot_mvalue
 export plot_MH_vs_AB
 export plot_experimental
@@ -20,12 +21,18 @@ export pdb_files
 
 data_dir = joinpath(@__DIR__, "data")
 
-modelname(model) = latexstring(
-    "\\textrm{"*
-    replace(string(model), "PDBTools." => "")
-    *"~/~kcal~mol^{-1}}"
-)
-mvaluelabel() = latexstring("m-\\textrm{value~/~kcal~mol^{-1}}")
+modelname(::Type{Accessibility}) = latexstring("\\textrm{Accessibility~/~kcal~mol^{-1}}")
+#modelname(::Type{Accessibility}) = latexstring("\\textrm{accessibility~model~/~kcal~mol^{-1}}")
+#modelname(::Type{Accessibility}) = latexstring("\\mathrm{accessibility~model~(\\alpha^{aa}_{bb})~/~kcal~mol^{-1}}")
+#modelname(::Type{Accessibility}) = latexstring("\\textrm{accessibility~model~(\\alpha_{bb}=1)~/~kcal~mol^{-1}}")
+
+modelname(::Type{AutonBolen}) = latexstring("\\mathrm{AutonBolen~/~kcal~mol^{-1}}")
+#modelname(::Type{AutonBolen}) = latexstring("\\mathrm{established~model~/~kcal~mol^{-1}}")
+
+modelname(::Type{MoeserHorinek}) = latexstring("\\mathrm{MoeserHorinek~/~kcal~mol^{-1}}")
+#modelname(::Type{MoeserHorinek}) = latexstring("\\mathrm{universal-backbone~model~/~kcal~mol^{-1}}")
+
+mvaluelabel() = latexstring("m-\\mathrm{value~/~kcal~mol^{-1}}")
 
 server_sasa(str::String, _) = sasa_server[str]
 #
@@ -157,5 +164,6 @@ include("rydeen.jl")
 include("./other_osmolytes.jl")
 include("./alfa_beta.jl")
 include("./generate_figures.jl")
+include("./data/hbonds_urea.jl")
 
 end

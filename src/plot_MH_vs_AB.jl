@@ -78,3 +78,33 @@ function plot_MH_vs_AB(
 
     return plt
 end
+
+using Printf
+export sc_vs_bb
+function sc_vs_bb(
+    cosolvent::String="urea"; 
+    m=AutonBolen,
+    sasas_from=server_sasa
+)
+    cosolvent = lowercase(cosolvent)
+    example_structs = keys(sasa_server)
+    nexamples = length(example_structs)
+    tot, bb, sc = zeros(nexamples), zeros(nexamples), zeros(nexamples)
+    for (i, str) in enumerate(example_structs)
+        prot = read_pdb(pdb_files[str])
+        nres = length(eachresidue(prot))
+        p = predict_mvalue(str; model=m, cosolvent, sasas_from)
+        tot[i] = p.tot / nres 
+        bb[i] = p.bb / nres
+        sc[i] = p.sc / nres
+    end
+    function _v(xs...)
+        cells = map(xs) do x
+            m = mean(1000 * x)
+            s = std(1000 * x)
+            Printf.@sprintf "\$ %.2f \\pm %.2f \$" m s
+        end
+        return join(cells, " & ") * " \\\\"
+    end
+    _v(tot, bb, sc)
+end

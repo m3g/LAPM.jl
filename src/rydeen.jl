@@ -20,7 +20,7 @@ function plot_rydeen_folding(
     prot=read_pdb(joinpath(@__DIR__ ,"data/pdb/2AZS.cif"), "not element H");
     type=2,
     m1=AutonBolen,
-    m2=MoeserHorinekApp,
+    m2=Accessibility,
 )
     predictions = OrderedDict()
     for cosolvent in keys(rydeen) 
@@ -129,7 +129,7 @@ end
 function plot_rydeen_dimmer(
     prot=read_pdb(joinpath(@__DIR__ ,"data/pdb/2RMM.cif"), "not element H");
     m1=AutonBolen,
-    m2=MoeserHorinekApp,
+    m2=Accessibility,
 )
     predictions = OrderedDict()
     for cosolvent in keys(rydeen) 
@@ -146,7 +146,7 @@ function plot_rydeen_dimmer(
             tfeB = transfer_free_energy(cB, cosolvent; model=m1)
             tfe_d = transfer_free_energy(model, cosolvent; model=m1)
             m_ab[i] = tfeA.tot + tfeB.tot - tfe_d.tot 
-            # MoeserHorinekApp
+            # Accessibility
             tfeA = transfer_free_energy(cA, cosolvent; model=m2)
             tfeB = transfer_free_energy(cB, cosolvent; model=m2)
             tfe_d = transfer_free_energy(model, cosolvent; model=m2)

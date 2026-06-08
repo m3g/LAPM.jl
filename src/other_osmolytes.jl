@@ -73,7 +73,7 @@ const os_pdb_files = Dict(
 
 function other_osmolytes(; 
     m1=AutonBolen,
-    m2=MoeserHorinekApp,
+    m2=Accessibility,
     type=2
 )
     scalefontsizes()
