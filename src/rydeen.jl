@@ -87,7 +87,7 @@ function plot_rydeen_folding(
     # mh
     exp = [ rydeen["urea"][2] ]
     preds =  [ predictions["urea"][3] ] 
-    scatter!(plt, exp, preds, label="MoeserHorinek",
+    scatter!(plt, exp, preds, label=modelname(MoeserHorinek),
         markeralpha=1,
         markersize=8,
         markercolor=2,
@@ -210,7 +210,7 @@ function plot_rydeen_dimmer(
     # m_mh 
     exp = [ rydeen["urea"][1] ]
     preds =  [ predictions["urea"][3] ] 
-    scatter!(plt, exp, preds, label="MoeserHorinek",
+    scatter!(plt, exp, preds, label=modelname(MoeserHorinek),
         markeralpha=1,
         markersize=8,
         markershape=:star,
@@ -250,10 +250,12 @@ end
 
 function plot_rydeen_both(plt1, plt2)
     scalefontsizes(); scalefontsizes(1.4)
-    l = @layout [ a{0.445w} b{0.555w} ]
-    plt = plot(plt1, plt2; size=(1000,500), layout=l)
-    annotate!(plt, -0.6, 0.63, text("A)", "Computer Modern", 14); subplot=1)
-    annotate!(plt, 0.7, 0.63, text("B)", "Computer Modern", 14); subplot=1)
+    l = @layout [ a{0.30w} b ]
+    plt = plot(plt1, plt2; size=(1500,500), layout=l, leftmargin=1.0Plots.Measures.cm)
+    annotate!(plt, -0.65, 0.63, text("A)", "Computer Modern", 14); subplot=1)
+    annotate!(plt, 0.67, 0.63, text("B)", "Computer Modern", 14); subplot=1)
+    plot!(plt, legend=nothing, subplot=1)
+    plot!(plt, legend=:outertopright, subplot=2)
     return plt
 end
 
