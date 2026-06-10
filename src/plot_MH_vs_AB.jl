@@ -102,7 +102,7 @@ function sc_vs_bb(
         cells = map(xs) do x
             m = mean(1000 * x)
             s = std(1000 * x)
-            Printf.@sprintf "\$ %.2f \\pm %.2f \$" m s
+            Printf.@sprintf " & %.2f & %.2f " m s
         end
         return join(cells, " & ") * " \\\\"
     end
