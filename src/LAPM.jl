@@ -28,12 +28,12 @@ modelname_nu(::Type{Accessibility}) = latexstring("\\textrm{\\textit{Accessibili
 #modelname(::Type{Accessibility}) = latexstring("\\textrm{accessibility~model~(\\alpha_{bb}=1)~/~kcal~mol^{-1}}")
 
 #modelname(::Type{AutonBolen}) = latexstring("\\mathrm{AutonBolen~/~kcal~mol^{-1}}")
-modelname(::Type{AutonBolen}) = latexstring("\\mathrm{\textit{Established}~/~kcal~mol^{-1}}")
-modelname_nu(::Type{AutonBolen}) = latexstring("\\mathrm{\textit{Established}}")
+modelname(::Type{AutonBolen}) = latexstring("\\textrm{\\textit{Established}~/~kcal~mol^{-1}}")
+modelname_nu(::Type{AutonBolen}) = latexstring("\\textrm{\\textit{Established}}")
 
 #modelname(::Type{MoeserHorinek}) = latexstring("\\mathrm{MoeserHorinek~/~kcal~mol^{-1}}")
-modelname(::Type{MoeserHorinek}) = latexstring("\\mathrm{\textit{Universal-backbone}~/~kcal~mol^{-1}}")
-modelname_nu(::Type{MoeserHorinek}) = latexstring("\\mathrm{\textit{Universal-backbone}}")
+modelname(::Type{MoeserHorinek}) = latexstring("\\textrm{\\textit{Universal-backbone}~/~kcal~mol^{-1}}")
+modelname_nu(::Type{MoeserHorinek}) = latexstring("\\textrm{\\textit{Universal-backbone}}")
 
 mvaluelabel() = latexstring("m-\\mathrm{value~/~kcal~mol^{-1}}")
 
