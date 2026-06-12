@@ -21,16 +21,19 @@ export pdb_files
 
 data_dir = joinpath(@__DIR__, "data")
 
-modelname(::Type{Accessibility}) = latexstring("\\textrm{Accessibility~/~kcal~mol^{-1}}")
+modelname(::Type{Accessibility}) = latexstring("\\textrm{\\textit{Accessibility}~/~kcal~mol^{-1}}")
+modelname_nu(::Type{Accessibility}) = latexstring("\\textrm{\\textit{Accessibility}}")
 #modelname(::Type{Accessibility}) = latexstring("\\textrm{accessibility~model~/~kcal~mol^{-1}}")
 #modelname(::Type{Accessibility}) = latexstring("\\mathrm{accessibility~model~(\\alpha^{aa}_{bb})~/~kcal~mol^{-1}}")
 #modelname(::Type{Accessibility}) = latexstring("\\textrm{accessibility~model~(\\alpha_{bb}=1)~/~kcal~mol^{-1}}")
 
-modelname(::Type{AutonBolen}) = latexstring("\\mathrm{AutonBolen~/~kcal~mol^{-1}}")
-#modelname(::Type{AutonBolen}) = latexstring("\\mathrm{established~model~/~kcal~mol^{-1}}")
+#modelname(::Type{AutonBolen}) = latexstring("\\mathrm{AutonBolen~/~kcal~mol^{-1}}")
+modelname(::Type{AutonBolen}) = latexstring("\\mathrm{\textit{Established}~/~kcal~mol^{-1}}")
+modelname_nu(::Type{AutonBolen}) = latexstring("\\mathrm{\textit{Established}}")
 
-modelname(::Type{MoeserHorinek}) = latexstring("\\mathrm{MoeserHorinek~/~kcal~mol^{-1}}")
-#modelname(::Type{MoeserHorinek}) = latexstring("\\mathrm{universal-backbone~model~/~kcal~mol^{-1}}")
+#modelname(::Type{MoeserHorinek}) = latexstring("\\mathrm{MoeserHorinek~/~kcal~mol^{-1}}")
+modelname(::Type{MoeserHorinek}) = latexstring("\\mathrm{\textit{Universal-backbone}~/~kcal~mol^{-1}}")
+modelname_nu(::Type{MoeserHorinek}) = latexstring("\\mathrm{\textit{Universal-backbone}}")
 
 mvaluelabel() = latexstring("m-\\mathrm{value~/~kcal~mol^{-1}}")
 
@@ -165,5 +168,7 @@ include("./other_osmolytes.jl")
 include("./alfa_beta.jl")
 include("./generate_figures.jl")
 include("./data/hbonds_urea.jl")
+include("./me_vs_ma.jl")
+include("./MH_fit_to_AB.jl")
 
 end

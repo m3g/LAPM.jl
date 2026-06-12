@@ -111,8 +111,8 @@ function other_osmolytes(;
     ypad = 0.05 * (ymax - ymin)
     plt = plot(MolSimStyle, layout=(2,1))
     plot!([-10,10],[-10,10]; ls=:dash, lc=:black, subplot=1, label="")
-    scatter!(plt, exp, mab; label=modelname(m1), subplot=1, mc=1)
-    scatter!(plt, exp, mhapp; label=modelname(m2), subplot=1, mc=2)
+    scatter!(plt, exp, mab; label=modelname_nu(m1), subplot=1, mc=1)
+    scatter!(plt, exp, mhapp; label=modelname_nu(m2), subplot=1, mc=2)
     plot!(plt,
         xlabel=L"\textrm{Experimental~}m\textrm{-value~/~kcal~mol^{-1}}",
         ylabel=L"\textrm{Predicted~}m\textrm{-value~/~kcal~mol^{-1}}",
@@ -139,10 +139,10 @@ function other_osmolytes(;
     labels = ["$(name[i])-$(osmo[i])" for i in eachindex(name)]
     groupedbar!(plt,
         categorical(repeat(labels; outer=3), levels=labels),
-        vcat(exp, mab, mhapp),
+        vcat(mab, mhapp, exp),
         group=categorical(
-            repeat([ "Experimental" , modelname(m1), modelname(m2)]; inner=length(name)),
-            levels=[ "Experimental" , modelname(m1), modelname(m2)], 
+            repeat([ modelname_nu(m1), modelname_nu(m2), "Experimental"]; inner=length(name)),
+            levels=[ modelname_nu(m1), modelname_nu(m2), "Experimental"], 
         ),
         xlabel="",
         #xticks=:none,
@@ -165,7 +165,12 @@ function other_osmolytes(;
     plot!(plt,
         size=(800,800),
     )
-    annotate!(plt, -3, 7.5, text("A)", "Computer Modern", 14); subplot=2)
-    annotate!(plt, -3, 18.3, text("B)", "Computer Modern", 14); subplot=2)
+    if m2 == MoeserHorinek
+        annotate!(plt, -3, 18.3, text("A)", "Computer Modern", 14); subplot=2)
+        annotate!(plt, -3, 7.5, text("B)", "Computer Modern", 14); subplot=2)
+    elseif m2 == Accessibility
+        annotate!(plt, -3, 16.8, text("A)", "Computer Modern", 14); subplot=2)
+        annotate!(plt, -3, 6.7, text("B)", "Computer Modern", 14); subplot=2)
+    end
     return plt
 end

@@ -76,3 +76,93 @@ Best fits:
 const γG =   ( 47.74,     27.57,    35.57,     25.44,      18.57,     32.91,     14.74)
 
 =#
+
+
+#
+# Fit varying the backbone accessibilities
+#
+# Default accessibilites from surface areas - we will vary "f_bb", for urea
+#
+const f_acc0 = OrderedDict{String, OrderedDict{String, Float32}}(
+    "ALA" => OrderedDict("n"=>179233, "sc"=>70.878, "sc_pure"=>135.348, "bb"=>49.0121, "bb_pure"=>88.8883, "f_bb"=>0.55139, "f_sc"=>0.523674),
+    "PHE" => OrderedDict("n"=>91323, "sc"=>187.587, "sc_pure"=>248.851, "bb"=>38.6632, "bb_pure"=>87.374, "f_bb"=>0.442502, "f_sc"=>0.753811),
+    "LEU" => OrderedDict("n"=>213010, "sc"=>159.14, "sc_pure"=>219.486, "bb"=>37.3229, "bb_pure"=>88.2639, "f_bb"=>0.422855, "f_sc"=>0.725056),
+    "ILE" => OrderedDict("n"=>126589, "sc"=>159.817, "sc_pure"=>220.105, "bb"=>35.3226, "bb_pure"=>87.5728, "f_bb"=>0.403351, "f_sc"=>0.726092),
+    "VAL" => OrderedDict("n"=>153028, "sc"=>133.941, "sc_pure"=>194.604, "bb"=>36.6751, "bb_pure"=>87.2728, "f_bb"=>0.420236, "f_sc"=>0.688274),
+    "PRO" => OrderedDict("n"=>97983, "sc"=>130.021, "sc_pure"=>192.851, "bb"=>39.646, "bb_pure"=>91.4236, "f_bb"=>0.433651, "f_sc"=>0.674206),
+    "MET" => OrderedDict("n"=>36719, "sc"=>161.456, "sc_pure"=>222.969, "bb"=>39.909, "bb_pure"=>87.8564, "f_bb"=>0.454253, "f_sc"=>0.724115),
+    "TRP" => OrderedDict("n"=>31497, "sc"=>230.509, "sc_pure"=>291.634, "bb"=>37.4479, "bb_pure"=>88.0122, "f_bb"=>0.425485, "f_sc"=>0.790406),
+    "GLY" => OrderedDict("n"=>151702, "sc"=>0.0, "sc_pure"=>0.0, "bb"=>87.4824, "bb_pure"=>87.4824, "f_bb"=>1.0, "f_sc"=>1.0),
+    "SER" => OrderedDict("n"=>129971, "sc"=>85.2744, "sc_pure"=>148.711, "bb"=>45.9041, "bb_pure"=>87.7078, "f_bb"=>0.523376, "f_sc"=>0.573423),
+    "THR" => OrderedDict("n"=>118719, "sc"=>117.741, "sc_pure"=>179.107, "bb"=>39.4432, "bb_pure"=>87.0271, "f_bb"=>0.453229, "f_sc"=>0.657378),
+    "TYR" => OrderedDict("n"=>78202, "sc"=>202.043, "sc_pure"=>263.305, "bb"=>38.86, "bb_pure"=>87.3211, "f_bb"=>0.445025, "f_sc"=>0.767335),
+    "GLN" => OrderedDict("n"=>82612, "sc"=>156.603, "sc_pure"=>218.196, "bb"=>40.2219, "bb_pure"=>88.4311, "f_bb"=>0.454839, "f_sc"=>0.717718),
+    "ASN" => OrderedDict("n"=>93411, "sc"=>129.155, "sc_pure"=>191.405, "bb"=>40.9267, "bb_pure"=>88.7074, "f_bb"=>0.461367, "f_sc"=>0.674776),
+    "ASP" => OrderedDict("n"=>125837, "sc"=>121.985, "sc_pure"=>184.224, "bb"=>41.1593, "bb_pure"=>89.0758, "f_bb"=>0.46207, "f_sc"=>0.662158),
+    "GLU" => OrderedDict("n"=>142356, "sc"=>149.532, "sc_pure"=>211.134, "bb"=>40.8443, "bb_pure"=>89.038, "f_bb"=>0.458729, "f_sc"=>0.708232),
+    "HIS" => OrderedDict("n"=>51092, "sc"=>165.044, "sc_pure"=>226.829, "bb"=>40.172, "bb_pure"=>87.7198, "f_bb"=>0.457958, "f_sc"=>0.727611),
+    "LYS" => OrderedDict("n"=>117537, "sc"=>178.395, "sc_pure"=>240.241, "bb"=>41.6446, "bb_pure"=>88.6705, "f_bb"=>0.469655, "f_sc"=>0.742567),
+    "ARG" => OrderedDict("n"=>110038, "sc"=>210.225, "sc_pure"=>272.22, "bb"=>41.319, "bb_pure"=>88.3584, "f_bb"=>0.467629, "f_sc"=>0.772262),
+    "CYS" => OrderedDict("n"=>29556, "sc"=>92.4815, "sc_pure"=>155.731, "bb"=>44.936, "bb_pure"=>87.0777, "f_bb"=>0.516044, "f_sc"=>0.593854),
+)
+
+#residue = ["A",  "D",   "E", "G", "H",   "I", "K",   "L", "N",   "P",   "Q", "R", "S", "T",   "V"]
+#          1.07, 1.00, 1.00, 1.00, 0.36, 0.93, 0.93, 1.07, 0.86, 1.00, 1.00, 1.07, 1.00, 0.86, 1.21
+
+h_bonds_ratio = [
+    1.07, # "ALA"
+    1.00, # "PHE"
+    1.07, # "LEU"
+    0.93, # "ILE"
+    1.21, # "VAL"
+    1.00, # "PRO"
+    1.00, # "MET"
+    1.00, # "TRP"
+    1.00, # "GLY"
+    1.00, # "SER"
+    0.86, # "THR"
+    1.00, # "TYR"
+    0.86, # "GLN"
+    0.86, # "ASN"
+    1.00, # "ASP"
+    1.00, # "GLU"
+    0.36, # "HIS"
+    0.93, # "LYS"
+    1.07, # "ARG"
+    1.00, # "CYS"
+]
+
+
+
+#
+# x in a vector of f_bb accessibilities, with 20 entries, in the order above
+#
+function f_bb_fit(x; cosolvent="urea", model=Accessibility, restore=false, plot=false)
+    if restore
+        for key in keys(PDBTools._f_acc)
+            #PDBTools._f_acc[key]["f_bb"] = f_acc0[key]["f_bb"]
+            PDBTools._f_acc[key]["f_bb"] = 1.0
+        end
+        return plot_experimental(Accessibility)
+    end
+    for (i, key) in enumerate(("PHE", "TYR", "TRP"))
+        PDBTools._f_acc[key]["f_bb"] = x[i]
+    end
+    #for (i, key) in enumerate(keys(f_acc0))
+    #    PDBTools._f_acc[key]["f_bb"] = x[i]
+    #end
+    example_structs = keys(sasa_server)
+    err = 0.0
+    for str in example_structs
+        p = predict_mvalue(str; cosolvent, model, sasas_from=creamer_sasa)
+        tot_pred = p.tot
+        tot_exp = mvalues_experimental[str]["urea"]
+        err += (tot_pred - tot_exp)^2
+    end
+    if plot
+        return plot_experimental(Accessibility)
+    end
+    return err
+end
+
+
