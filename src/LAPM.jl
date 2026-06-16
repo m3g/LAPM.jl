@@ -32,8 +32,8 @@ modelname(::Type{AutonBolen}) = latexstring("\\textrm{\\textit{Established}~/~kc
 modelname_nu(::Type{AutonBolen}) = latexstring("\\textrm{\\textit{Established}}")
 
 #modelname(::Type{MoeserHorinek}) = latexstring("\\mathrm{MoeserHorinek~/~kcal~mol^{-1}}")
-modelname(::Type{MoeserHorinek}) = latexstring("\\textrm{\\textit{Universal-backbone}~/~kcal~mol^{-1}}")
-modelname_nu(::Type{MoeserHorinek}) = latexstring("\\textrm{\\textit{Universal-backbone}}")
+modelname(::Type{MoeserHorinek}) = latexstring("\\mathrm{\\textit{Universal{-}backbone}~/~kcal~mol^{-1}}")
+modelname_nu(::Type{MoeserHorinek}) = latexstring("\\mathrm{\\textit{Universal{-}backbone}}")
 
 mvaluelabel() = latexstring("m-\\mathrm{value~/~kcal~mol^{-1}}")
 

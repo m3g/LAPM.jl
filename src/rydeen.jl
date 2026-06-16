@@ -22,6 +22,7 @@ function plot_rydeen_folding(
     m1=AutonBolen,
     m2=Accessibility,
 )
+    scalefontsizes(); scalefontsizes(1.2)
     predictions = OrderedDict()
     for cosolvent in keys(rydeen) 
         m_ab = zeros(length(eachmodel(prot)))
@@ -131,6 +132,7 @@ function plot_rydeen_dimmer(
     m1=AutonBolen,
     m2=Accessibility,
 )
+    scalefontsizes(); scalefontsizes(1.2)
     predictions = OrderedDict()
     for cosolvent in keys(rydeen) 
         m_ab = zeros(length(eachmodel(prot)))
@@ -250,12 +252,12 @@ end
 
 function plot_rydeen_both(plt1, plt2)
     scalefontsizes(); scalefontsizes(1.4)
-    l = @layout [ a{0.30w} b ]
-    plt = plot(plt1, plt2; size=(1500,500), layout=l, leftmargin=1.0Plots.Measures.cm)
-    annotate!(plt, -0.65, 0.63, text("A)", "Computer Modern", 14); subplot=1)
-    annotate!(plt, 0.67, 0.63, text("B)", "Computer Modern", 14); subplot=1)
+    l = @layout [ a{0.45w} b ]
+    plt = plot(plt1, plt2; size=(1100,500), layout=l, leftmargin=1.0Plots.Measures.cm)
+    annotate!(plt, -0.65, 0.61, text("A)", "Computer Modern", 14); subplot=1)
+    annotate!(plt, 0.67, 0.61, text("B)", "Computer Modern", 14); subplot=1)
     plot!(plt, legend=nothing, subplot=1)
-    plot!(plt, legend=:outertopright, subplot=2)
+    plot!(plt, legend=:bottomright, subplot=2)
     return plt
 end
 
