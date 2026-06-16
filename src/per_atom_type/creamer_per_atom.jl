@@ -207,8 +207,8 @@ function plot_mvalue_ua(
     _scatter!(plt, sc_mh, sc, example_structs; legend_title="Sidechain", subplot=6)
 
     for sp in 1:3
-        plot!(plt, xlabel="Auton&Bolen", ylabel=nothing, subplot=sp)
-        plot!(plt, xlabel="Moeser&Horinek", ylabel=nothing, subplot=sp+3)
+        plot!(plt, xlabel=modelname(AutonBolen), ylabel=nothing, subplot=sp)
+        plot!(plt, xlabel=modelname(MoeserHorinek), ylabel=nothing, subplot=sp+3)
     end
     plot!(plt, ylabel="LAPM UA prediction", subplot=1)
     plot!(plt, ylabel="LAPM UA prediction", subplot=4)
