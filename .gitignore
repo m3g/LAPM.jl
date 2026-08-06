@@ -3,3 +3,4 @@ docs/Manifest*.toml
 build
 settings.json
 *cath20*
+.vscode/settings.json

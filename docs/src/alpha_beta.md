@@ -8,77 +8,77 @@ import DataFrames, CSV
 df = CSV.read(cath_data_file, DataFrames.DataFrame);
 ```
 
-## Urea — Figure S42
+## Urea — Figure S44
 
 ```julia
 plot_cosolvent(df, "urea")
 ```
 
-![Figure S42](./figures/fig_S42_alpha_beta_urea.svg)
+![Figure S44](./figures/fig_S44_alpha_beta_urea.svg)
 
-## TMAO — Figure S43
+## TMAO — Figure S45
 
 ```julia
 plot_cosolvent(df, "tmao")
 ```
 
-![Figure S43](./figures/fig_S43_alpha_beta_tmao.svg)
+![Figure S45](./figures/fig_S45_alpha_beta_tmao.svg)
 
-## Proline — Figure S44
+## Proline — Figure S46
 
 ```julia
 plot_cosolvent(df, "proline")
 ```
 
-![Figure S44](./figures/fig_S44_alpha_beta_proline.svg)
+![Figure S46](./figures/fig_S46_alpha_beta_proline.svg)
 
-## Sarcosine — Figure S45
+## Sarcosine — Figure S47
 
 ```julia
 plot_cosolvent(df, "sarcosine")
 ```
 
-![Figure S45](./figures/fig_S45_alpha_beta_sarcosine.svg)
+![Figure S47](./figures/fig_S47_alpha_beta_sarcosine.svg)
 
-## Betaine — Figure S46
+## Betaine — Figure S48
 
 ```julia
 plot_cosolvent(df, "betaine")
 ```
 
-![Figure S46](./figures/fig_S46_alpha_beta_betaine.svg)
+![Figure S48](./figures/fig_S48_alpha_beta_betaine.svg)
 
-## Sorbitol — Figure S47
+## Sorbitol — Figure S49
 
 ```julia
 plot_cosolvent(df, "sorbitol")
 ```
 
-![Figure S47](./figures/fig_S47_alpha_beta_sorbitol.svg)
+![Figure S49](./figures/fig_S49_alpha_beta_sorbitol.svg)
 
-## Sucrose — Figure S48
+## Sucrose — Figure S50
 
 ```julia
 plot_cosolvent(df, "sucrose")
 ```
 
-![Figure S48](./figures/fig_S48_alpha_beta_sucrose.svg)
+![Figure S50](./figures/fig_S50_alpha_beta_sucrose.svg)
 
-## Glycerol — Figure S49
+## Glycerol — Figure S51
 
 ```julia
 plot_cosolvent(df, "glycerol")
 ```
 
-![Figure S49](./figures/fig_S49_alpha_beta_glycerol.svg)
+![Figure S51](./figures/fig_S51_alpha_beta_glycerol.svg)
 
-## Trehalose — Figure S50
+## Trehalose — Figure S52
 
 ```julia
 plot_cosolvent(df, "trehalose")
 ```
 
-![Figure S50](./figures/fig_S50_alpha_beta_trehalose.svg)
+![Figure S52](./figures/fig_S52_alpha_beta_trehalose.svg)
 
 
 ## Urea vs. Proline

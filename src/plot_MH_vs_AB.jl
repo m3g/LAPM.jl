@@ -11,11 +11,11 @@ function plot_MH_vs_AB(
     tot_mh, bb_mh, sc_mh = zeros(nexamples), zeros(nexamples), zeros(nexamples)
     tot_ab, bb_ab, sc_ab = zeros(nexamples), zeros(nexamples), zeros(nexamples)
     for (i, str) in enumerate(example_structs)
-        p_mh = predict_mvalue(str; model=m1, cosolvent, sasas_from)
+        p_mh = predict_mvalue(str, m1; cosolvent, sasas_from)
         tot_mh[i] = p_mh.tot
         bb_mh[i] = p_mh.bb
         sc_mh[i] = p_mh.sc
-        p_ab = predict_mvalue(str; model=m2, cosolvent=cosolvent_mh, sasas_from)
+        p_ab = predict_mvalue(str, m2; cosolvent=cosolvent_mh, sasas_from)
         tot_ab[i] = p_ab.tot
         bb_ab[i] = p_ab.bb
         sc_ab[i] = p_ab.sc
@@ -27,9 +27,9 @@ function plot_MH_vs_AB(
     for sp in 1:3
         plot!(plt, [-100, 100], [-100, 100]; ls..., subplot=sp)
     end
-    _scatter!(plt, tot_ab, tot_mh, example_structs; legend_title="Total", subplot=1)
-    _scatter!(plt, bb_ab, bb_mh, example_structs; legend_title="Backbone", subplot=2)
-    _scatter!(plt, sc_ab, sc_mh, example_structs; legend_title="Sidechain", subplot=3)
+    _scatter!(plt, tot_mh, tot_ab, example_structs; legend_title="Total", subplot=1)
+    _scatter!(plt, bb_mh, bb_ab, example_structs; legend_title="Backbone", subplot=2)
+    _scatter!(plt, sc_mh, sc_ab, example_structs; legend_title="Sidechain", subplot=3)
     plot!(plt,
         size=(1200, 1200),
         xlabel=modelname(m1),
@@ -41,23 +41,6 @@ function plot_MH_vs_AB(
         subplot=1
     )
 
-    ys = (maximum(vcat(tot_ab, sc_ab, bb_ab)) - minimum(vcat(tot_ab, sc_ab, bb_ab)))
-    groupedbar!(
-        string.(example_structs),
-        hcat(tot_ab, bb_ab, sc_ab);
-        label=["Total" "BB" "SC"],
-        #title="Contributions",
-        xlabel="Structure",
-        ylabel=modelname(m2),
-        subplot=4,
-        ylims=(
-            minimum(vcat(tot_ab, sc_ab, bb_ab, 0)) - 0.1 * abs(ys),
-            maximum(vcat(tot_ab, sc_ab, bb_ab, 0)) + 0.1 * abs(ys)
-        ),
-        fontfamily="Computer Modern",
-        xrotation=60,
-    )
-
     ys = (maximum(vcat(tot_mh, sc_mh, bb_mh)) - minimum(vcat(tot_mh, sc_mh, bb_mh)))
     groupedbar!(
         string.(example_structs),
@@ -66,10 +49,27 @@ function plot_MH_vs_AB(
         #title="Contributions",
         xlabel="Structure",
         ylabel=modelname(m1),
-        subplot=5,
+        subplot=4,
         ylims=(
             minimum(vcat(tot_mh, sc_mh, bb_mh, 0)) - 0.1 * abs(ys),
             maximum(vcat(tot_mh, sc_mh, bb_mh, 0)) + 0.1 * abs(ys)
+        ),
+        fontfamily="Computer Modern",
+        xrotation=60,
+    )
+
+    ys = (maximum(vcat(tot_ab, sc_ab, bb_ab)) - minimum(vcat(tot_ab, sc_ab, bb_ab)))
+    groupedbar!(
+        string.(example_structs),
+        hcat(tot_ab, bb_ab, sc_ab);
+        label=["Total" "BB" "SC"],
+        #title="Contributions",
+        xlabel="Structure",
+        ylabel=modelname(m2),
+        subplot=5,
+        ylims=(
+            minimum(vcat(tot_ab, sc_ab, bb_ab, 0)) - 0.1 * abs(ys),
+            maximum(vcat(tot_ab, sc_ab, bb_ab, 0)) + 0.1 * abs(ys)
         ),
         xrotation=60,
         fontfamily="Computer Modern",
@@ -93,7 +93,7 @@ function sc_vs_bb(
     for (i, str) in enumerate(example_structs)
         prot = read_pdb(pdb_files[str])
         nres = length(eachresidue(prot))
-        p = predict_mvalue(str; model=m, cosolvent, sasas_from)
+        p = predict_mvalue(str, m; cosolvent, sasas_from)
         tot[i] = p.tot / nres 
         bb[i] = p.bb / nres
         sc[i] = p.sc / nres

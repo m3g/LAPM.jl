@@ -29,7 +29,7 @@ ab_table = OrderedDict(
         "1BTA" => ("protein", 89, 2330, 2008),
         "2BU4" => ("protein", 104, 1780, 1495),
         "1OT8_4-7" => ("protein", 123, 2793, 2798),
-        "1IL8" => ("protein", 142, 451, 2648), # obs: the data in the original table of the manuscript (134) does not match the server prediction
+        "1IL8" => ("protein and chain A", 71, 451, 134), 
         "1AKE" => ("protein and chain A and not resnum 110 to 164", 159, 1581, 3518),
     ),
     "betaine" => OrderedDict(
@@ -74,7 +74,8 @@ const os_pdb_files = Dict(
 function other_osmolytes(; 
     m1=AutonBolen,
     m2=Accessibility,
-    type=2
+    type=2,
+    alpha=1.0,
 )
     scalefontsizes()
     name = String[]
@@ -93,9 +94,20 @@ function other_osmolytes(;
             if length(eachresidue(p)) != nres
                 error("Wrong number of residues for $pdb")
             end
-            cm = CreamerDenaturedModel(p, type)
-            _m_ab = mvalue(cm, osm; model=m1).tot
-            _m_mhapp = mvalue(cm, osm; model=m2).tot
+            cm1 = m1 == MTRecord ? MTRecordDenaturedModel(p) : CreamerDenaturedModel(p, type)
+            cm1 = m1 == MTRecord ? MTRecordDenaturedModel(p) : CreamerDenaturedModel(p, type)
+            cm2 = m2 == MTRecord ? MTRecordDenaturedModel(p) : CreamerDenaturedModel(p, type)
+            cm2 = m2 == MTRecord ? MTRecordDenaturedModel(p) : CreamerDenaturedModel(p, type)
+            if m1 == MTRecord 
+                _m_ab = osm in ("urea", "betaine") ? mvalue(cm1, osm; alpha).tot : NaN
+            else
+                _m_ab = mvalue(cm1, osm; model=m1).tot
+            end
+            if m2 == MTRecord 
+                _m_mhapp = osm in ("urea", "betaine") ?  mvalue(cm2, osm; alpha).tot : NaN
+            else
+                _m_mhapp = mvalue(cm2, osm; model=m2).tot
+            end
             push!(name, pdb)
             push!(osmo, osm)
             push!(l, nres)
@@ -119,9 +131,11 @@ function other_osmolytes(;
 #        legend=:bottomright,
         subplot=1,
     )
-    f = fitlinear(exp, mab)
+    i_valid = findall(!isnan, mab)
+    f = fitlinear(exp[i_valid], mab[i_valid])
     plot!(plt, f.x, f.y; label="", color=1, ls=:dash, subplot=1)
-    f = fitlinear(exp, mhapp)
+    i_valid = findall(!isnan, mhapp)
+    f = fitlinear(exp[i_valid], mhapp[i_valid])
     plot!(plt, f.x, f.y; label="", color=2, ls=:dash, subplot=1)
 #    annotate!(plt, 5.3, 4, 
 #        text(

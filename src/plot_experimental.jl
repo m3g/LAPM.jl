@@ -3,13 +3,15 @@ plot_experimental(
     cosolvent="urea";
     sasas_from::Function=creamer_sasa,
     labels=true,
-) = plot_experimental([model], cosolvent; sasas_from, labels)
+    type=2,
+) = plot_experimental([model], cosolvent; sasas_from, labels, type)
 
 function plot_experimental(
     models::Vector=[AutonBolen, MoeserHorinek, Accessibility],
     cosolvent="urea";
     sasas_from::Function=creamer_sasa,
     labels=true,
+    type,
 )
     scalefontsizes()
     plt = plot(layout=(1,length(models)))
@@ -23,7 +25,7 @@ function plot_experimental(
         tot_pred = zeros(nexamples)
         tot_exp = zeros(nexamples)
         for (i, str) in enumerate(example_structs)
-            p = predict_mvalue(str; cosolvent, model, sasas_from)
+            p = predict_mvalue(str, model; cosolvent, sasas_from, type)
             tot_pred[i] = p.tot
             tot_exp[i] = mvalues_experimental[str][cosolvent_exp]
         end

@@ -1,4 +1,4 @@
-# Moeser & Horinek with apparent TFEs
+# Accessibility vs. others
 
 These plots show the Accessibility model, which extends the MH to all cosolvents covered by the AB parameterization. Comparisons against AutonBolen correspond to Figure 3 of the paper.
 
@@ -89,3 +89,21 @@ plot_MH_vs_AB("trehalose"; m1=AutonBolen, m2=Accessibility)
 ```
 
 ![Figure S41](./figures/fig_S41_mhapp_vs_ab_trehalose.svg)
+
+## Against Record model
+
+### Urea — Figure S42
+
+```julia
+plot_MH_vs_AB("urea"; m1=MTRecord, m2=Accessibility)
+```
+
+![Figure S42](./figures/fig_S42_acc_vs_record_urea.svg)
+
+### Betaine — Figure S43
+
+```julia
+plot_MH_vs_AB("betaine"; m1=MTRecord, m2=Accessibility)
+```
+
+![Figure S43](./figures/fig_S43_acc_vs_record_betaine.svg)

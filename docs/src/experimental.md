@@ -8,65 +8,91 @@ using LAPM
 
 ## Urea (Creamer)
 
-### MoeserHorinek — Figure S51
+### MoeserHorinek — Figure S53
 
 ```julia
 plot_experimental(MoeserHorinek; sasas_from=LAPM.creamer_sasa)
 ```
 
-![Figure S51](./figures/fig_S51_experimental_mh_creamer_urea.svg)
+![Figure S53](./figures/fig_S53_experimental_mh_creamer_urea.svg)
 
-### AutonBolen — Figure S52
+### AutonBolen — Figure S54
 
 ```julia
 plot_experimental(AutonBolen; sasas_from=LAPM.creamer_sasa)
 ```
 
-![Figure S52](./figures/fig_S52_experimental_ab_creamer_urea.svg)
+![Figure S54](./figures/fig_S54_experimental_ab_creamer_urea.svg)
 
 ## Urea (Server)
 
-### MoeserHorinek — Figure S53
+### MoeserHorinek — Figure S55
 
 ```julia
 plot_experimental(MoeserHorinek; sasas_from=LAPM.server_sasa)
 ```
 
-![Figure S53](./figures/fig_S53_experimental_mh_server_urea.svg)
+![Figure S55](./figures/fig_S55_experimental_mh_server_urea.svg)
 
-### AutonBolen — Figure S54
+### AutonBolen — Figure S56
 
 ```julia
 plot_experimental(AutonBolen; sasas_from=LAPM.server_sasa)
 ```
 
-![Figure S54](./figures/fig_S54_experimental_ab_server_urea.svg)
+![Figure S56](./figures/fig_S56_experimental_ab_server_urea.svg)
+
+## Urea (Record model)
+
+Using default `type=3` and `alpha=1.15` to estimate the denatured model ASAs.
+
+```julia
+plot_experimental(MTRecord, "urea")
+```
+
+![Figure S57](./figures/fig_S57_experimental_record_urea.svg)
 
 ## Other osmolytes
 
-### Using mean denatured Creamer model — Figure S55
+### Using mean denatured Creamer model — Figure S58
 
 ```julia
 other_osmolytes(; type=2)
 ```
 
-![Figure S55](./figures/fig_S55_other_osmolytes_mean.svg)
+![Figure S58](./figures/fig_S58_other_osmolytes_mean.svg)
 
-### Using maximally denatured Creamer model — Figure S56
+### Using Record model (only for betaine) — Figure S59
+
+```julia
+other_osmolytes(; m1=Accessibility, m2=MTRecord)
+```
+
+![Figure S59](./figures/fig_S59_other_osmolytes_record.svg)
+
+Using `alpha=0.80` to empirically better adjust the two main points — Figure S60:
+
+```julia
+other_osmolytes(; m1=Accessibility, m2=MTRecord, alpha=0.80)
+```
+
+![Figure S60](./figures/fig_S60_other_osmolytes_record_alpha0.8.svg)
+
+### Using maximally denatured Creamer model — Figure S61
 
 ```julia
 other_osmolytes(; type=3)
 ```
 
-![Figure S56](./figures/fig_S56_other_osmolytes_max.svg)
+![Figure S61](./figures/fig_S61_other_osmolytes_max.svg)
 
-### Using minimally denatured Creamer model — Figure S57
+### Using minimally denatured Creamer model — Figure S62
 
 ```julia
 other_osmolytes(; type=1)
 ```
 
-![Figure S57](./figures/fig_S57_other_osmolytes_min.svg)
+![Figure S62](./figures/fig_S62_other_osmolytes_min.svg)
 
 ## SH3 and GB1 — Pielak data
 
@@ -77,7 +103,7 @@ using PDBTools
 using LAPM: os_pdb_files
 ```
 
-### Using mean unfolded Creamer model — Figure S58
+### Using mean unfolded Creamer model — Figure S63
 
 ```julia
 plt1 = plot_rydeen_folding(read_pdb(os_pdb_files["2AZS"]); type=2)
@@ -85,9 +111,9 @@ plt2 = plot_rydeen_dimmer(read_pdb(os_pdb_files["2RMM"]))
 plot_rydeen_both(plt1, plt2)
 ```
 
-![Figure S58](./figures/fig_S58_rydeen_mean.svg)
+![Figure S63](./figures/fig_S63_rydeen_mean.svg)
 
-### Using maximally unfolded Creamer model — Figure S59
+### Using maximally unfolded Creamer model — Figure S64
 
 ```julia
 plt1 = plot_rydeen_folding(read_pdb(os_pdb_files["2AZS"]); type=3)
@@ -95,9 +121,9 @@ plt2 = plot_rydeen_dimmer(read_pdb(os_pdb_files["2RMM"]))
 plot_rydeen_both(plt1, plt2)
 ```
 
-![Figure S59](./figures/fig_S59_rydeen_max.svg)
+![Figure S64](./figures/fig_S64_rydeen_max.svg)
 
-### Using minimally unfolded Creamer model — Figure S60
+### Using minimally unfolded Creamer model — Figure S65
 
 ```julia
 plt1 = plot_rydeen_folding(read_pdb(os_pdb_files["2AZS"]); type=1)
@@ -105,4 +131,14 @@ plt2 = plot_rydeen_dimmer(read_pdb(os_pdb_files["2RMM"]))
 plot_rydeen_both(plt1, plt2)
 ```
 
-![Figure S60](./figures/fig_S60_rydeen_min.svg)
+![Figure S65](./figures/fig_S65_rydeen_min.svg)
+
+### Using mean unfolded Creamer model and alpha=0.8 for Record — Figure S66
+
+```julia
+plt1 = plot_rydeen_folding(read_pdb(os_pdb_files["2AZS"]); type=2, alpha=0.8)
+plt2 = plot_rydeen_dimmer(read_pdb(os_pdb_files["2RMM"]))
+plot_rydeen_both(plt1, plt2)
+```
+
+![Figure S66](./figures/fig_S66_rydeen_mean_record0.8.svg)

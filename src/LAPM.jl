@@ -35,6 +35,10 @@ modelname_nu(::Type{AutonBolen}) = latexstring("\\textrm{\\textit{Established}}"
 modelname(::Type{MoeserHorinek}) = latexstring("\\mathrm{\\textit{Universal{-}backbone}~/~kcal~mol^{-1}}")
 modelname_nu(::Type{MoeserHorinek}) = latexstring("\\mathrm{\\textit{Universal{-}backbone}}")
 
+#modelname(::Type{MTRecord}) = latexstring("\\mathrm{Record~/~kcal~mol^{-1}}")
+modelname(::Type{MTRecord}) = latexstring("\\mathrm{\\textit{Record}~/~kcal~mol^{-1}}")
+modelname_nu(::Type{MTRecord}) = latexstring("\\mathrm{\\textit{Record}}")
+
 mvaluelabel() = latexstring("m-\\mathrm{value~/~kcal~mol^{-1}}")
 
 server_sasa(str::String, _) = sasa_server[str]
@@ -42,11 +46,11 @@ server_sasa(str::String, _) = sasa_server[str]
 # predict m-value using a model, for a specific structure
 #
 function predict_mvalue(
-    str::AbstractString;
-    model::Type{<:PDBTools.MValueModel}=MoeserHorinek,
+    str::AbstractString,
+    model::Type{<:PDBTools.MValueModel};
     cosolvent::String="urea",
-    type::Int=2,
     sasas_from::Function=creamer_sasa,
+    type::Int=2,
 )
     atoms = read_pdb(pdb_files[str])
     m = mvalue_delta_sasa(;
@@ -56,6 +60,18 @@ function predict_mvalue(
         sasas=sasas_from(str, atoms),
         type=type,
     )
+    return (tot=m.tot, bb=m.bb, sc=m.sc)
+end
+
+function predict_mvalue(
+    str::AbstractString,
+    ::Type{MTRecord};
+    cosolvent::String="urea",
+    type::Int=3,
+    sasas_from=nothing, # dummy here,
+)
+    atoms = read_pdb(pdb_files[str])
+    m = mvalue(MTRecordDenaturedModel(atoms), cosolvent)
     return (tot=m.tot, bb=m.bb, sc=m.sc)
 end
 

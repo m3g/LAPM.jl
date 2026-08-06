@@ -154,7 +154,7 @@ function f_bb_fit(x; cosolvent="urea", model=Accessibility, restore=false, plot=
     example_structs = keys(sasa_server)
     err = 0.0
     for str in example_structs
-        p = predict_mvalue(str; cosolvent, model, sasas_from=creamer_sasa)
+        p = predict_mvalue(str, model; cosolvent, sasas_from=creamer_sasa)
         tot_pred = p.tot
         tot_exp = mvalues_experimental[str]["urea"]
         err += (tot_pred - tot_exp)^2

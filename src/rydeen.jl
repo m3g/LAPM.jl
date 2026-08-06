@@ -21,12 +21,14 @@ function plot_rydeen_folding(
     type=2,
     m1=AutonBolen,
     m2=Accessibility,
+    alpha=1.0,
 )
     scalefontsizes(); scalefontsizes(1.2)
     predictions = OrderedDict()
     for cosolvent in keys(rydeen) 
         m_ab = zeros(length(eachmodel(prot)))
         m_mhapp = copy(m_ab)
+        m_rec = copy(m_ab)
         if cosolvent == "urea"
             m_mh = copy(m_ab)
         end
@@ -37,17 +39,31 @@ function plot_rydeen_folding(
             if cosolvent == "urea"
                 m_mh[i] = mvalue(c, cosolvent; model=MoeserHorinek).tot
             end
+            if cosolvent in ("urea", "betaine")
+                r = MTRecordDenaturedModel(model)
+                m_rec[i] = mvalue(r, cosolvent; alpha).tot
+            end
         end
-        if cosolvent != "urea"
+        if cosolvent == "urea"
             predictions[cosolvent] = (
                 0.4 * (mean(m_ab) ± std(m_ab)),
                 0.4 * (mean(m_mhapp) ± std(m_mhapp)),
+                0.4 * (mean(m_mh) ± std(m_mh)),
+                0.4 * (mean(m_rec) ± std(m_rec)),
+            ) 
+        elseif cosolvent == "betaine"
+            predictions[cosolvent] = (
+                0.4 * (mean(m_ab) ± std(m_ab)),
+                0.4 * (mean(m_mhapp) ± std(m_mhapp)),
+                NaN ± NaN,
+                0.4 * (mean(m_rec) ± std(m_rec)),
             ) 
         else
             predictions[cosolvent] = (
                 0.4 * (mean(m_ab) ± std(m_ab)),
                 0.4 * (mean(m_mhapp) ± std(m_mhapp)),
-                0.4 * (mean(m_mh) ± std(m_mh)),
+                NaN ± NaN,
+                NaN ± NaN,
             ) 
         end
     end
@@ -72,13 +88,13 @@ function plot_rydeen_folding(
     
     s = Dict(
         "TMAO" =>      (-0.03, 0.05),
-        "sarcosine" => (-0.15, 0.03 ),
-        "betaine" =>   (0.0, -0.10),
+        "sarcosine" => (0.10, 0.03),
+        "betaine" =>   (0.0, -0.08),
         "proline" =>   (0.09, 0.0),
         "sorbitol" =>  (0.00, -0.08),
-        "sucrose" =>   (-0.10, -0.02 ),
+        "sucrose" =>   (-0.10, -0.05),
         "urea" =>      (0.0, 0.10),
-        "glycerol" =>  (-0.05, 0.15),
+        "glycerol" =>  (-0.05, -0.05),
         "trehalose" => (0.0, 0.05),
     )
     for (i, c) in enumerate(keys(rydeen))
@@ -95,7 +111,7 @@ function plot_rydeen_folding(
         markershape=:star,
     )
 
-    # mh_app
+    # Accessibility
     exp = [ val[2] for (key, val) in rydeen ] 
     preds = [ val[2] for (key, val) in predictions ]
     scatter!(plt, exp, preds, label=modelname(m2),
@@ -103,6 +119,17 @@ function plot_rydeen_folding(
         markercolor=4,
         markershape=:square,
     )
+
+    # Record
+    exp = [ rydeen["urea"][2], rydeen["betaine"][2] ]
+    preds =  [ predictions["urea"][4], predictions["betaine"][4] ] 
+    scatter!(plt, exp, preds, label=modelname(MTRecord),
+        markeralpha=1,
+        markersize=8,
+        markercolor=5,
+        markershape=:star,
+    )
+
     #f = fitlinear(getfield.(exp, :val), getfield.(preds, :val))
     #plot!(plt, f.x, f.y, 
     #    label=latexstring("a=$(round(f.a,digits=2)), R^2=$(round(f.R2; digits=2))"),
@@ -137,6 +164,7 @@ function plot_rydeen_dimmer(
     for cosolvent in keys(rydeen) 
         m_ab = zeros(length(eachmodel(prot)))
         m_mhapp = copy(m_ab)
+        m_rec = copy(m_ab)
         if cosolvent == "urea"
             m_mh = copy(m_ab)
         end
@@ -160,17 +188,34 @@ function plot_rydeen_dimmer(
                 tfe_d = transfer_free_energy(model, cosolvent; model=MoeserHorinek)
                 m_mh[i] = tfeA.tot + tfeB.tot - tfe_d.tot 
             end
+            # Record
+            if cosolvent in ("urea", "betaine")
+                tfeA = transfer_free_energy(cA, cosolvent; model=MTRecord)
+                tfeB = transfer_free_energy(cB, cosolvent; model=MTRecord)
+                tfe_d = transfer_free_energy(model, cosolvent; model=MTRecord)
+                m_rec[i] = tfeA.tot + tfeB.tot - tfe_d.tot 
+            end
         end
-        if cosolvent != "urea"
+        if cosolvent == "urea"
             predictions[cosolvent] = (
                 0.4 * (mean(m_ab) ± std(m_ab)),
                 0.4 * (mean(m_mhapp) ± std(m_mhapp)),
+                0.4 * (mean(m_mh) ± std(m_mh)),
+                0.4 * (mean(m_rec) ± std(m_rec)),
+            ) 
+        elseif cosolvent == "betaine"
+            predictions[cosolvent] = (
+                0.4 * (mean(m_ab) ± std(m_ab)),
+                0.4 * (mean(m_mhapp) ± std(m_mhapp)),
+                NaN ± NaN,
+                0.4 * (mean(m_rec) ± std(m_rec)),
             ) 
         else
             predictions[cosolvent] = (
                 0.4 * (mean(m_ab) ± std(m_ab)),
                 0.4 * (mean(m_mhapp) ± std(m_mhapp)),
-                0.4 * (mean(m_mh) ± std(m_mh)),
+                NaN ± NaN,
+                NaN ± NaN,
             ) 
         end
     end
@@ -219,7 +264,7 @@ function plot_rydeen_dimmer(
         markercolor=2,
     )
 
-    # mh_app
+    # Accessibility
     exp = [ val[1] for (key, val) in rydeen ] 
     preds = [ val[2] for (key, val) in predictions ]
     scatter!(plt, exp, preds, label=modelname(m2),
@@ -233,6 +278,16 @@ function plot_rydeen_dimmer(
     #    label="",
     #    linecolor=4,
     #)
+
+    # Record
+    exp = [ rydeen["urea"][1], rydeen["betaine"][1] ]
+    preds =  [ predictions["urea"][4], predictions["betaine"][4] ] 
+    scatter!(plt, exp, preds, label=modelname(MTRecord),
+        markeralpha=1,
+        markersize=8,
+        markershape=:star,
+        markercolor=5,
+    )
 
     plot!(plt, [-0.4, 0.5], [-0.4, 0.5], 
         linecolor=:black,

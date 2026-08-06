@@ -12,7 +12,7 @@ function plot_mvalue(
     tot, bb, sc = zeros(nexamples), zeros(nexamples), zeros(nexamples)
     tot_ref, bb_ref, sc_ref = zeros(nexamples), zeros(nexamples), zeros(nexamples)
     for (i, str) in enumerate(example_structs)
-        p = predict_mvalue(str; cosolvent, model, sasas_from)
+        p = predict_mvalue(str, model; cosolvent, sasas_from)
         tot[i] = p.tot
         bb[i] = p.bb
         sc[i] = p.sc
