@@ -24,6 +24,7 @@ ab_table = OrderedDict(
         "1AKE" => ("protein and chain A and not resnum 110 to 164", 159, 2752, 3489),
         "1OT8_1-7" => ("protein and chain B", 204, 6520, 5642),
         "1OT8_4-7" => ("protein and chain B and resnum >= 117", 123, 3741, 3280),
+        "2AZS" => ("protein and model 1", 59, rydeen["TMAO"][2].val * 1000, NaN)
     ), 
     "sarcosine" => OrderedDict(
         "1BTA" => ("protein", 89, 2330, 2008),
@@ -31,27 +32,33 @@ ab_table = OrderedDict(
         "1OT8_4-7" => ("protein", 123, 2793, 2798),
         "1IL8" => ("protein and chain A", 71, 451, 134), 
         "1AKE" => ("protein and chain A and not resnum 110 to 164", 159, 1581, 3518),
+        "2AZS" => ("protein and model 1", 59, rydeen["sarcosine"][2].val * 1000, NaN)
     ),
     "betaine" => OrderedDict(
         "2BU4" => ("protein", 104, 440, -232),
         "1OT8_4-7" => ("protein", 123, 1570, 1515), 
         "1AKE" => ("protein and chain A and not resnum 110 to 164", 159, 1041, 951),
+        "2AZS" => ("protein and model 1", 59, rydeen["betaine"][2].val * 1000, NaN)
     ),
     "proline" => OrderedDict(
         "2BU4" => ("protein", 104, 620, -34),
         "1AKE" => ("protein and chain A and not resnum 110 to 164", 159, 467, 1029),
+        "2AZS" => ("protein and model 1", 59, rydeen["proline"][2].val * 1000, NaN)
     ),
     "sorbitol" => OrderedDict(
         "2BU4" => ("protein", 104, 1380, 815),
         "1OT8_4-7" => ("protein", 123, 2049, 1821), 
         "1AKE" => ("protein and chain A and not resnum 110 to 164", 159, 2139, 2331),
+        "2AZS" => ("protein and model 1", 59, rydeen["sorbitol"][2].val * 1000, NaN)
     ),
     "sucrose" => OrderedDict(
         "2BU4" => ("protein", 104, 1550, 1058),
         "1AKE" => ("protein and chain A and not resnum 110 to 164", 159, 2992, 3372),
+        "2AZS" => ("protein and model 1", 59, rydeen["sucrose"][2].val * 1000, NaN)
     ),
     "glycerol" => OrderedDict(
         "1AKE" => ("protein and chain A and not resnum 110 to 164", 159, 771, -81),
+        "2AZS" => ("protein and model 1", 59, rydeen["glycerol"][2].val * 1000, NaN)
     ),
 )
 
@@ -90,7 +97,7 @@ function other_osmolytes(;
             nres = ab_table[osm][pdb][2]
             _exp = ab_table[osm][pdb][3]
             _ab_orig = ab_table[osm][pdb][4]
-            p = read_pdb(os_pdb_files[pdb])
+            p = read_pdb(os_pdb_files[pdb], ab_table[osm][pdb][1])
             if length(eachresidue(p)) != nres
                 error("Wrong number of residues for $pdb")
             end

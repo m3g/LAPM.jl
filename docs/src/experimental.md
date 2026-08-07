@@ -44,8 +44,6 @@ plot_experimental(AutonBolen; sasas_from=LAPM.server_sasa)
 
 ## Urea (Record model)
 
-Using default `type=3` and `alpha=1.15` to estimate the denatured model ASAs.
-
 ```julia
 plot_experimental(MTRecord, "urea")
 ```
