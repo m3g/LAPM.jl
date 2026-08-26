@@ -39,33 +39,20 @@ function plot_rydeen_folding(
             if cosolvent == "urea"
                 m_mh[i] = mvalue(c, cosolvent; model=MoeserHorinek).tot
             end
-            if cosolvent in ("urea", "betaine")
+            if cosolvent in ("urea", "betaine", "TMAO", "proline", "trehalose")
                 r = MTRecordDenaturedModel(model)
                 m_rec[i] = mvalue(r, cosolvent; alpha).tot
             end
         end
-        if cosolvent == "urea"
-            predictions[cosolvent] = (
-                0.4 * (mean(m_ab) ± std(m_ab)),
-                0.4 * (mean(m_mhapp) ± std(m_mhapp)),
-                0.4 * (mean(m_mh) ± std(m_mh)),
-                0.4 * (mean(m_rec) ± std(m_rec)),
-            ) 
-        elseif cosolvent == "betaine"
-            predictions[cosolvent] = (
-                0.4 * (mean(m_ab) ± std(m_ab)),
-                0.4 * (mean(m_mhapp) ± std(m_mhapp)),
-                NaN ± NaN,
-                0.4 * (mean(m_rec) ± std(m_rec)),
-            ) 
-        else
-            predictions[cosolvent] = (
-                0.4 * (mean(m_ab) ± std(m_ab)),
-                0.4 * (mean(m_mhapp) ± std(m_mhapp)),
-                NaN ± NaN,
-                NaN ± NaN,
-            ) 
-        end
+        mh_val = cosolvent == "urea" ? 0.4 * (mean(m_mh) ± std(m_mh)) : NaN ± NaN
+        rec_val = cosolvent in ("urea", "betaine", "TMAO", "proline", "trehalose") ?
+            0.4 * (mean(m_rec) ± std(m_rec)) : NaN ± NaN
+        predictions[cosolvent] = (
+            0.4 * (mean(m_ab) ± std(m_ab)),
+            0.4 * (mean(m_mhapp) ± std(m_mhapp)),
+            mh_val,
+            rec_val,
+        )
     end
     plt = plot(MolSimStyle)
 #    @show extrema(val[2] - val[1] for (_, val) in predictions)
@@ -121,8 +108,20 @@ function plot_rydeen_folding(
     )
 
     # Record
-    exp = [ rydeen["urea"][2], rydeen["betaine"][2] ]
-    preds =  [ predictions["urea"][4], predictions["betaine"][4] ] 
+    exp = [ 
+        rydeen["urea"][2], 
+        rydeen["betaine"][2],
+        rydeen["TMAO"][2], 
+        rydeen["proline"][2],
+        rydeen["trehalose"][2],
+    ]
+    preds =  [ 
+        predictions["urea"][4], 
+        predictions["betaine"][4],
+        predictions["TMAO"][4],
+        predictions["proline"][4],
+        predictions["trehalose"][4],
+    ] 
     scatter!(plt, exp, preds, label=modelname(MTRecord),
         markeralpha=1,
         markersize=8,
@@ -189,35 +188,22 @@ function plot_rydeen_dimmer(
                 m_mh[i] = tfeA.tot + tfeB.tot - tfe_d.tot 
             end
             # Record
-            if cosolvent in ("urea", "betaine")
+            if cosolvent in ("urea", "betaine", "TMAO", "proline", "trehalose")
                 tfeA = transfer_free_energy(cA, cosolvent; model=MTRecord)
                 tfeB = transfer_free_energy(cB, cosolvent; model=MTRecord)
                 tfe_d = transfer_free_energy(model, cosolvent; model=MTRecord)
                 m_rec[i] = tfeA.tot + tfeB.tot - tfe_d.tot 
             end
         end
-        if cosolvent == "urea"
-            predictions[cosolvent] = (
-                0.4 * (mean(m_ab) ± std(m_ab)),
-                0.4 * (mean(m_mhapp) ± std(m_mhapp)),
-                0.4 * (mean(m_mh) ± std(m_mh)),
-                0.4 * (mean(m_rec) ± std(m_rec)),
-            ) 
-        elseif cosolvent == "betaine"
-            predictions[cosolvent] = (
-                0.4 * (mean(m_ab) ± std(m_ab)),
-                0.4 * (mean(m_mhapp) ± std(m_mhapp)),
-                NaN ± NaN,
-                0.4 * (mean(m_rec) ± std(m_rec)),
-            ) 
-        else
-            predictions[cosolvent] = (
-                0.4 * (mean(m_ab) ± std(m_ab)),
-                0.4 * (mean(m_mhapp) ± std(m_mhapp)),
-                NaN ± NaN,
-                NaN ± NaN,
-            ) 
-        end
+        mh_val = cosolvent == "urea" ? 0.4 * (mean(m_mh) ± std(m_mh)) : NaN ± NaN
+        rec_val = cosolvent in ("urea", "betaine", "TMAO", "proline", "trehalose") ?
+            0.4 * (mean(m_rec) ± std(m_rec)) : NaN ± NaN
+        predictions[cosolvent] = (
+            0.4 * (mean(m_ab) ± std(m_ab)),
+            0.4 * (mean(m_mhapp) ± std(m_mhapp)),
+            mh_val,
+            rec_val,
+        )
     end
     plt = plot(MolSimStyle)
 
@@ -280,8 +266,20 @@ function plot_rydeen_dimmer(
     #)
 
     # Record
-    exp = [ rydeen["urea"][1], rydeen["betaine"][1] ]
-    preds =  [ predictions["urea"][4], predictions["betaine"][4] ] 
+    exp = [ 
+        rydeen["urea"][1], 
+        rydeen["betaine"][1],
+        rydeen["TMAO"][1], 
+        rydeen["proline"][1],
+        rydeen["trehalose"][1],
+    ]
+    preds =  [ 
+        predictions["urea"][4], 
+        predictions["betaine"][4],
+        predictions["TMAO"][4],
+        predictions["proline"][4],
+        predictions["trehalose"][4],
+    ] 
     scatter!(plt, exp, preds, label=modelname(MTRecord),
         markeralpha=1,
         markersize=8,
@@ -295,8 +293,8 @@ function plot_rydeen_dimmer(
         label="",
         aspect_ratio=1,
         linestyle=:dash,
-        xlims=(-0.3, 0.55),
-        ylims=(-0.3, 0.4),
+#        xlims=(-0.3, 0.55),
+#        ylims=(-0.3, 0.4),
         xlabel=L"\Delta \Delta G^\textrm{exp}\textrm{~/~kcal~mol^{-1}}",
         ylabel=L"\Delta \Delta G^\textrm{pred}\textrm{~/~kcal~mol^{-1}}",
         size=(500,500),

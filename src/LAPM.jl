@@ -71,7 +71,7 @@ function predict_mvalue(
     sasas_from=nothing, # dummy here,
 )
     atoms = read_pdb(pdb_files[str])
-    m = mvalue(MTRecordDenaturedModel(atoms), cosolvent)
+    m = mvalue(MTRecordDenaturedModel(atoms), cosolvent; alpha=0.6)
     return (tot=m.tot, bb=m.bb, sc=m.sc)
 end
 
