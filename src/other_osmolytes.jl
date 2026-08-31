@@ -126,7 +126,7 @@ function other_osmolytes(;
     end
     #return name, exp, mab_orig, mab, mhapp
     alldata = vcat(exp, mab, mhapp)
-    ymin, ymax = extrema(alldata)
+    ymin, ymax = extrema(filter(!isnan, alldata))
     ypad = 0.05 * (ymax - ymin)
     plt = plot(MolSimStyle, layout=(2,1))
     plot!([-10,10],[-10,10]; ls=:dash, lc=:black, subplot=1, label="")
