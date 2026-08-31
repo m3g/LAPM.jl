@@ -106,12 +106,12 @@ function other_osmolytes(;
             cm2 = m2 == MTRecord ? MTRecordDenaturedModel(p) : CreamerDenaturedModel(p, type)
             cm2 = m2 == MTRecord ? MTRecordDenaturedModel(p) : CreamerDenaturedModel(p, type)
             if m1 == MTRecord 
-                _m_ab = osm in ("urea", "betaine", "tmao", "trehalose") ? mvalue(cm1, osm; alpha).tot : NaN
+                _m_ab = osm in lowercase.(record_cosolvents) ? mvalue(cm1, osm; alpha).tot : NaN
             else
                 _m_ab = mvalue(cm1, osm; model=m1).tot
             end
             if m2 == MTRecord 
-                _m_mhapp = osm in ("urea", "betaine", "tmao", "trehalose") ?  mvalue(cm2, osm; alpha).tot : NaN
+                _m_mhapp = osm in lowercase.(record_cosolvents) ? mvalue(cm2, osm; alpha).tot : NaN
             else
                 _m_mhapp = mvalue(cm2, osm; model=m2).tot
             end
