@@ -69,9 +69,10 @@ function predict_mvalue(
     cosolvent::String="urea",
     type::Int=3,
     sasas_from=nothing, # dummy here,
+    alpha::Float64=1.0,
 )
     atoms = read_pdb(pdb_files[str])
-    m = mvalue(MTRecordDenaturedModel(atoms), cosolvent; alpha=0.6)
+    m = mvalue(MTRecordDenaturedModel(atoms), cosolvent; alpha)
     return (tot=m.tot, bb=m.bb, sc=m.sc)
 end
 

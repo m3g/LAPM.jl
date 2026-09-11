@@ -1,7 +1,9 @@
 
 using Measurements 
 export plot_rydeen_folding
+export plot_rydeen_folding_bar
 export plot_rydeen_dimmer
+export plot_rydeen_dimmer_bar
 export plot_rydeen_both
 
 const rydeen = OrderedDict(
@@ -18,35 +20,30 @@ const rydeen = OrderedDict(
 
 record_cosolvents = ("urea", "betaine", "TMAO", "proline", "trehalose", "glycerol")
 
-function plot_rydeen_folding(
+function rydeen_folding_predictions(
     prot=read_pdb(joinpath(@__DIR__ ,"data/pdb/2AZS.cif"), "not element H");
     type=2,
     m1=AutonBolen,
     m2=Accessibility,
     alpha=1.0,
 )
-    scalefontsizes(); scalefontsizes(1.2)
     predictions = OrderedDict()
-    for cosolvent in keys(rydeen) 
+    for cosolvent in keys(rydeen)
         m_ab = zeros(length(eachmodel(prot)))
         m_mhapp = copy(m_ab)
         m_rec = copy(m_ab)
-        if cosolvent == "urea"
-            m_mh = copy(m_ab)
-        end
+        m_mh = copy(m_ab)
         for (i, model) in enumerate(eachmodel(prot))
             c = CreamerDenaturedModel(model, type)
             m_ab[i] = mvalue(c, cosolvent; model=m1).tot
             m_mhapp[i] = mvalue(c, cosolvent; model=m2).tot
-            if cosolvent == "urea"
-                m_mh[i] = mvalue(c, cosolvent; model=MoeserHorinek).tot
-            end
+            m_mh[i] = mvalue(c, cosolvent; model=MoeserHorinek).tot
             if cosolvent in record_cosolvents
                 r = MTRecordDenaturedModel(model)
                 m_rec[i] = mvalue(r, cosolvent; alpha).tot
             end
         end
-        mh_val = cosolvent == "urea" ? 0.4 * (mean(m_mh) ± std(m_mh)) : NaN ± NaN
+        mh_val = 0.4 * (mean(m_mh) ± std(m_mh))
         rec_val = cosolvent in record_cosolvents ? 0.4 * (mean(m_rec) ± std(m_rec)) : NaN ± NaN
         predictions[cosolvent] = (
             0.4 * (mean(m_ab) ± std(m_ab)),
@@ -55,6 +52,18 @@ function plot_rydeen_folding(
             rec_val,
         )
     end
+    return predictions
+end
+
+function plot_rydeen_folding(
+    prot=read_pdb(joinpath(@__DIR__ ,"data/pdb/2AZS.cif"), "not element H");
+    type=2,
+    m1=AutonBolen,
+    m2=Accessibility,
+    alpha=1.0,
+)
+    scalefontsizes(); scalefontsizes(1.2)
+    predictions = rydeen_folding_predictions(prot; type, m1, m2, alpha)
     plt = plot(MolSimStyle)
 #    @show extrema(val[2] - val[1] for (_, val) in predictions)
 
@@ -142,20 +151,56 @@ function plot_rydeen_folding(
     return plt
 end
 
-function plot_rydeen_dimmer(
+function plot_rydeen_folding_bar(
+    prot=read_pdb(joinpath(@__DIR__ ,"data/pdb/2AZS.cif"), "not element H");
+    type=2,
+    m1=AutonBolen,
+    m2=Accessibility,
+    alpha=1.0,
+)
+    scalefontsizes(); scalefontsizes(1.2)
+    predictions = rydeen_folding_predictions(prot; type, m1, m2, alpha)
+
+    cosolvents = collect(keys(rydeen))
+    ncos = length(cosolvents)
+
+    exp_vals = [ rydeen[c][2] for c in cosolvents ]
+    m1_vals = [ predictions[c][1] for c in cosolvents ]
+    m2_vals = [ predictions[c][2] for c in cosolvents ]
+    mh_vals = [ predictions[c][3] for c in cosolvents ]
+    rec_vals = [ predictions[c][4] for c in cosolvents ]
+
+    labels = ["Experimental", modelname(m2), modelname(m1), modelname(MoeserHorinek), modelname(MTRecord)]
+    all_vals = vcat(exp_vals, m2_vals, m1_vals, mh_vals, rec_vals)
+    heights = getfield.(all_vals, :val)
+    errs = getfield.(all_vals, :err)
+
+    plt = plot(MolSimStyle)
+    groupedbar!(plt,
+        categorical(repeat(cosolvents; outer=length(labels)), levels=cosolvents),
+        heights;
+        yerror=errs,
+        group=categorical(repeat(labels; inner=ncos), levels=labels),
+        xlabel="",
+        ylabel=L"\Delta \Delta G\textrm{~/~kcal~mol^{-1}}",
+        xrotation=30,
+        size=(700,500),
+        legend=:topright,
+    )
+    return plt
+end
+
+function rydeen_dimmer_predictions(
     prot=read_pdb(joinpath(@__DIR__ ,"data/pdb/2RMM.cif"), "not element H");
     m1=AutonBolen,
     m2=Accessibility,
 )
-    scalefontsizes(); scalefontsizes(1.2)
     predictions = OrderedDict()
-    for cosolvent in keys(rydeen) 
+    for cosolvent in keys(rydeen)
         m_ab = zeros(length(eachmodel(prot)))
         m_mhapp = copy(m_ab)
         m_rec = copy(m_ab)
-        if cosolvent == "urea"
-            m_mh = copy(m_ab)
-        end
+        m_mh = copy(m_ab)
         for (i, model) in enumerate(eachmodel(prot))
             cA = select(model, "chain A")
             cB = select(model, "chain B")
@@ -163,28 +208,26 @@ function plot_rydeen_dimmer(
             tfeA = transfer_free_energy(cA, cosolvent; model=m1)
             tfeB = transfer_free_energy(cB, cosolvent; model=m1)
             tfe_d = transfer_free_energy(model, cosolvent; model=m1)
-            m_ab[i] = tfeA.tot + tfeB.tot - tfe_d.tot 
+            m_ab[i] = tfeA.tot + tfeB.tot - tfe_d.tot
             # Accessibility
             tfeA = transfer_free_energy(cA, cosolvent; model=m2)
             tfeB = transfer_free_energy(cB, cosolvent; model=m2)
             tfe_d = transfer_free_energy(model, cosolvent; model=m2)
-            m_mhapp[i] = tfeA.tot + tfeB.tot - tfe_d.tot 
+            m_mhapp[i] = tfeA.tot + tfeB.tot - tfe_d.tot
             # MoeserHorinek
-            if cosolvent == "urea"
-                tfeA = transfer_free_energy(cA, cosolvent; model=MoeserHorinek)
-                tfeB = transfer_free_energy(cB, cosolvent; model=MoeserHorinek)
-                tfe_d = transfer_free_energy(model, cosolvent; model=MoeserHorinek)
-                m_mh[i] = tfeA.tot + tfeB.tot - tfe_d.tot 
-            end
+            tfeA = transfer_free_energy(cA, cosolvent; model=MoeserHorinek)
+            tfeB = transfer_free_energy(cB, cosolvent; model=MoeserHorinek)
+            tfe_d = transfer_free_energy(model, cosolvent; model=MoeserHorinek)
+            m_mh[i] = tfeA.tot + tfeB.tot - tfe_d.tot
             # Record
             if cosolvent in record_cosolvents
                 tfeA = transfer_free_energy(cA, cosolvent; model=MTRecord)
                 tfeB = transfer_free_energy(cB, cosolvent; model=MTRecord)
                 tfe_d = transfer_free_energy(model, cosolvent; model=MTRecord)
-                m_rec[i] = tfeA.tot + tfeB.tot - tfe_d.tot 
+                m_rec[i] = tfeA.tot + tfeB.tot - tfe_d.tot
             end
         end
-        mh_val = cosolvent == "urea" ? 0.4 * (mean(m_mh) ± std(m_mh)) : NaN ± NaN
+        mh_val = 0.4 * (mean(m_mh) ± std(m_mh))
         rec_val = cosolvent in record_cosolvents ? 0.4 * (mean(m_rec) ± std(m_rec)) : NaN ± NaN
         predictions[cosolvent] = (
             0.4 * (mean(m_ab) ± std(m_ab)),
@@ -193,6 +236,16 @@ function plot_rydeen_dimmer(
             rec_val,
         )
     end
+    return predictions
+end
+
+function plot_rydeen_dimmer(
+    prot=read_pdb(joinpath(@__DIR__ ,"data/pdb/2RMM.cif"), "not element H");
+    m1=AutonBolen,
+    m2=Accessibility,
+)
+    scalefontsizes(); scalefontsizes(1.2)
+    predictions = rydeen_dimmer_predictions(prot; m1, m2)
     plt = plot(MolSimStyle)
 
     # @show extrema(val[2] - val[1] for (_, val) in predictions)
@@ -228,9 +281,9 @@ function plot_rydeen_dimmer(
         annotate!(plt, (exp[i].val + s[c][1], preds[i].val + s[c][2], text(c, 8)))
     end
 
-    # m_mh 
-    exp = [ rydeen["urea"][1] ]
-    preds =  [ predictions["urea"][3] ] 
+    # m_mh
+    exp = [ val[1] for (key, val) in rydeen ]
+    preds = [ val[3] for (key, val) in predictions ]
     scatter!(plt, exp, preds, label=modelname(MoeserHorinek),
         markeralpha=1,
         markersize=8,
@@ -273,8 +326,45 @@ function plot_rydeen_dimmer(
 #        ylims=(-0.3, 0.4),
         xlabel=L"\Delta \Delta G^\textrm{exp}\textrm{~/~kcal~mol^{-1}}",
         ylabel=L"\Delta \Delta G^\textrm{pred}\textrm{~/~kcal~mol^{-1}}",
-        size=(500,500),
+        size=(600,600),
         legend=:bottomright,
+    )
+    return plt
+end
+
+function plot_rydeen_dimmer_bar(
+    prot=read_pdb(joinpath(@__DIR__ ,"data/pdb/2RMM.cif"), "not element H");
+    m1=AutonBolen,
+    m2=Accessibility,
+)
+    scalefontsizes(); scalefontsizes(1.2)
+    predictions = rydeen_dimmer_predictions(prot; m1, m2)
+
+    cosolvents = collect(keys(rydeen))
+    ncos = length(cosolvents)
+
+    exp_vals = [ rydeen[c][1] for c in cosolvents ]
+    m1_vals = [ predictions[c][1] for c in cosolvents ]
+    m2_vals = [ predictions[c][2] for c in cosolvents ]
+    mh_vals = [ predictions[c][3] for c in cosolvents ]
+    rec_vals = [ predictions[c][4] for c in cosolvents ]
+
+    labels = ["Experimental", modelname(m2), modelname(m1), modelname(MoeserHorinek), modelname(MTRecord)]
+    all_vals = vcat(exp_vals, m2_vals, m1_vals, mh_vals, rec_vals)
+    heights = getfield.(all_vals, :val)
+    errs = getfield.(all_vals, :err)
+
+    plt = plot(MolSimStyle)
+    groupedbar!(plt,
+        categorical(repeat(cosolvents; outer=length(labels)), levels=cosolvents),
+        heights;
+        yerror=errs,
+        group=categorical(repeat(labels; inner=ncos), levels=labels),
+        xlabel="",
+        ylabel=L"\Delta \Delta G\textrm{~/~kcal~mol^{-1}}",
+        xrotation=30,
+        size=(700,500),
+        legend=:topright,
     )
     return plt
 end
