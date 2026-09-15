@@ -16,7 +16,7 @@ function plot_experimental(
     scalefontsizes()
     plt = plot(layout=(1,length(models)))
     cosolvent = lowercase(cosolvent)
-    cosolvent_exp = cosolvent == "urea-app" ? "urea" : cosolvent
+    cosolvent_exp = cosolvent in ("urea-app", "urea-mh") ? "urea" : cosolvent
     example_structs = keys(sasa_server)
     nexamples = length(example_structs)
     sp=0
@@ -31,7 +31,9 @@ function plot_experimental(
         end
         plot!(plt,framestyle=:box, fontfamily="Computer Modern", subplot=sp)
         ls = (lw=2, ls=:dash, label="", lc=:lightgrey)
-        plot!(plt, [-100, 100], [-100, 100]; subplot=sp, ls...)
+        plot!(plt, [-100, 100], [-100, 100]; subplot=sp, ls...,
+            extra_kwargs=Dict(:subplot=>Dict(:legend_hfactor=>0.7)),
+        )
         if labels
             _scatter!(plt, tot_exp, tot_pred, example_structs; legend_title="", subplot=sp)
         else
@@ -40,16 +42,21 @@ function plot_experimental(
         plot!(plt, xlabel=L"\textrm{Experimental~/~kcal~mol^{-1}}", subplot=sp)
         plot!(plt, ylabel=modelname(model), subplot=sp)
         fit = fitlinear(tot_exp, tot_pred)
+        mse = sqrt(mean((tot_pred .- tot_exp) .^ 2))
+        lines = []
+        push!(lines, latexstring(
+            "RMSE="*string(round(mse; digits=2))*"\\textrm{~kcal~mol^{-1}}"*" / "*
+            "R^2="*string(round(fit.R2; digits=3))
+        ))
+        push!(lines, latexstring(
+            "a="*string(round(fit.a; digits=3))*" / "*"b="*string(round(fit.b; digits=3))
+        ))
         plot!(plt,
             subplot=sp,
-            legend_title=latexstring(
-                "a="*string(round(fit.a; digits=3))*";~"*
-                "b="*string(round(fit.b; digits=3))*";~"*
-                "R^2="*string(round(fit.R2; digits=3))
-            ), 
+            legend_title=join(lines, "\n"),
             legend=:topleft
         )
-        plot!(plt,xlims=(-3.5,0.2), ylims=(-3.5,0.2), subplot=sp)
+        plot!(plt,xlims=(-3.5,0.4), ylims=(-3.5,0.4), subplot=sp)
     end
     plot!(plt, 
         size=(length(models) * 400,400),
@@ -58,3 +65,16 @@ function plot_experimental(
     )
     return plt
 end
+
+
+#=
+
+Plot the difference between prdictd and experimental m-values for 
+denatuation, for 
+
+=#
+function plot_experimental_boxplot()
+
+end
+
+
