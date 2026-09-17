@@ -2,7 +2,8 @@ function plot_MH_vs_AB(
     cosolvent::String="urea"; 
     m1=AutonBolen,
     m2=MoeserHorinek,
-    sasas_from=server_sasa
+    sasas_from=server_sasa,
+    alpha=1.0,
 )
     cosolvent = lowercase(cosolvent)
     cosolvent_mh = cosolvent == "urea-app" ? "urea" : cosolvent
@@ -11,11 +12,11 @@ function plot_MH_vs_AB(
     tot_mh, bb_mh, sc_mh = zeros(nexamples), zeros(nexamples), zeros(nexamples)
     tot_ab, bb_ab, sc_ab = zeros(nexamples), zeros(nexamples), zeros(nexamples)
     for (i, str) in enumerate(example_structs)
-        p_mh = predict_mvalue(str, m1; cosolvent, sasas_from)
+        p_mh = predict_mvalue(str, m1; cosolvent, sasas_from, alpha)
         tot_mh[i] = p_mh.tot
         bb_mh[i] = p_mh.bb
         sc_mh[i] = p_mh.sc
-        p_ab = predict_mvalue(str, m2; cosolvent=cosolvent_mh, sasas_from)
+        p_ab = predict_mvalue(str, m2; cosolvent=cosolvent_mh, sasas_from, alpha)
         tot_ab[i] = p_ab.tot
         bb_ab[i] = p_ab.bb
         sc_ab[i] = p_ab.sc
@@ -84,7 +85,8 @@ export sc_vs_bb
 function sc_vs_bb(
     cosolvent::String="urea"; 
     m=AutonBolen,
-    sasas_from=server_sasa
+    sasas_from=server_sasa,
+    alpha=1.0,
 )
     cosolvent = lowercase(cosolvent)
     example_structs = keys(sasa_server)
@@ -93,7 +95,7 @@ function sc_vs_bb(
     for (i, str) in enumerate(example_structs)
         prot = read_pdb(pdb_files[str])
         nres = length(eachresidue(prot))
-        p = predict_mvalue(str, m; cosolvent, sasas_from)
+        p = predict_mvalue(str, m; cosolvent, sasas_from, alpha)
         tot[i] = p.tot / nres 
         bb[i] = p.bb / nres
         sc[i] = p.sc / nres

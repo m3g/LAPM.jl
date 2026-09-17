@@ -51,6 +51,7 @@ function predict_mvalue(
     cosolvent::String="urea",
     sasas_from::Function=creamer_sasa,
     type::Int=2,
+    alpha=nothing, # dummy here
 )
     atoms = read_pdb(pdb_files[str])
     m = mvalue_delta_sasa(;
@@ -71,6 +72,7 @@ function predict_mvalue(
     sasas_from=nothing, # dummy here,
     alpha::Float64=1.0,
 )
+@show "entrou α = ", alpha
     atoms = read_pdb(pdb_files[str])
     m = mvalue(MTRecordDenaturedModel(atoms), cosolvent; alpha)
     return (tot=m.tot, bb=m.bb, sc=m.sc)
