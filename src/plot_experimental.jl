@@ -55,7 +55,7 @@ function plot_experimental(
         plot!(plt,
             subplot=sp,
             legend_title=join(lines, "\n"),
-            legend=:bottom,
+            legend=cosolvent=="urea" ? :bottom : :top,
             legend_title_font_pointsize=9,
             background_color_legend=RGBA(1, 1, 1, 0.7),
             foreground_color_legend=RGBA(0, 0, 0, 0.3),
@@ -81,4 +81,61 @@ function plot_experimental_boxplot()
 
 end
 
+# Combine single-panel plots in one row, with A, B, C... panel labels
+function _compose_panels(panels; panel_size=(400, 400))
+    n = length(panels)
+    plt = plot(panels...; layout=(1, n), size=(n * panel_size[1], panel_size[2]),
+        leftmargin=0.8Plots.Measures.cm, bottommargin=0.8Plots.Measures.cm,
+        topmargin=0.1Plots.Measures.cm,
+    )
+    for (sp, label) in enumerate('A':'Z')
+        sp > n && break
+        # label outside the axes, left of the y tick labels, aligned with the top axis line
+        annotate!(plt, -6.2, 0.4, text(label * ")", 12, :left, :top, "Computer Modern"); subplot=sp)
+    end
+    return plt
+end
 
+"""
+    plot_figure1(; sasas_from=creamer_sasa)
+
+Figure 1 of the paper: experimental and predicted denaturation m-values in urea.
+A) Established model with apparent transfer free energies.
+B) Established model with the (incorrect) glycine-activity correction.
+C) Established model with the correct glycine-activity correction.
+D) Universal-backbone model with the correct glycine-activity correction.
+"""
+function plot_figure1(; sasas_from::Function=creamer_sasa)
+    panels = [
+        plot_experimental(AutonBolen, "urea-app"; sasas_from, labels=false),
+        plot_experimental(AutonBolen, "urea"; sasas_from, labels=false),
+        plot_experimental(AutonBolen, "urea-mh"; sasas_from, labels=false),
+        plot_experimental(MoeserHorinek, "urea"; sasas_from, labels=false),
+    ]
+    return _compose_panels(panels)
+end
+
+"""
+    plot_figure5(; sasas_from=creamer_sasa)
+
+Figure 5 of the paper: Accessibility model predictions of urea denaturation m-values,
+A) with the ASA-based backbone accessibility of each residue type, and
+B) with unit backbone accessibility for all residues.
+"""
+function plot_figure5(; sasas_from::Function=creamer_sasa)
+    # The default urea backbone accessibility parameter is 1 (panel B);
+    # temporarily set it to 0 to use the ASA-ratio-based accessibilities (panel A).
+    acc_default = PDBTools.acc["urea"]
+    local pltA
+    try
+        PDBTools.acc["urea"] = 0.0f0
+        pltA = plot_experimental(Accessibility, "urea"; sasas_from, labels=false)
+        plot!(pltA, legend=:top)
+    finally
+        PDBTools.acc["urea"] = acc_default
+    end
+    pltB = plot_experimental(Accessibility, "urea"; sasas_from, labels=false)
+    return _compose_panels([pltA, pltB])
+end
+
+export plot_figure1, plot_figure5
