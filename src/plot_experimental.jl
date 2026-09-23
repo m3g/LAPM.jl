@@ -34,18 +34,19 @@ function plot_experimental(
         plot!(plt, [-100, 100], [-100, 100]; subplot=sp, ls...,
             extra_kwargs=Dict(:subplot=>Dict(:legend_hfactor=>0.7)),
         )
+        @show length(tot_pred)
         if labels
             _scatter!(plt, tot_exp, tot_pred, example_structs; legend_title="", subplot=sp)
         else
             scatter!(plt, tot_exp, tot_pred; legend_title="", subplot=sp, label="")
         end
-        plot!(plt, xlabel=L"\textrm{Experimental~/~kcal~mol^{-1}}", subplot=sp)
+        plot!(plt, xlabel=L"\textrm{Experimental~/~kcal~mol^{-1}~M^{-1}}", subplot=sp)
         plot!(plt, ylabel=modelname(model), subplot=sp)
         fit = fitlinear(tot_exp, tot_pred)
         mse = sqrt(mean((tot_pred .- tot_exp) .^ 2))
         lines = []
         push!(lines, latexstring(
-            "RMSE="*string(round(mse; digits=2))*"\\textrm{~kcal~mol^{-1}}"*" / "*
+            "RMSE="*string(round(mse; digits=2))*"\\textrm{~kcal~mol^{-1}~M^{-1}}"*" / "*
             "R^2="*string(round(fit.R2; digits=3))
         ))
         push!(lines, latexstring(
@@ -54,9 +55,12 @@ function plot_experimental(
         plot!(plt,
             subplot=sp,
             legend_title=join(lines, "\n"),
-            legend=:topleft
+            legend=:bottom,
+            legend_title_font_pointsize=9,
+            background_color_legend=RGBA(1, 1, 1, 0.7),
+            foreground_color_legend=RGBA(0, 0, 0, 0.3),
         )
-        plot!(plt,xlims=(-3.5,0.4), ylims=(-3.5,0.4), subplot=sp)
+        plot!(plt,xlims=(-5.0,0.4), ylims=(-5.0,0.4), subplot=sp)
     end
     plot!(plt, 
         size=(length(models) * 400,400),

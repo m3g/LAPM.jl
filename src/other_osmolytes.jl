@@ -133,8 +133,8 @@ function other_osmolytes(;
     scatter!(plt, exp, mab; label=modelname_nu(m1), subplot=1, mc=1)
     scatter!(plt, exp, mhapp; label=modelname_nu(m2), subplot=1, mc=2)
     plot!(plt,
-        xlabel=L"\textrm{Experimental~}m\textrm{-value~/~kcal~mol^{-1}}",
-        ylabel=L"\textrm{Predicted~}m\textrm{-value~/~kcal~mol^{-1}}",
+        xlabel=L"\textrm{Experimental~}m\textrm{-value~/~kcal~mol^{-1}~M^{-1}}",
+        ylabel=L"\textrm{Predicted~}m\textrm{-value~/~kcal~mol^{-1}~M^{-1}}",
 #        legend=:bottomright,
         subplot=1,
     )
@@ -170,7 +170,7 @@ function other_osmolytes(;
         ylims=(ymin - ypad, ymax + ypad),
         xrotation=70,
         topmargin=0.0Plots.Measures.cm,
-        ylabel=L"m\textrm{-value~/~kcal~mol^{-1}}",
+        ylabel=L"m\textrm{-value~/~kcal~mol^{-1}~M^{-1}}",
         subplot=2,
     )
     #bar!(plt, 1000 * (mab .- mhapp) ./ l; 

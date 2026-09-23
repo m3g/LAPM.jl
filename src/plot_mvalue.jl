@@ -32,7 +32,7 @@ function plot_mvalue(
     _scatter!(plt, sc_ref, sc, example_structs; legend_title="Sidechain", subplot=3)
 
     plot!(plt, xlabel=modelname(model), ylabel=nothing)
-    plot!(plt, ylabel=L"\textrm{Current~implementation~/~kcal~mol^{-1}}", subplot=1)
+    plot!(plt, ylabel=L"\textrm{Current~implementation~/~kcal~mol^{-1}~M^{-1}}", subplot=1)
 
     ys = (maximum(vcat(tot, sc, bb)) - minimum(vcat(tot, sc, bb)))
     groupedbar!(

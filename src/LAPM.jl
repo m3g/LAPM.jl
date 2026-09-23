@@ -21,25 +21,25 @@ export pdb_files
 
 data_dir = joinpath(@__DIR__, "data")
 
-modelname(::Type{Accessibility}) = latexstring("\\textrm{\\textit{Accessibility}~/~kcal~mol^{-1}}")
+modelname(::Type{Accessibility}) = latexstring("\\textrm{\\textit{Accessibility}~/~kcal~mol^{-1}~M^{-1}}")
 modelname_nu(::Type{Accessibility}) = latexstring("\\textrm{\\textit{Accessibility}}")
-#modelname(::Type{Accessibility}) = latexstring("\\textrm{accessibility~model~/~kcal~mol^{-1}}")
-#modelname(::Type{Accessibility}) = latexstring("\\mathrm{accessibility~model~(\\alpha^{aa}_{bb})~/~kcal~mol^{-1}}")
-#modelname(::Type{Accessibility}) = latexstring("\\textrm{accessibility~model~(\\alpha_{bb}=1)~/~kcal~mol^{-1}}")
+#modelname(::Type{Accessibility}) = latexstring("\\textrm{accessibility~model~/~kcal~mol^{-1}~M^{-1}}")
+#modelname(::Type{Accessibility}) = latexstring("\\mathrm{accessibility~model~(\\alpha^{aa}_{bb})~/~kcal~mol^{-1}~M^{-1}}")
+#modelname(::Type{Accessibility}) = latexstring("\\textrm{accessibility~model~(\\alpha_{bb}=1)~/~kcal~mol^{-1}~M^{-1}}")
 
-#modelname(::Type{AutonBolen}) = latexstring("\\mathrm{AutonBolen~/~kcal~mol^{-1}}")
-modelname(::Type{AutonBolen}) = latexstring("\\textrm{\\textit{Established}~/~kcal~mol^{-1}}")
+#modelname(::Type{AutonBolen}) = latexstring("\\mathrm{AutonBolen~/~kcal~mol^{-1}~M^{-1}}")
+modelname(::Type{AutonBolen}) = latexstring("\\textrm{\\textit{Established}~/~kcal~mol^{-1}~M^{-1}}")
 modelname_nu(::Type{AutonBolen}) = latexstring("\\textrm{\\textit{Established}}")
 
-#modelname(::Type{MoeserHorinek}) = latexstring("\\mathrm{MoeserHorinek~/~kcal~mol^{-1}}")
-modelname(::Type{MoeserHorinek}) = latexstring("\\mathrm{\\textit{Universal{-}backbone}~/~kcal~mol^{-1}}")
+#modelname(::Type{MoeserHorinek}) = latexstring("\\mathrm{MoeserHorinek~/~kcal~mol^{-1}~M^{-1}}")
+modelname(::Type{MoeserHorinek}) = latexstring("\\mathrm{\\textit{Universal{-}backbone}~/~kcal~mol^{-1}~M^{-1}}")
 modelname_nu(::Type{MoeserHorinek}) = latexstring("\\mathrm{\\textit{Universal{-}backbone}}")
 
 #modelname(::Type{MTRecord}) = latexstring("\\mathrm{Record~/~kcal~mol^{-1}}")
-modelname(::Type{MTRecord}) = latexstring("\\mathrm{\\textit{Record}~/~kcal~mol^{-1}}")
+modelname(::Type{MTRecord}) = latexstring("\\mathrm{\\textit{Record}~/~kcal~mol^{-1}~M^{-1}}")
 modelname_nu(::Type{MTRecord}) = latexstring("\\mathrm{\\textit{Record}}")
 
-mvaluelabel() = latexstring("m-\\mathrm{value~/~kcal~mol^{-1}}")
+mvaluelabel() = latexstring("m-\\mathrm{value~/~kcal~mol^{-1}~M^{-1}}")
 
 server_sasa(str::String, _) = sasa_server[str]
 #
