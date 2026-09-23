@@ -72,7 +72,6 @@ function predict_mvalue(
     sasas_from=nothing, # dummy here,
     alpha::Float64=1.0,
 )
-@show "entrou α = ", alpha
     atoms = read_pdb(pdb_files[str])
     m = mvalue(MTRecordDenaturedModel(atoms), cosolvent; alpha)
     return (tot=m.tot, bb=m.bb, sc=m.sc)

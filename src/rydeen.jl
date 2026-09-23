@@ -2,8 +2,8 @@
 using Measurements 
 export plot_rydeen_folding
 export plot_rydeen_folding_bar
-export plot_rydeen_dimmer
-export plot_rydeen_dimmer_bar
+export plot_rydeen_dimer
+export plot_rydeen_dimer_bar
 export plot_rydeen_both
 
 const rydeen = OrderedDict(
@@ -190,10 +190,30 @@ function plot_rydeen_folding_bar(
     return plt
 end
 
-function rydeen_dimmer_predictions(
+function ec(m, exclude_cavities)
+    if isnothing(exclude_cavities) 
+        if m == MTRecord
+            return true
+        else
+            return false
+        end
+    end
+    return exclude_cavities
+end
+
+function _tfe(p, cosolvent, model, exclude_cavities)
+    return transfer_free_energy(
+        p, cosolvent; 
+        model=model, 
+        exclude_cavities=ec(model, exclude_cavities)
+    )
+end
+
+function rydeen_dimer_predictions(
     prot=read_pdb(joinpath(@__DIR__ ,"data/pdb/2RMM.cif"), "not element H");
     m1=AutonBolen,
     m2=Accessibility,
+    exclude_cavities=nothing,
 )
     predictions = OrderedDict()
     for cosolvent in keys(rydeen)
@@ -205,25 +225,25 @@ function rydeen_dimmer_predictions(
             cA = select(model, "chain A")
             cB = select(model, "chain B")
             # AutonBolen
-            tfeA = transfer_free_energy(cA, cosolvent; model=m1)
-            tfeB = transfer_free_energy(cB, cosolvent; model=m1)
-            tfe_d = transfer_free_energy(model, cosolvent; model=m1)
+            tfeA = _tfe(cA, cosolvent, m1, exclude_cavities)
+            tfeB = _tfe(cB, cosolvent, m1, exclude_cavities)
+            tfe_d = _tfe(model, cosolvent, m1, exclude_cavities)
             m_ab[i] = tfeA.tot + tfeB.tot - tfe_d.tot
             # Accessibility
-            tfeA = transfer_free_energy(cA, cosolvent; model=m2)
-            tfeB = transfer_free_energy(cB, cosolvent; model=m2)
-            tfe_d = transfer_free_energy(model, cosolvent; model=m2)
+            tfeA = _tfe(cA, cosolvent, m2, exclude_cavities)
+            tfeB = _tfe(cB, cosolvent, m2, exclude_cavities)
+            tfe_d = _tfe(model, cosolvent, m2, exclude_cavities)
             m_mhapp[i] = tfeA.tot + tfeB.tot - tfe_d.tot
             # MoeserHorinek
-            tfeA = transfer_free_energy(cA, cosolvent; model=MoeserHorinek)
-            tfeB = transfer_free_energy(cB, cosolvent; model=MoeserHorinek)
-            tfe_d = transfer_free_energy(model, cosolvent; model=MoeserHorinek)
+            tfeA = _tfe(cA, cosolvent, MoeserHorinek, exclude_cavities)
+            tfeB = _tfe(cB, cosolvent, MoeserHorinek, exclude_cavities)
+            tfe_d = _tfe(model, cosolvent, MoeserHorinek, exclude_cavities)
             m_mh[i] = tfeA.tot + tfeB.tot - tfe_d.tot
             # Record
             if cosolvent in record_cosolvents
-                tfeA = transfer_free_energy(cA, cosolvent; model=MTRecord)
-                tfeB = transfer_free_energy(cB, cosolvent; model=MTRecord)
-                tfe_d = transfer_free_energy(model, cosolvent; model=MTRecord)
+                tfeA = _tfe(cA, cosolvent, MTRecord, exclude_cavities)
+                tfeB = _tfe(cB, cosolvent, MTRecord, exclude_cavities)
+                tfe_d = _tfe(model, cosolvent, MTRecord, exclude_cavities)
                 m_rec[i] = tfeA.tot + tfeB.tot - tfe_d.tot
             end
         end
@@ -239,13 +259,14 @@ function rydeen_dimmer_predictions(
     return predictions
 end
 
-function plot_rydeen_dimmer(
+function plot_rydeen_dimer(
     prot=read_pdb(joinpath(@__DIR__ ,"data/pdb/2RMM.cif"), "not element H");
     m1=AutonBolen,
     m2=Accessibility,
+    exclude_cavities=nothing,
 )
     scalefontsizes(); scalefontsizes(1.2)
-    predictions = rydeen_dimmer_predictions(prot; m1, m2)
+    predictions = rydeen_dimer_predictions(prot; m1, m2, exclude_cavities)
     plt = plot(MolSimStyle)
 
     # @show extrema(val[2] - val[1] for (_, val) in predictions)
@@ -332,13 +353,14 @@ function plot_rydeen_dimmer(
     return plt
 end
 
-function plot_rydeen_dimmer_bar(
+function plot_rydeen_dimer_bar(
     prot=read_pdb(joinpath(@__DIR__ ,"data/pdb/2RMM.cif"), "not element H");
     m1=AutonBolen,
     m2=Accessibility,
+    exclude_cavities=nothing,
 )
     scalefontsizes(); scalefontsizes(1.2)
-    predictions = rydeen_dimmer_predictions(prot; m1, m2)
+    predictions = rydeen_dimer_predictions(prot; m1, m2, exclude_cavities)
 
     cosolvents = collect(keys(rydeen))
     ncos = length(cosolvents)
