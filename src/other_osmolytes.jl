@@ -187,13 +187,14 @@ function other_osmolytes(;
     #)
     plot!(plt,
         size=(800,800),
+        left_margin=1Plots.Measures.cm,
     )
     if m2 == MoeserHorinek
-        annotate!(plt, -3, 18.3, text("A)", "Computer Modern", 14); subplot=2)
-        annotate!(plt, -3, 7.5, text("B)", "Computer Modern", 14); subplot=2)
+        annotate!(plt, -5.6, 18.4, text("A)", "Computer Modern", 14); subplot=2)
+        annotate!(plt, -5.6, 7, text("B)", "Computer Modern", 14); subplot=2)
     elseif m2 == Accessibility
-        annotate!(plt, -3, 16.8, text("A)", "Computer Modern", 14); subplot=2)
-        annotate!(plt, -3, 6.7, text("B)", "Computer Modern", 14); subplot=2)
+        annotate!(plt, -5.6, 16.4, text("A)", "Computer Modern", 14); subplot=2)
+        annotate!(plt, -5.6, 6.7, text("B)", "Computer Modern", 14); subplot=2)
     end
     return plt
 end

@@ -97,6 +97,7 @@ function _scatter!(plt, x, y, example_structs; legend_title, subplot)
         ylims=_lims(x, y),
         subplot=subplot,
         aspect_ratio=1,
+        msw=0.5,
     )
     _series_annotations!(plt, subplot, x, y, example_structs)
     return plt

@@ -105,7 +105,7 @@ using LAPM: os_pdb_files
 
 ```julia
 plt1 = plot_rydeen_folding(read_pdb(os_pdb_files["2AZS"]); type=2)
-plt2 = plot_rydeen_dimmer(read_pdb(os_pdb_files["2RMM"]))
+plt2 = plot_rydeen_dimer(read_pdb(os_pdb_files["2RMM"]))
 plot_rydeen_both(plt1, plt2)
 ```
 
@@ -115,7 +115,7 @@ plot_rydeen_both(plt1, plt2)
 
 ```julia
 plt1 = plot_rydeen_folding(read_pdb(os_pdb_files["2AZS"]); type=3)
-plt2 = plot_rydeen_dimmer(read_pdb(os_pdb_files["2RMM"]))
+plt2 = plot_rydeen_dimer(read_pdb(os_pdb_files["2RMM"]))
 plot_rydeen_both(plt1, plt2)
 ```
 
@@ -125,7 +125,7 @@ plot_rydeen_both(plt1, plt2)
 
 ```julia
 plt1 = plot_rydeen_folding(read_pdb(os_pdb_files["2AZS"]); type=1)
-plt2 = plot_rydeen_dimmer(read_pdb(os_pdb_files["2RMM"]))
+plt2 = plot_rydeen_dimer(read_pdb(os_pdb_files["2RMM"]))
 plot_rydeen_both(plt1, plt2)
 ```
 
@@ -135,7 +135,7 @@ plot_rydeen_both(plt1, plt2)
 
 ```julia
 plt1 = plot_rydeen_folding(read_pdb(os_pdb_files["2AZS"]); type=2, alpha=0.8)
-plt2 = plot_rydeen_dimmer(read_pdb(os_pdb_files["2RMM"]))
+plt2 = plot_rydeen_dimer(read_pdb(os_pdb_files["2RMM"]))
 plot_rydeen_both(plt1, plt2)
 ```
 

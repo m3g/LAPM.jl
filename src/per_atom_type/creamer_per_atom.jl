@@ -219,7 +219,7 @@ function plot_mvalue_ua(
         hcat(tot, bb, sc);
         label=["Total" "BB" "SC"],
         xlabel="Structure",
-        ylabel=L"m\textrm{-value / (kcal}~{\textrm mol^{-1}}~\textrm{M}^{-1})",
+        ylabel=L"m\textrm{-value~/~kcal~mol^{-1}~M^{-1}}",
         subplot=7,
         ylims=(minimum(vcat(tot, sc, bb, 0)) - 0.1 * abs(ys), maximum(vcat(tot, sc, bb, 0)) + 0.1 * abs(ys)),
         xrotation=60,

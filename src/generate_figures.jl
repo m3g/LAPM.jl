@@ -172,13 +172,13 @@ function generate_documentation_figures(;
     ref = joinpath(@__DIR__, "rydeen.jl")
     for (n, tag, type) in [(63, "mean", 2), (64, "max", 3), (65, "min", 1)]
         save(ref, "fig_S$(n)_rydeen_$(tag).svg", () -> begin
-            plt_gb1 = plot_rydeen_dimmer(read_pdb(LAPM.os_pdb_files["2RMM"]))
+            plt_gb1 = plot_rydeen_dimer(read_pdb(LAPM.os_pdb_files["2RMM"]))
             plt_sh3 = plot_rydeen_folding(read_pdb(LAPM.os_pdb_files["2AZS"]); type)
             plot_rydeen_both(plt_sh3, plt_gb1)
         end; update_all)
     end
     save(ref, "fig_S66_rydeen_mean_record0.8.svg", () -> begin
-        plt_gb1 = plot_rydeen_dimmer(read_pdb(LAPM.os_pdb_files["2RMM"]))
+        plt_gb1 = plot_rydeen_dimer(read_pdb(LAPM.os_pdb_files["2RMM"]))
         plt_sh3 = plot_rydeen_folding(read_pdb(LAPM.os_pdb_files["2AZS"]); type=2, alpha=0.8)
         plot_rydeen_both(plt_sh3, plt_gb1)
     end; update_all)

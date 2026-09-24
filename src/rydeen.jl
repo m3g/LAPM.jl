@@ -71,7 +71,7 @@ function plot_rydeen_folding(
     exp = [ val[2] for (key, val) in rydeen ]
     preds = [ val[1] for (key, val) in predictions ]
     scatter!(plt, exp, preds, 
-        label=modelname(m1),
+        label=modelname_nu(m1),
         markeralpha=1,
         markercolor=1,
         markershape=:circle,
@@ -101,7 +101,7 @@ function plot_rydeen_folding(
     # mh
     exp = [ rydeen["urea"][2] ]
     preds =  [ predictions["urea"][3] ] 
-    scatter!(plt, exp, preds, label=modelname(MoeserHorinek),
+    scatter!(plt, exp, preds, label=modelname_nu(MoeserHorinek),
         markeralpha=1,
         markersize=8,
         markercolor=2,
@@ -111,7 +111,7 @@ function plot_rydeen_folding(
     # Accessibility
     exp = [ val[2] for (key, val) in rydeen ] 
     preds = [ val[2] for (key, val) in predictions ]
-    scatter!(plt, exp, preds, label=modelname(m2),
+    scatter!(plt, exp, preds, label=modelname_nu(m2),
         markeralpha=1,
         markercolor=4,
         markershape=:square,
@@ -120,7 +120,7 @@ function plot_rydeen_folding(
     # Record
     exp = [ rydeen[c][2] for c in record_cosolvents ]
     preds =  [ predictions[c][4] for c in record_cosolvents ]
-    scatter!(plt, exp, preds, label=modelname(MTRecord),
+    scatter!(plt, exp, preds, label=modelname_nu(MTRecord),
         markeralpha=1,
         markersize=8,
         markercolor=5,
@@ -170,7 +170,7 @@ function plot_rydeen_folding_bar(
     mh_vals = [ predictions[c][3] for c in cosolvents ]
     rec_vals = [ predictions[c][4] for c in cosolvents ]
 
-    labels = ["Experimental", modelname(m2), modelname(m1), modelname(MoeserHorinek), modelname(MTRecord)]
+    labels = ["Experimental", modelname_nu(m2), modelname_nu(m1), modelname_nu(MoeserHorinek), modelname_nu(MTRecord)]
     all_vals = vcat(exp_vals, m2_vals, m1_vals, mh_vals, rec_vals)
     heights = getfield.(all_vals, :val)
     errs = getfield.(all_vals, :err)
@@ -275,7 +275,7 @@ function plot_rydeen_dimer(
     exp = [ val[1] for (key, val) in rydeen ]
     preds = [ val[1] for (key, val) in predictions ]
     scatter!(plt, exp, preds, 
-        label=modelname(m1), 
+        label=modelname_nu(m1), 
         markeralpha=1,
         markershape=:circle,
         markercolor=1,
@@ -305,7 +305,7 @@ function plot_rydeen_dimer(
     # m_mh
     exp = [ val[1] for (key, val) in rydeen ]
     preds = [ val[3] for (key, val) in predictions ]
-    scatter!(plt, exp, preds, label=modelname(MoeserHorinek),
+    scatter!(plt, exp, preds, label=modelname_nu(MoeserHorinek),
         markeralpha=1,
         markersize=8,
         markershape=:star,
@@ -315,7 +315,7 @@ function plot_rydeen_dimer(
     # Accessibility
     exp = [ val[1] for (key, val) in rydeen ] 
     preds = [ val[2] for (key, val) in predictions ]
-    scatter!(plt, exp, preds, label=modelname(m2),
+    scatter!(plt, exp, preds, label=modelname_nu(m2),
         markeralpha=1,
         markershape=:square,
         markercolor=4,
@@ -330,7 +330,7 @@ function plot_rydeen_dimer(
     # Record
     exp = [ rydeen[c][1] for c in record_cosolvents ]
     preds =  [ predictions[c][4] for c in record_cosolvents ]
-    scatter!(plt, exp, preds, label=modelname(MTRecord),
+    scatter!(plt, exp, preds, label=modelname_nu(MTRecord),
         markeralpha=1,
         markersize=8,
         markershape=:star,
@@ -371,7 +371,7 @@ function plot_rydeen_dimer_bar(
     mh_vals = [ predictions[c][3] for c in cosolvents ]
     rec_vals = [ predictions[c][4] for c in cosolvents ]
 
-    labels = ["Experimental", modelname(m2), modelname(m1), modelname(MoeserHorinek), modelname(MTRecord)]
+    labels = ["Experimental", modelname_nu(m2), modelname_nu(m1), modelname_nu(MoeserHorinek), modelname_nu(MTRecord)]
     all_vals = vcat(exp_vals, m2_vals, m1_vals, mh_vals, rec_vals)
     heights = getfield.(all_vals, :val)
     errs = getfield.(all_vals, :err)
