@@ -157,7 +157,8 @@ function other_osmolytes(;
         ylims=(ymin - ypad, ymax + ypad),
         subplot=1,
     )
-    labels = ["$(name[i])-$(osmo[i])" for i in eachindex(name)]
+    _osmo_name(x) = x == "tmao" ? "TMAO" : x
+    labels = ["$(name[i])-$(_osmo_name(osmo[i]))" for i in eachindex(name)]
     groupedbar!(plt,
         categorical(repeat(labels; outer=3), levels=labels),
         vcat(mab, mhapp, exp),
@@ -172,6 +173,7 @@ function other_osmolytes(;
         topmargin=0.0Plots.Measures.cm,
         ylabel=L"m\textrm{-value~/~kcal~mol^{-1}~M^{-1}}",
         subplot=2,
+        legend=:topright,
     )
     #bar!(plt, 1000 * (mab .- mhapp) ./ l; 
     #    xticks = (eachindex(name), [ "$(name[i])-$(osmo[i])" for i in eachindex(name) ]),
